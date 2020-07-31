@@ -1,0 +1,27 @@
+{
+  "name": "pocket-money",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "(cd client && npm install); (cd server && npm install);",
+    "client": "npm start --prefix client",
+    "server": "npm start --prefix server",
+    "start": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barwis/pocket-money.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barwis/pocket-money/issues"
+  },
+  "homepage": "https://github.com/barwis/pocket-money#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
