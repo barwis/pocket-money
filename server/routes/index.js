@@ -11,4 +11,3 @@ module.exports = (params) => {
     router.get('/health', (req, res) => res.send(200, { status: 'OK' }));
     return router;
   };
-  
