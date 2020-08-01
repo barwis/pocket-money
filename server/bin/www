@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 const http = require('http');
-const app = require('../server/app')(config);
+const config = require('../config')[process.env.NODE_ENV || 'development'];
+const app = require('../app')(config);
+const db = require('../lib/db');
 
 /**
  * Normalize a port into a number, string, or false.
@@ -23,3 +25,17 @@ function normalizePort(val) {
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+const server = http.createServer(app);
+
+server.on('listening', () => {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
+    ? `pipe ${addr}`
+    : `port ${addr.port}`;
+  console.log(`Listening on ${bind}`);
+});
+
+
+// app.get('/health', (req, res) => res.send(200, { status: 'OK' }));
+
+// app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
