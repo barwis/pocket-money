@@ -4,7 +4,7 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
-    "test": "npx mocha --exit --recursive test/",
+    "test": "mocha \"test/**/*.spec.js\"",
     "postinstall": "(cd client && npm install); (cd server && npm install);",
     "client": "npm start --prefix client",
     "server": "npm start --prefix server",

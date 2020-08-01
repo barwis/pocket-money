@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const path = require('path');
 const createError = require('http-errors');
-const bodyParser = require('body-parser');
+const routes = require('./routes');
 
 module.exports = (config) => {
     const app = express()
@@ -26,8 +26,8 @@ module.exports = (config) => {
         app.locals.pretty = true;
     }
 
-    app.get('/health', (req, res) => res.send(200, { status: 'OK' }));
-
+    // use routes
+    app.get('/health', (req, res) => res.status(200).send({ status: 'OK' }));
     app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
 
     return app;
