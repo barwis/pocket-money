@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
 const path = require('path');
 const createError = require('http-errors');
-const routes = require('./routes');
+
+const router = require('./routes');
+
 
 module.exports = (config) => {
     const app = express()
@@ -15,16 +15,11 @@ module.exports = (config) => {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
 
-    app.use(session({
-        secret: 'very secret 12345',
-        resave: true,
-        saveUninitialized: false,
-        store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    }));
-
     if (app.get('env') === 'development') {
         app.locals.pretty = true;
     }
+
+	app.use('/', router);
 
     // use routes
     app.get('/health', (req, res) => res.status(200).send({ status: 'OK' }));
