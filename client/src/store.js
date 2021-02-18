@@ -5,11 +5,12 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 // import { todos, isLoading, trash } from './todos/reducers';
+import { header } from './components/header/reducers';
+import { recycleSchedule } from './components/recycleSchedule/reducers';
 
 const reducers = {
-	// todos,
-	// isLoading,
-	// trash
+	header,
+	recycleSchedule
 };
 
 const persistConfig = {

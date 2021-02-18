@@ -1,0 +1,81 @@
+section {
+	background: white;
+	display: inline-block;
+	margin: 10px;
+	width: 650px;
+	border-radius: 6px;
+	box-shadow: rgb(50 50 93 / 3%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
+	font-family: 'Inter', sans-serif;
+}
+
+h3 {
+	padding: 16px;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	color: rgba(0, 0, 0, 0.87);
+}
+
+h3 span {
+	font-weight: 400px;
+	font-size: 11px;
+	float: right;
+}
+
+.widget ul {
+	list-style-type: none;
+	padding: 16px;
+	font-size: 13px;
+}
+
+.widget ul li {
+	line-height: 2;
+}
+
+.widget table {
+	font-size: 12px;
+	padding: 16px;
+}
+
+.widget table tbody {
+	
+}
+
+.widget table th {
+	width: 20%;
+	line-height: 2;
+	text-align: right;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.widget table th:first-child {
+	text-align: left;
+
+}
+
+.widget table th:first-child {
+	width: 40%;
+}
+
+.widget table tr td {
+	line-height: 2;
+	/* border-bottom: 1px solid #E0E0E0; */
+	font-weight: 400;
+}
+.widget table tr td,
+.widget table tr th {
+	padding: 0 10px;
+}
+
+.widget table tbody tr:nth-child(2) td {
+	padding-top: 10px;
+}
+
+.widget table tr:last-child td {
+	border-bottom: none;
+}
+
+.widget table tr td:not(:first-child) {
+	text-align: right;
+}
