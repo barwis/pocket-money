@@ -29,10 +29,10 @@ const Icon = styled.i`
 const SectionHeader = ({title, subtitle,  lastUpdated, isFetching }) => {
 	return (
 		<Heading>
-			{title}
-			{subtitle && <Subtitle>, {subtitle}</Subtitle>}
-			{isFetching && <div className="lds-dual-ring"></div>}
-			{ lastUpdated && <span><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></span>}
+			{ title }
+			{ subtitle && <Subtitle>, {subtitle}</Subtitle> }
+			{ isFetching && <div className="lds-dual-ring"></div> }
+			{ lastUpdated && <span><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></span> }
 		</Heading>
 	)
 }

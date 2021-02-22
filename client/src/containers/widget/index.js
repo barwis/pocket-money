@@ -9,7 +9,6 @@ const WidgetWrapper = styled.section`
 	box-shadow: rgb(50 50 93 / 3%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
 	display: flex;
 	flex-direction: column;
-	font-family: 'Inter', sans-serif;
 	margin: 10px;
 `;
 
@@ -20,14 +19,15 @@ const WidgetBody = styled.div`
 	flex: 1;
 	height: 100%;
 	padding: 16px;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Widget = (props) => {
 	const {title, subtitle, isFetching, lastUpdated, children} = props;
-	console.log(props)
 	return (
 		<WidgetWrapper>
-			<SectionHeader title={title}  subtitle={subtitle} isFetching={isFetching || false} lastUpdated={lastUpdated}/>
+			{title && <SectionHeader title={title}  subtitle={subtitle} isFetching={isFetching || false} lastUpdated={lastUpdated}/>}
 			<WidgetBody>
 				{children}
 			</WidgetBody>

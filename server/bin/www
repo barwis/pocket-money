@@ -33,8 +33,3 @@ server.on('listening', () => {
     : `port ${addr.port}`;
   console.log(`Listening on ${bind}`);
 });
-
-
-// app.get('/health', (req, res) => res.send(200, { status: 'OK' }));
-
-// app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

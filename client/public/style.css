@@ -30,3 +30,7 @@
 .icon-update:before {
 	content: "\e900";
 }
+
+body {
+	font-family: 'Roboto', sans-serif;
+}

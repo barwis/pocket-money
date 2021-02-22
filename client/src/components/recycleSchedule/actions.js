@@ -22,7 +22,6 @@ export const loadTodos = () => async ( dispatch, getState ) => {
 			payload: { schedule }
 		})
 	} catch (e) {
-		console.log(e);
 	} finally {
 		dispatch(setScheduleFetchState(false));
 
