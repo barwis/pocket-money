@@ -1,52 +1,89 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {connect } from 'react-redux';
 import { loadTodos } from './actions';
 
 import RecycleScheduleRow from './recycleScheduleRow';
+import styled from 'styled-components';
+
+import Widget from '../../containers/widget';
 
 import './recycleSchedule.css';
 
-const RecycleSchedule = ({ schedule, lastUpdated, onUpdateClick }) => {
-	
+
+const RecycleTable = styled.table`
+	font-size: 12px;
+
+	th {
+		line-height: 2;
+		text-align: right;
+		border-bottom: 1px solid #E0E0E0;
+	}
+
+	th:first-child {
+		text-align: left;
+
+	}
+
+	th:first-child {
+		width: 50%;
+	}
+
+	tr td {
+		line-height: 2;
+		/* border-bottom: 1px solid #E0E0E0; */
+		font-weight: 400;
+	}
+	tr td,
+	tr th {
+		padding: 0 10px;
+	}
+
+	tr:nth-child(2) td {
+		padding-top: 10px;
+	}
+
+	tr:last-child td {
+		border-bottom: none;
+	}
+
+	tr td:not(:first-child) {
+		text-align: right;
+	}
+
+`;
+
+
+
+const RecycleSchedule = ({loadTodos, schedule, ...props}) => {
 	useEffect(() => {
-		onUpdateClick();
-	}, [])
+		loadTodos();
+	}, [loadTodos])
     return (
-        <section className="widget">
-			<h3>Recycle schedule
-				<span>last updated: {lastUpdated}</span>
-			</h3>
-			{/* <RecycleScheduleRow scheduleRowData={schedule[0]}/> */}
-			{/* <span>schedule length: {schedule.length} </span> */}
-			<table>
+		// <Widget title="Recycle schedule" isFetching={isFetching} lastUpdated={lastUpdated} >
+		<Widget title="RecycleSchedule" {...props}>
+			<RecycleTable>
 				<tbody>
 					<tr>
 						<th>Service Name</th>
-						<th>Last Updated</th>
-						<th>Last Service</th>
 						<th>Next Service</th>
 					</tr>
 					{
 					schedule.map( (item, index) => <RecycleScheduleRow key={index} scheduleRowData={item}/>)
 					}
 				</tbody>
-			</table>
-		</section>
+			</RecycleTable>
+		</Widget>
     )
 }
 
 const mapStateToProps = state => ({ 
 	schedule: state.recycleSchedule.schedule,
-	lastUpdated: state.recycleSchedule.lastUpdated
-	// currentDate: state.header.date
+	lastUpdated: state.recycleSchedule.lastUpdated,
+	isFetching: state.recycleSchedule.isFetching
 })
 
-// const RecycleRow = (data) => (<li>dupa</li>);
-
 const mapDispatchToProps = dispatch => ({
-	onUpdateClick: () => dispatch(loadTodos())
-	// asdasd: () => dispatch(updateTitle('tojemoje')),
-	// updateDate: () => dispatch(updateDate())
+	loadTodos: () => dispatch(loadTodos())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecycleSchedule);

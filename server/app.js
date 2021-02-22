@@ -7,8 +7,8 @@ const createError = require('http-errors');
 
 var cors = require('cors')
 
-const router = require('./routes');
-
+const recycleScheduleRouter = require('./APIs/recycleScheduleRouter');
+const weatherApiRouter = require('./APIs/weatherRouter');
 
 module.exports = (config) => {
     const app = express()
@@ -18,17 +18,17 @@ module.exports = (config) => {
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
-	
 
     if (app.get('env') === 'development') {
         app.locals.pretty = true;
     }
 
-
     // use routes
     app.get('/health', (req, res) => res.status(200).send({ status: 'OK' }));
 
-	app.use('/', router);
+	app.use('/recycle', recycleScheduleRouter);
+	app.use('/weather', weatherApiRouter);
+
 
 
     app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

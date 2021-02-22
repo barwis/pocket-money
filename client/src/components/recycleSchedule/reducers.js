@@ -3,14 +3,8 @@ import {
 	LOAD_SCHEDULE
 } from './actions';
 
-const scheduleServiceSchema = {
-	serviceName: '',
-	lastUpdated: '',
-	lastService: '',
-	nextService: ''
-}
 
-const initialState = { schedule: [scheduleServiceSchema], isFetching: false, lastUpdated: '-' };
+const initialState = { schedule: [], isFetching: false, lastUpdated: '-' };
 
 export const recycleSchedule = (state = initialState, action) => {
 	const { type, payload } = action;
@@ -39,7 +33,8 @@ export const recycleSchedule = (state = initialState, action) => {
 	case LOAD_SCHEDULE:
 		return {
 			...state,
-			schedule: payload.schedule
+			schedule: payload.schedule,
+			lastUpdated: new Date(payload.schedule[0].lastUpdated).toLocaleDateString()
 		}
 	default:
 		return state;

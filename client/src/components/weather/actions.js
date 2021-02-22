@@ -1,0 +1,4 @@
+export const SET_FETCH_STATE = 'SET_FETCH_STATE';
+// export const SET_LAST_UPDATED = 'SET_LAST_UPDATED'
+export const LOAD_WEATHER_DATA = 'LOAD_WEATHER_DATA';
+
