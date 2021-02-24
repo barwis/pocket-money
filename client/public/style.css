@@ -30,7 +30,28 @@
 .icon-update:before {
 	content: "\e900";
 }
-
+.icon-raindrops:before {
+	content: "\e904";
+  }
+.icon-cloud-rain:before {
+	content: "\e905";
+}
+.icon-raindrop:before {
+	content: "\e901";
+}
+.icon-thermometer-half:before {
+	content: "\e902";
+}
+.icon-wind:before {
+	content: "\e903";
+}
+.icon-update:before {
+	content: "\e900";
+}
+.icon-cloud-download:before {
+	content: "\e906";
+  }
+  
 body {
 	font-family: 'Roboto', sans-serif;
 }

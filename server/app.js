@@ -9,6 +9,7 @@ var cors = require('cors')
 
 const recycleScheduleRouter = require('./APIs/recycleScheduleRouter');
 const weatherApiRouter = require('./APIs/weatherRouter');
+const googleRouter = require('./APIs/googleCalendar');
 
 module.exports = (config) => {
     const app = express()
@@ -28,8 +29,7 @@ module.exports = (config) => {
 
 	app.use('/recycle', recycleScheduleRouter);
 	app.use('/weather', weatherApiRouter);
-
-
+	app.use('/calendar', googleRouter);
 
     app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
 

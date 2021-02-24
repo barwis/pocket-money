@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Widget from '../../containers/widget';
 
 const Time = styled.div`
@@ -7,6 +7,7 @@ const Time = styled.div`
 	text-align: center;
 	font-size: 4rem;
     font-weight: 200;
+	margin: 40px;
 `;
 
 const Separator = styled.span`

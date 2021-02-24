@@ -4,12 +4,14 @@ import SectionHeader from '../../components/sectionHeader/sectionHeader';
 
 
 const WidgetWrapper = styled.section`
-	background: white;
+	background: none;
 	border-radius: 6px;
 	box-shadow: rgb(50 50 93 / 3%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
 	display: flex;
+	color: white;
 	flex-direction: column;
-	margin: 10px;
+	margin: 40px 10px;
+	position: relative;
 `;
 
 
@@ -17,7 +19,6 @@ const WidgetBody = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	height: 100%;
 	padding: 16px;
 	align-items: center;
 	justify-content: center;

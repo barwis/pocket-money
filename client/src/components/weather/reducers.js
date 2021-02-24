@@ -3,8 +3,7 @@ import {
 	LOAD_WEATHER_DATA
 } from './actions';
 
-
-const initialState = { data: [], isFetching: false};
+export const initialState = { data: [], isFetching: false};
 
 export const weather = (state = initialState, action) => {
 	const { type, payload } = action;
@@ -18,7 +17,7 @@ export const weather = (state = initialState, action) => {
 	case LOAD_WEATHER_DATA: 
 		return {
 			...state, 
-			data: payload.data
+			data: payload.weatherData
 		}
 	default:
 		return state;

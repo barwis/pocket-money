@@ -12,11 +12,12 @@ import './recycleSchedule.css';
 
 const RecycleTable = styled.table`
 	font-size: 12px;
+	border-collapse: collapse;
 
 	th {
 		line-height: 2;
 		text-align: right;
-		border-bottom: 1px solid #E0E0E0;
+		border-bottom: 1px solid #535353;
 	}
 
 	th:first-child {
@@ -30,16 +31,11 @@ const RecycleTable = styled.table`
 
 	tr td {
 		line-height: 2;
-		/* border-bottom: 1px solid #E0E0E0; */
+		/* border-bottom: 1px solid #535353; */
 		font-weight: 400;
 	}
 	tr td,
 	tr th {
-		padding: 0 10px;
-	}
-
-	tr:nth-child(2) td {
-		padding-top: 10px;
 	}
 
 	tr:last-child td {
@@ -63,10 +59,6 @@ const RecycleSchedule = ({loadTodos, schedule, ...props}) => {
 		<Widget title="RecycleSchedule" {...props}>
 			<RecycleTable>
 				<tbody>
-					<tr>
-						<th>Service Name</th>
-						<th>Next Service</th>
-					</tr>
 					{
 					schedule.map( (item, index) => <RecycleScheduleRow key={index} scheduleRowData={item}/>)
 					}

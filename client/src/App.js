@@ -3,19 +3,17 @@ import React from 'react';
 import RecycleSchedule from './components/recycleSchedule/recycleSchedule';
 import Weather from './components/weather/weather';
 import DateTime from './components/dateTime/dateTime';
-import Widget from './containers/widget';
+import Calendar from './components/calendar/calendar';
 
 import './App.css'; 
 
 function App() { 
   return (
     <div className='app'>
-		<RecycleSchedule/>
-		<Weather />
 		<DateTime />
-		<Widget title="jasia" >
-			<strong>somethgng bold</strong>
-		</Widget>
+		<Weather />
+		<RecycleSchedule/>
+		<Calendar/>
     </div>
   );
 }

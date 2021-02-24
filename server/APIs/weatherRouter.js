@@ -22,7 +22,7 @@ const instance = axios.create({
 
 router.get('/', async (req, res, next) => {
 	try {
-		const response = await axios.get('http://api.weatherapi.com/v1/current.json?key=69466ae5b9a04898bb3193451211902&q=Orpington');// await instance.get('/', query);
+		const response = await axios.get(API_ENDPOINT);
 		res.status(200).json(response.data)
 	  } catch (error) {
 		res.sendStatus(500);

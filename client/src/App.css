@@ -28,15 +28,22 @@
 content: "\e900";
 }
 body {
-	background-color:rgb(247, 249, 252); 
+	/* background-color:rgb(247, 249, 252);  */
+	background: black;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+	padding: 0 20px;
+}
+
 .app {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-gap: 20px;
+	/* display: grid;
+	grid-template-rows: repeat(5, 1fr);
+	grid-gap: 20px; */
+	width: 400px;
+    float: right;
 }
 
 

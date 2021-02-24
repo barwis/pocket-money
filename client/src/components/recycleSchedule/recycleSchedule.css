@@ -1,11 +1,15 @@
-section {
-	background: white;
-	border-radius: 6px;
-	box-shadow: rgb(50 50 93 / 3%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;
-	display: flex;
-	margin: 10px;
-    flex-direction: column;
+
+section:not(:last-child)::after {
+	content: '';
+	width: 100%;
+	height: 1px;
+	background: #535353;
+	display: block;
+	bottom: -20px;
+	position: absolute;
+
 }
+
 
 .lds-dual-ring {
 	display: inline-block;

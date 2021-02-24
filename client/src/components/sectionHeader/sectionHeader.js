@@ -7,7 +7,7 @@ const Heading = styled.header`
 	font-size: 16px;
 	font-weight: 500;
 	line-height: 20px;
-	color: rgba(0, 0, 0, 0.87);
+	color: white;
 `;
 
 const Subtitle = styled.div`

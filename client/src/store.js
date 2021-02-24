@@ -4,12 +4,15 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import { recycleSchedule } from './components/recycleSchedule/reducers';
 import { weather } from './components/weather/reducers';
+import { calendarReducer } from './components/calendar/reducers';
 
 const reducers = {
 	recycleSchedule,
-	weather
+	weather,
+	calendar: calendarReducer
 };
 
 const persistConfig = {
