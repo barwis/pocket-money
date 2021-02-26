@@ -21,10 +21,45 @@ const API_ENDPOINT2 = 'http://api.weatherapi.com/v1/current.json?key=69466ae5b9a
 // 	timeout: 1000,
 // });
 
+/*
+* data.location.name
+* data.location.country
+* data.current.temp_c
+* data.current.condition.icon
+* data.current.condition.text
+* data.current.feelslike_c
+* data.current.wind_kph
+* data.current.humidity
+* data.current.precip_mm
+* data.current.pressure_mb
+*/
+
 router.get('/', async (req, res, next) => {
 	try {
 		const response = await axios.get(API_ENDPOINT2);
-		res.status(200).json(response.data)
+
+		const r = response.data;
+
+		const data = {
+			location: {
+				name: r.location.name,
+				country: r.location.country
+			},
+			current: {
+				condition: {
+					icon: r.current.condition.icon,
+					text: r.current.condition.text
+				},
+				temp_c: r.current.temp_c,
+				feelslike_c: r.current.feelslike_c,
+				wind_kph: r.current.wind_kph,
+				humidity: r.current.humidity,
+				precip_mm: r.current.precip_mm,
+				presusre_mb: r.current.presusre_mb
+			}
+		}
+		
+		res.status(200).json(data)
 		// setTimeout(() => res.status(200).json(response.data), 2000);
 
 	} catch (error) {

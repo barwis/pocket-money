@@ -5,7 +5,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { recycleSchedule } from './components/recycleSchedule/reducers';
+import { recycleSchedule } from './components/recycle/reducers';
 import { weather } from './components/weather/reducers';
 import { calendarReducer } from './components/calendar/reducers';
 import { forecastReducer } from './components/forecast/reducers';
