@@ -3,7 +3,7 @@ import {connect } from 'react-redux';
 import { loadTodos } from './actions';
 
 import RecycleScheduleRow from './recycleScheduleRow';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import Widget from '../../containers/widget';
 

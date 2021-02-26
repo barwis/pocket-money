@@ -1,4 +1,6 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
+
 // import Header from './components/header';
 import RecycleSchedule from './components/recycle/recycle';
 import Weather from './components/weather';
@@ -7,8 +9,9 @@ import Calendar from './components/calendar';
 import Forecast from './components/forecast';
 import './App.css'; 
 
-function App() { 
-  return (
+// function App() { 
+//   return (
+const App = () => (
     <div className='app'>
 		<DateTime />
 		<Weather />
@@ -16,7 +19,7 @@ function App() {
 		<RecycleSchedule/>
 		<Calendar/>
     </div>
-  );
-}
+);
 
-export default App;
+export default hot(module)(App);
+
