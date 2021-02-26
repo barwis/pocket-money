@@ -5,15 +5,15 @@ import Widget from '../../containers/widget';
 const Time = styled.div`
 	display: block;
 	text-align: center;
-	font-size: 4rem;
-    font-weight: 200;
-	margin: 40px;
+	font-size: 6rem;
+    font-weight: 400;
+	margin: 20px;
 `;
 
 const Separator = styled.span`
 display: inline-block;
 text-align: center;
-width: 10px;`;
+width: 20px;`;
 
 const DateTime = () => {
 	const [ currentDate, setCurrentDate ] = useState(new Date())
@@ -29,6 +29,7 @@ const DateTime = () => {
 	  }, [tick]);
 
 	// useEffect()
+	
 	return (
 		<Widget>
 			<Time>{currentDate.getHours()}<Separator>{separator}</Separator>{(currentDate.getMinutes()<10?'0':'') + currentDate.getMinutes()}</Time>

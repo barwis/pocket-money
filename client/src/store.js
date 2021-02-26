@@ -8,11 +8,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { recycleSchedule } from './components/recycleSchedule/reducers';
 import { weather } from './components/weather/reducers';
 import { calendarReducer } from './components/calendar/reducers';
+import { forecastReducer } from './components/forecast/reducers';
 
 const reducers = {
 	recycleSchedule,
 	weather,
-	calendar: calendarReducer
+	calendar: calendarReducer,
+	forecast: forecastReducer
 };
 
 const persistConfig = {

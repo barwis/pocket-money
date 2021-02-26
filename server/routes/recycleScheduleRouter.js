@@ -12,7 +12,6 @@ router.get('/', async (req, res, next) => {
 		let results = await db.all()
 		res.status(200).json(results);
 		// setTimeout(() => res.status(200).json(results), 2000);
-		// res.status(200).json(results)
 	} catch ( e ) {
 		res.sendStatus(500);
 	}

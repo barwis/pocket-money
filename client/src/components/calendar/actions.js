@@ -1,8 +1,8 @@
 export const LOAD_EVENTS = 'LOAD_EVENTS'
-export const SET_FETCH_STATE = 'SET_FETCH_STATE';
+export const SET_CALENDAR_FETCH_STATE = 'SET_CALENDAR_FETCH_STATE';
 
 export const setCalendarFetchState = isFetching => ({
-	type: SET_FETCH_STATE,
+	type: SET_CALENDAR_FETCH_STATE,
 	payload: { isFetching }
 });
 

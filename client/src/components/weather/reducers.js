@@ -1,15 +1,15 @@
 import {
-	SET_FETCH_STATE,
+	SET_WEATHER_FETCH_STATE,
 	LOAD_WEATHER_DATA
 } from './actions';
 
-export const initialState = { data: [], isFetching: false};
+export const initialState = { data: {forecast: { forecastday: []}}, isFetching: false};
 
 export const weather = (state = initialState, action) => {
 	const { type, payload } = action;
 
     switch (type) {
-	case SET_FETCH_STATE:
+	case SET_WEATHER_FETCH_STATE:
 		return {
 			...state,
 			isFetching: payload.isFetching

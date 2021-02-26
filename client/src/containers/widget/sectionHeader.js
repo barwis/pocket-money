@@ -26,13 +26,19 @@ const Icon = styled.i`
 	line-height: 20px;
 `;
 
-const SectionHeader = ({title, subtitle,  lastUpdated, isFetching }) => {
+const UpdateInfo = styled.span`
+cursor: pointer;
+`;
+
+
+const SectionHeader = ({title, subtitle,  lastUpdated = '-', isFetching, onUpdateClick }) => {
+
 	return (
 		<Heading>
 			{ title }
 			{ subtitle && <Subtitle>, {subtitle}</Subtitle> }
 			{ isFetching && <div className="lds-dual-ring"></div> }
-			{ lastUpdated && <span><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></span> }
+			<UpdateInfo onClick={onUpdateClick}><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></UpdateInfo>
 		</Heading>
 	)
 }

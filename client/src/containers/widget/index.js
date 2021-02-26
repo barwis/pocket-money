@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import SectionHeader from '../../components/sectionHeader/sectionHeader';
+import SectionHeader from './sectionHeader';
 
 
 const WidgetWrapper = styled.section`
@@ -10,7 +10,7 @@ const WidgetWrapper = styled.section`
 	display: flex;
 	color: white;
 	flex-direction: column;
-	margin: 40px 10px;
+	margin: 0 10px 40px;
 	position: relative;
 `;
 
@@ -22,18 +22,19 @@ const WidgetBody = styled.div`
 	padding: 16px;
 	align-items: center;
 	justify-content: center;
+	opacity: ${props => (props.isFetching ? '0.3' : '1')};
 `;
 
 const Widget = (props) => {
-	const {title, subtitle, isFetching, lastUpdated, children} = props;
+	const {title, subtitle, isFetching, lastUpdated, children, onUpdateClick} = props;
 	return (
 		<WidgetWrapper>
-			{title && <SectionHeader title={title}  subtitle={subtitle} isFetching={isFetching || false} lastUpdated={lastUpdated}/>}
-			<WidgetBody>
+			<SectionHeader title={title} subtitle={subtitle} isFetching={isFetching || false} lastUpdated={lastUpdated} onUpdateClick={onUpdateClick}/>
+			<WidgetBody isFetching={isFetching}>
 				{children}
 			</WidgetBody>
 		</WidgetWrapper>
-		)
-	}
+	)
+}
 	
-	export default Widget
+export default Widget

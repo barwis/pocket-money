@@ -23,8 +23,7 @@ padding-top: 10px;
 font-size: 12px;
 `;
 
-
-const Calendar = ({events, loadEvents}) => {
+const Calendar = ({events, loadEvents, ...props}) => {
 	useEffect(() => {
 		loadEvents();
 	}, [loadEvents])
@@ -32,19 +31,17 @@ const Calendar = ({events, loadEvents}) => {
 
 	const parseDates = (start, end, isAllDay) => {
 		const date1 = new Date(start);
-		const date2 = new Date(end);
 		const dateOptions = {weekday: 'short', day: '2-digit', month: 'short'}
-		const dateTimeOptions = {hour: '2-digit', minute: '2-digit', weekday: 'short', day: '2-digit', month: 'short'}
+		// const dateTimeOptions = {hour: '2-digit', minute: '2-digit', weekday: 'short', day: '2-digit', month: 'short'}
 
 		let formattedDate = date1.toLocaleDateString('en-GB', dateOptions);
-		// return isAllDay ? date1.toLocaleDateString('en-GB', dateOptions) : ( date1.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) );
 		if (!isAllDay) formattedDate = date1.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ', ' + formattedDate
 		return formattedDate;
 
 	};
 
 	return (
-		<Widget title="Events">
+		<Widget title="Events" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadEvents} {...props} >
 			<Events>
 			{!!events.length && events.map( (item, index) =>  (
 				<Event key={index}>
@@ -53,16 +50,17 @@ const Calendar = ({events, loadEvents}) => {
 				</Event>)
 			)}
 			</Events>
-
 		</Widget>
 	)
 }
 const mapStateToProps = state => ({ 
-	events: state.calendar.events
+	events: state.calendar.events,
+	isFetching: state.calendar.isFetching
 })
 
 const mapDispatchToProps = dispatch => ({
 	loadEvents: () => dispatch(loadEvents())
 });
 
+// export default Calendar;
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

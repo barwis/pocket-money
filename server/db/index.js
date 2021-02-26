@@ -13,18 +13,16 @@ let mydb = {};
 mydb.all  = () => {
 	return new Promise((resolve, reject) => {
 		pool.query(`
-		select 
-			s.serviceName,
-			max(r.lastUpdated) lastUpdated , 
-			r.lastService,
-			r.nextService 
-		from 
-			recycleschedule r
-		join servicenames s
-		on 
-		r.serviceNameId = s.id
-		group by 
-		s.serviceName 
+		select s.serviceName, r.lastUpdated, r.nextService
+		from smart_home.recycleschedule r
+		inner join
+		( select serviceNameId, max(lastUpdated) as maxUpdated
+			from smart_home.recycleschedule
+			group by serviceNameId ) as grouped
+		on r.serviceNameId = grouped.serviceNameId
+		join smart_home.servicenames s
+		on r.serviceNameId = s.id
+		and r.lastUpdated = grouped.maxUpdated
 		`, (err, results) => {
 			if (err) {
 				return reject(err);

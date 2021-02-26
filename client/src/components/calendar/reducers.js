@@ -1,6 +1,6 @@
 import {
 	LOAD_EVENTS,
-	SET_FETCH_STATE
+	SET_CALENDAR_FETCH_STATE
 } from './actions';
 
 export const initialState = { events: [], isFetching: false, lastUpdated: '-'}
@@ -9,7 +9,7 @@ export const calendarReducer = ( state = initialState, action ) => {
 	const { type, payload } = action;
 
 	switch ( type ) {
-	case SET_FETCH_STATE:
+	case SET_CALENDAR_FETCH_STATE:
 		return {
 			...state, 
 			isFetching: payload.isFetching

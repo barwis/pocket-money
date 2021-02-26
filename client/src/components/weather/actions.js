@@ -1,8 +1,8 @@
-export const SET_FETCH_STATE = 'SET_FETCH_STATE';
+export const SET_WEATHER_FETCH_STATE = 'SET_WEATHER_FETCH_STATE';
 export const LOAD_WEATHER_DATA = 'LOAD_WEATHER_DATA';
 
 export const setFetchState = isFetching => ({
-	type: SET_FETCH_STATE,
+	type: SET_WEATHER_FETCH_STATE,
 	payload: { isFetching }
 });
 

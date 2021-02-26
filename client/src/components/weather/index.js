@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 
 // import SectionHeader from '../sectionHeader/sectionHeader';
 import Widget from '../../containers/widget';
+import code from './countriesList';
 
 const Condition = styled.div`
 display: flex;
@@ -57,12 +58,12 @@ const WeatherDetailListItem = styled.li`
 `;
 
 
-const Weather = ({ data, loadData }) => {
+export const Weather = ({ data = [], loadData, ...props }) => {
 	useEffect(() => {
 		loadData();
 	}, [loadData])
 	return (
-		<Widget title={data.location && data.location.name} subtitle='UK' lastUpdated={data.current && data.current.last_updated && (new Date(data.current.last_updated)).toLocaleString()}>
+		<Widget title={data.location && data.location.name} subtitle={data.location && code(data.location.country)} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} {...props}>
 			<Condition>
 				<div>
 					<img src={data.current && data.current.condition && data.current.condition.icon } alt={data.current && data.current.condition && data.current.condition.text }/>
@@ -91,16 +92,15 @@ const Weather = ({ data, loadData }) => {
 						<div className="icon-cloud-download"></div>
 						<div>{data.current && data.current.pressure_mb}<sup>hPa</sup></div>
 					</WeatherDetailListItem>
-					
 				</WeatherDetails>
-
 		</Widget>
 	)
 }
 
 
 const mapStateToProps = state => ({ 
-	data: state.weather.data
+	data: state.weather.data,
+	isFetching: state.weather.isFetching
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -108,3 +108,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Weather)
+// export default Weather;

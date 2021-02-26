@@ -10,21 +10,6 @@ export const recycleSchedule = (state = initialState, action) => {
 	const { type, payload } = action;
 
     switch (type) {
-	// case UPDATE_TITLE:
-	// 	return {
-	// 		...state,
-	// 		title: payload.title,
-	// 	};
-	// case UPDATE_DATE:
-	// 	return {
-	// 		...state,
-	// 		date: new Date().toLocaleTimeString()
-	// 	}
-	// case FETCH_DATA:
-	// 	return {
-	// 		...state,
-	// 		isFetching: payload.isFetching
-	// 	}
 	case SET_SCHEDULE_FETCH_STATE:
 		return {
 			...state,
