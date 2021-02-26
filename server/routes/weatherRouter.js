@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios').default;
 const router = express.Router();
 const CITY_ID = 2640894;
+const path = require('path');
 
 const API_KEY = '26efb221a2f9817478b432238d322e3d';
 // const API_ENDPOINT = `api.openweathermap.org/data/2.5/weather?id=${CITY_ID}&appid=${API_KEY}`;
@@ -47,7 +48,7 @@ router.get('/', async (req, res, next) => {
 			},
 			current: {
 				condition: {
-					icon: r.current.condition.icon,
+					icon: path.parse(r.current.condition.icon).name,
 					text: r.current.condition.text
 				},
 				temp_c: r.current.temp_c,

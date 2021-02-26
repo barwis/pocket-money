@@ -66,7 +66,9 @@ export const Weather = ({ data = [], loadData, ...props }) => {
 		<Widget title={data.location && data.location.name} subtitle={data.location && code(data.location.country)} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} {...props}>
 			<Condition>
 				<div>
-					<img src={data.current && data.current.condition && data.current.condition.icon } alt={data.current && data.current.condition && data.current.condition.text }/>
+					{/* <img src={data.current && data.current.condition && data.current.condition.icon } alt={data.current && data.current.condition && data.current.condition.text }/> */}
+
+					<div>public folder: {process.env.PUBLIC_URL}</div>
 				</div>
 				<Temp>
 					<TempReal>{(data.current && data.current.temp_c) || '-'}&deg;</TempReal>

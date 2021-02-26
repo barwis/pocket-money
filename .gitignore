@@ -105,3 +105,9 @@ dist
 
 
 package-lock.json
+yarn.lock
+
+*.ai
+
+client/public/weather/*
+client/public/weather_icons - Copy/*
