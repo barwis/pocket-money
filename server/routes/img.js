@@ -19,7 +19,6 @@ router.get(['/img/*/:fallback/:image'], async (req, res, next) => {
 	const imgUrl = `${req.protocol}://${req.hostname}:3000/${imgRoute}/${filename[0]}.${filename[1]}`;
 	const fallbacImagekUrl = `${req.protocol}://${req.hostname}:3000/${imgRoute}/${fallbackUrl}/${filename[0]}.${filename[2]}`;
 
-	console.log(imgUrl)
 	try {
 		const response = await axios.get(imgUrl, { method: 'HEAD'});
 		res.json( { url: imgUrl });

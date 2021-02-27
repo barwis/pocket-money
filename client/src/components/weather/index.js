@@ -88,14 +88,7 @@ export const Weather = ({ data = [], loadData, ...props }) => {
 
 	}, [loadData])
 
-	const getImageOrFallback = (path, fallback) => {
-		try {
-			require(path)
-			return path;
-		} catch (err) {
-			return fallback;
-		}
-	};
+
 	
 	return (
 		<Widget title={data.location && data.location.name} subtitle={data.location && code(data.location.country)} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} {...props}>
