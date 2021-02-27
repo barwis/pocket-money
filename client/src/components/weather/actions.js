@@ -1,19 +1,27 @@
 export const SET_WEATHER_FETCH_STATE = 'SET_WEATHER_FETCH_STATE';
 export const LOAD_WEATHER_DATA = 'LOAD_WEATHER_DATA';
+export const LOAD_IMAGE = 'LOAD_IMAGE';
 
 export const setFetchState = isFetching => ({
 	type: SET_WEATHER_FETCH_STATE,
 	payload: { isFetching }
 });
-
 export const loadWeather = () => async ( dispatch, getState ) => {
 	dispatch(setFetchState(true));
 	try {
 		const response = await fetch('http://localhost:5000/weather');
 		const weatherData = await response.json();
+		const icon = weatherData.current.condition.icon;
+
 		dispatch({
 			type: LOAD_WEATHER_DATA,
 			payload: { weatherData }
+		})
+
+		const image = await dispatch(loadIcon(icon));
+		dispatch({
+			type: LOAD_IMAGE,
+			payload: { image }
 		})
 	} catch (e) {
 	} finally {
@@ -21,3 +29,10 @@ export const loadWeather = () => async ( dispatch, getState ) => {
 	}	
 }
 
+export const loadIcon = (name) => async (dispatch, getState) => {
+	// TODO: refactor this!
+	const url = `http://localhost:5000/img/weather/64x64/day/fallback/${name}.svg.png`;
+	const response = await fetch(url);
+	const data = await response.json();
+	return data;
+}

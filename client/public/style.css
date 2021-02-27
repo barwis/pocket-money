@@ -188,7 +188,10 @@
 	content: "\e90a";
 }
 .icon-cloud-download:before {
-	content: "\e906";
+    content: "\e906";
+    font-size: 80%;
+    margin-bottom: 5px;
+    display: block;
 }
 .icon-raindrops:before {
 	content: "\e904";

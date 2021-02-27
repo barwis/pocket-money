@@ -38,9 +38,7 @@ const API_ENDPOINT2 = 'http://api.weatherapi.com/v1/current.json?key=69466ae5b9a
 router.get('/', async (req, res, next) => {
 	try {
 		const response = await axios.get(API_ENDPOINT2);
-
 		const r = response.data;
-
 		const data = {
 			location: {
 				name: r.location.name,
@@ -56,7 +54,7 @@ router.get('/', async (req, res, next) => {
 				wind_kph: r.current.wind_kph,
 				humidity: r.current.humidity,
 				precip_mm: r.current.precip_mm,
-				presusre_mb: r.current.presusre_mb
+				pressure_mb: r.current.pressure_mb
 			}
 		}
 		

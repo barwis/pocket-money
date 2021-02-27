@@ -11,6 +11,7 @@ const recycleScheduleRouter = require('./routes/recycleScheduleRouter');
 const weatherApiRouter = require('./routes/weatherRouter');
 const googleRouter = require('./routes/googleCalendar');
 const forecastApiRouter = require('./routes/forecastRouter');
+const imgRouter = require('./routes/img');
 
 module.exports = (config) => {
     const app = express()
@@ -32,6 +33,9 @@ module.exports = (config) => {
 	app.use('/weather', weatherApiRouter);
 	app.use('/forecast', forecastApiRouter);
 	app.use('/calendar', googleRouter);
+	// app.use(['/img', '/img*'], imgRouter);
+	app.get("/img*", imgRouter);
+	app.get("/img", imgRouter);
 
 
     app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
