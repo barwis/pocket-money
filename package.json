@@ -23,6 +23,7 @@
   "homepage": "https://github.com/barwis/pocket-money#readme",
   "devDependencies": {
     "concurrently": "^5.2.0",
+    "eslint": "^7.20.0",
     "redux-persist": "^6.0.0",
     "style-loader": "^2.0.0",
     "supertest": "^4.0.2"
