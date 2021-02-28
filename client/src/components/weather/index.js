@@ -68,7 +68,6 @@ const WeatherImage = styled.img`
 	display: block;
     width: 112px;
     height: 112px;
-	-webkit-filter: invert(100%);
 	opacity: ${props => (props.src ? '1' : '0')};
 
 	.cls-1 {
