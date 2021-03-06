@@ -45,6 +45,22 @@ width: 100%;
 
 `;
 
+const WeatherImage = styled.img`
+	display: block;
+    width: 112px;
+    height: 112px;
+	opacity: ${props => (props.src ? '1' : '0')};
+
+	.cls-1 {
+		fill:none;
+		stroke:#f1c40f;
+		stroke-miterlimit:1;
+		stroke-width:3px;
+		shape-rendering:geometricPrecision;
+		stroke-linecap: round; 
+		stroke-linejoin: round;
+	}
+`;
 
 const WeatherDetailListItem = styled.li`
 	display:  flex;
@@ -64,40 +80,16 @@ const WeatherDetailListItem = styled.li`
 	}
 `;
 
-const WeatherImage = styled.img`
-	display: block;
-    width: 112px;
-    height: 112px;
-	opacity: ${props => (props.src ? '1' : '0')};
-
-	.cls-1 {
-		fill:none;
-		stroke:#f1c40f;
-		stroke-miterlimit:1;
-		stroke-width:3px;
-		shape-rendering:geometricPrecision;
-		stroke-linecap: round; 
-		stroke-linejoin: round;
-	}
-`;
-
-export const Weather = ({ data = [], loadData, ...props }) => {
+export const Weather = ({ data = [], loadData, lastFetchStatus }) => {
 	useEffect( () => {
 		loadData();
-
 	}, [loadData])
 
-
-	
 	return (
-		<Widget title={data.location && data.location.name} subtitle={data.location && code(data.location.country)} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} {...props}>
+		<Widget title={(data.location && data.location.name) || 'Weather'} subtitle={data.location && code(data.location.country)} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} lastFetchStatus={lastFetchStatus}>
 			<Condition>
 				<div>
-					 {/* <img src={data.current && data.current.condition && data.current.condition.icon } alt={data.current && data.current.condition && data.current.condition.text }/> */}
-					 {/* { data.current && <WeatherImage src="" />} */}
 					 <WeatherImage src={data.current.condition.image} alt={data.current.condition.text} />
-					 {/* { http://localhost:5000/img/weather/64x64/day/fallback/185.svg.png } */}
-					{/* <WeatherImage src="http://localhost:3000/weather/64x64/day/svg/113.svg" alt={data.current && data.current.condition.icon}/> */}
 				</div>
 				<Temp>
 					<TempReal>{(data.current && data.current.temp_c) || '-'}&deg;</TempReal>
@@ -122,8 +114,6 @@ export const Weather = ({ data = [], loadData, ...props }) => {
 					<WeatherDetailListItem>{data.current && data.current.humidity}<sup>%</sup></WeatherDetailListItem>
 					<WeatherDetailListItem>{data.current && data.current.precip_mm}<sup>mm</sup></WeatherDetailListItem>
 					<WeatherDetailListItem>{data.current && data.current.pressure_mb}<sup>hPa</sup></WeatherDetailListItem>
-
-
 				</WeatherDetails>
 		</Widget>
 	)
@@ -132,7 +122,7 @@ export const Weather = ({ data = [], loadData, ...props }) => {
 
 const mapStateToProps = state => ({ 
 	data: state.weather.data,
-	isFetching: state.weather.isFetching
+	lastFetchStatus: state.weather.lastFetchStatus
 });
 
 const mapDispatchToProps = dispatch => ({

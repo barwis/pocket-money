@@ -19,7 +19,7 @@ display: flex;
 `;
 
 
-const RecycleSchedule = ({loadTodos, schedule, ...props}) => {
+const RecycleSchedule = ({loadTodos, schedule, lastFetchStatus}) => {
 	useEffect(() => {
 		loadTodos();
 
@@ -31,7 +31,7 @@ const RecycleSchedule = ({loadTodos, schedule, ...props}) => {
 	}, [loadTodos])
     return (
 		// <Widget title="Recycle schedule" isFetching={isFetching} lastUpdated={lastUpdated} >
-		<Widget title="RecycleSchedule" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadTodos} {...props}>
+		<Widget title="RecycleSchedule" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadTodos} lastFetchStatus={lastFetchStatus}>
 			<RecycleScheduleContainer>
 					{
 					schedule.map( (item, index) => <RecycleScheduleRow key={index} scheduleRowData={item}/>)
@@ -43,7 +43,7 @@ const RecycleSchedule = ({loadTodos, schedule, ...props}) => {
 
 const mapStateToProps = state => ({ 
 	schedule: state.recycleSchedule.schedule,
-	isFetching: state.recycleSchedule.isFetching
+	lastFetchStatus: state.recycleSchedule.lastFetchStatus
 })
 
 const mapDispatchToProps = dispatch => ({

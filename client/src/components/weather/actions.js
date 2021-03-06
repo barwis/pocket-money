@@ -1,13 +1,22 @@
 export const SET_WEATHER_FETCH_STATE = 'SET_WEATHER_FETCH_STATE';
 export const LOAD_WEATHER_DATA = 'LOAD_WEATHER_DATA';
 export const LOAD_IMAGE = 'LOAD_IMAGE';
+export const SET_LAST_FETCH_STATUS = 'SET_LAST_FETCH_STATUS'
 
-export const setFetchState = isFetching => ({
+
+export const setFetchState = lastFetchStatus => ({
 	type: SET_WEATHER_FETCH_STATE,
-	payload: { isFetching }
+	payload: { lastFetchStatus }
 });
+
 export const loadWeather = () => async ( dispatch, getState ) => {
-	dispatch(setFetchState(true));
+	const { weather }  = getState();
+	if ( weather.lastFetchStatus === 'fetching' ) {
+		console.log('still fetching...')
+		return;
+	}
+
+	dispatch(setFetchState('fetching'));
 	try {
 		const response = await fetch('http://localhost:5000/weather');
 		const weatherData = await response.json();
@@ -23,10 +32,10 @@ export const loadWeather = () => async ( dispatch, getState ) => {
 			type: LOAD_IMAGE,
 			payload: { image }
 		})
+		dispatch(setFetchState('ok'));
 	} catch (e) {
-	} finally {
-		dispatch(setFetchState(false));
-	}	
+		dispatch(setFetchState('error'));
+	}
 }
 
 export const loadIcon = (name) => async (dispatch, getState) => {

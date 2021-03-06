@@ -7,18 +7,16 @@ section:not(:last-child)::after {
 	display: block;
 	bottom: -20px;
 	position: absolute;
-
 }
 
-
-.lds-dual-ring {
+.lds-dual-ring, .icon-notification {
 	display: inline-block;
 	width: 20px;
 	height: 20px;
 	margin-bottom: -5px;
 	margin-left: 10px;
-  }
-  .lds-dual-ring:after {
+}
+.lds-dual-ring:after {
 	content: " ";
 	display: block;
 	width: 15px;
@@ -28,13 +26,18 @@ section:not(:last-child)::after {
 	border: 2px solid red;
 	border-color: red transparent red transparent;
 	animation: lds-dual-ring 1.2s linear infinite;
-  }
-  @keyframes lds-dual-ring {
+}
+
+@keyframes lds-dual-ring {
 	0% {
-	  transform: rotate(0deg);
+		transform: rotate(0deg);
 	}
 	100% {
-	  transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
-  }
-  
+}
+
+.icon-notification {
+	color: red;
+}
+

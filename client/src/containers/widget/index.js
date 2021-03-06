@@ -22,15 +22,15 @@ const WidgetBody = styled.div`
 	padding: 16px;
 	align-items: center;
 	justify-content: center;
-	opacity: ${props => (props.isFetching ? '0.3' : '1')};
+	opacity: ${props => (props.lastFetchStatus === 'ok' ? '1' : '0.3')};
 `;
 
 const Widget = (props) => {
-	const {title, subtitle, isFetching, lastUpdated, children, onUpdateClick} = props;
+	const {title, subtitle, lastFetchStatus, lastUpdated, children, onUpdateClick} = props;
 	return (
 		<WidgetWrapper>
-			<SectionHeader title={title} subtitle={subtitle} isFetching={isFetching || false} lastUpdated={lastUpdated} onUpdateClick={onUpdateClick}/>
-			<WidgetBody isFetching={isFetching}>
+			<SectionHeader title={title} subtitle={subtitle} lastFetchStatus={lastFetchStatus || 'ok'} lastUpdated={lastUpdated} onUpdateClick={onUpdateClick}/>
+			<WidgetBody lastFetchStatus={lastFetchStatus}>
 				{children}
 			</WidgetBody>
 		</WidgetWrapper>

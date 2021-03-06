@@ -3,7 +3,9 @@ import {
 	LOAD_FORECAST_DATA
 } from './actions';
 
-export const initialState = { data: [{ icon: '', temp: '', day: ''}], isFetching: false};
+import componentInitialState from '../componentsInitialState'
+
+export const initialState = { data: [{ icon: '', temp: '', day: ''}], ...componentInitialState };
 
 export const forecastReducer = (state = initialState, action) => {
 	const { type, payload } = action;
@@ -12,7 +14,7 @@ export const forecastReducer = (state = initialState, action) => {
 	case SET_FORECAST_FETCH_STATE:
 		return {
 			...state,
-			isFetching: payload.isFetching
+			lastFetchStatus: payload.lastFetchStatus
 		}
 	case LOAD_FORECAST_DATA: 
 		return {

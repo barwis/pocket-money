@@ -211,6 +211,9 @@
 .icon-update:before {
 	content: "\e900";
 }
+.icon-notification:before {
+	content: "\ea08";
+}
 
 body {
 	font-family: 'Roboto', sans-serif;

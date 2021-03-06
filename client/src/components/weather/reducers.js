@@ -1,10 +1,13 @@
 import {
-	SET_WEATHER_FETCH_STATE,
+	LOAD_IMAGE,
 	LOAD_WEATHER_DATA,
-	LOAD_IMAGE
+	SET_LAST_FETCH_STATUS,
+	SET_WEATHER_FETCH_STATE
 } from './actions';
 
-export const initialState = { data: {location: {}, current: { condition: { image: '' }} }, isFetching: false};
+import componentInitialState from '../componentsInitialState'
+
+export const initialState = { data: {location: {}, current: { condition: { image: '' }} }, ...componentInitialState };
 
 export const weather = (state = initialState, action) => {
 	const { type, payload } = action;
@@ -13,12 +16,17 @@ export const weather = (state = initialState, action) => {
 	case SET_WEATHER_FETCH_STATE:
 		return {
 			...state,
-			isFetching: payload.isFetching
+			lastFetchStatus: payload.lastFetchStatus
 		}
 	case LOAD_WEATHER_DATA: 
 		return {
 			...state, 
 			data: payload.weatherData
+		}
+	case SET_LAST_FETCH_STATUS:
+		return {
+			...state,
+			data: payload.lastFetchSuccessful
 		}
 	case LOAD_IMAGE:
 		return {

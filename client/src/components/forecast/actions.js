@@ -1,13 +1,13 @@
 export const SET_FORECAST_FETCH_STATE = 'SET_FORECAST_FETCH_STATE';
 export const LOAD_FORECAST_DATA = 'LOAD_FORECAST_DATA';
 
-export const setFetchState = isFetching => ({
+export const setFetchState = lastFetchStatus => ({
 	type: SET_FORECAST_FETCH_STATE,
-	payload: { isFetching }
+	payload: { lastFetchStatus }
 });
 
 export const loadForecast = () => async ( dispatch, getState ) => {
-	dispatch(setFetchState(true));
+	dispatch(setFetchState('fetching'));
 	try {
 		const response = await fetch('http://localhost:5000/forecast');
 		const weatherData = await response.json();
@@ -15,9 +15,9 @@ export const loadForecast = () => async ( dispatch, getState ) => {
 			type: LOAD_FORECAST_DATA,
 			payload: { weatherData }
 		})
+		dispatch(setFetchState('ok'));
 	} catch (e) {
-	} finally {
-		dispatch(setFetchState(false));
-	}	
+		dispatch(setFetchState('error'));
+	}
 }
 

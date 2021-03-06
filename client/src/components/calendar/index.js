@@ -23,7 +23,7 @@ padding-top: 10px;
 font-size: 12px;
 `;
 
-const Calendar = ({events, loadEvents, ...props}) => {
+const Calendar = ({events, loadEvents, lastFetchStatus}) => {
 	useEffect(() => {
 		loadEvents();
 	}, [loadEvents])
@@ -41,7 +41,7 @@ const Calendar = ({events, loadEvents, ...props}) => {
 	};
 
 	return (
-		<Widget title="Events" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadEvents} {...props} >
+		<Widget title="Events" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadEvents} lastFetchStatus={lastFetchStatus} >
 			<Events>
 			{!!events.length && events.map( (item, index) =>  (
 				<Event key={index}>
@@ -55,7 +55,7 @@ const Calendar = ({events, loadEvents, ...props}) => {
 }
 const mapStateToProps = state => ({ 
 	events: state.calendar.events,
-	isFetching: state.calendar.isFetching
+	lastFetchStatus: state.calendar.lastFetchStatus
 })
 
 const mapDispatchToProps = dispatch => ({

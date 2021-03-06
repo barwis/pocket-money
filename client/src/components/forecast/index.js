@@ -48,11 +48,10 @@ img {
 
 
 
-const Forecast = ({ forecast = initialState, loadForecast,  ...props }) => {
+const Forecast = ({ forecast = initialState, loadForecast,  lastFetchStatus }) => {
 
 	useEffect(() => {
 		loadForecast();
-
 		// const intervalId = setInterval(() => {
 		// 	loadForecast();
 		// }, 600000);
@@ -61,7 +60,7 @@ const Forecast = ({ forecast = initialState, loadForecast,  ...props }) => {
 	}, [loadForecast])
 
 	return (
-		<Widget title="Forecast" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadForecast} {...props}>
+		<Widget title="Forecast" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadForecast} lastFetchStatus={lastFetchStatus}>
 			<ForecastData>
 				{forecast.map( (item, index) => {
 					return (<ForecastDay key={index}>
@@ -77,7 +76,7 @@ const Forecast = ({ forecast = initialState, loadForecast,  ...props }) => {
 
 const mapStateToProps = state => ({ 
 	forecast: state.forecast.data,
-	isFetching: state.forecast.isFetching
+	lastFetchStatus: state.forecast.lastFetchStatus
 })
 const mapDispatchToProps = dispatch => ({
 	loadForecast: () => dispatch(loadForecast())

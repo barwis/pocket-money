@@ -31,13 +31,14 @@ cursor: pointer;
 `;
 
 
-const SectionHeader = ({title, subtitle,  lastUpdated = '-', isFetching, onUpdateClick }) => {
+const SectionHeader = ({title, subtitle,  lastUpdated = '-', lastFetchStatus, onUpdateClick }) => {
 
 	return (
 		<Heading>
 			{ title }
 			{ subtitle && <Subtitle>, {subtitle}</Subtitle> }
-			{ isFetching && <div className="lds-dual-ring"></div> }
+			{ lastFetchStatus === 'error' && <div className="icon-notification"></div> }
+			{ lastFetchStatus === 'fetching' && <div className="lds-dual-ring"></div> }
 			<UpdateInfo onClick={onUpdateClick}><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></UpdateInfo>
 		</Heading>
 	)

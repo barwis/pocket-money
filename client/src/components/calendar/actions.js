@@ -1,13 +1,13 @@
 export const LOAD_EVENTS = 'LOAD_EVENTS'
 export const SET_CALENDAR_FETCH_STATE = 'SET_CALENDAR_FETCH_STATE';
 
-export const setCalendarFetchState = isFetching => ({
+export const setCalendarFetchState = lastFetchStatus => ({
 	type: SET_CALENDAR_FETCH_STATE,
-	payload: { isFetching }
+	payload: { lastFetchStatus }
 });
 
-export const loadEvents = () => async ( dispatch, getState ) => {
-	dispatch(setCalendarFetchState(true))
+export const loadEvents = () => async ( dispatch) => {
+	dispatch(setCalendarFetchState('fetching'))
 	try {
 		const response = await fetch('http://localhost:5000/calendar');
 		const events = await response.json()
@@ -22,9 +22,9 @@ export const loadEvents = () => async ( dispatch, getState ) => {
 			type: LOAD_EVENTS,
 			payload: { events: parsed, lastUpdated: new Date() }
 		})
-	} catch (e) {
+		dispatch(setCalendarFetchState('ok'))
 
-	} finally {
-		dispatch(setCalendarFetchState(false));
+	} catch (e) {
+		dispatch(setCalendarFetchState('error'))
 	}
 }
