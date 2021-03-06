@@ -1,3 +1,5 @@
+import fetchWithTimeout from '../../utils/fetchWithTimeout';
+
 export const LOAD_EVENTS = 'LOAD_EVENTS'
 export const SET_CALENDAR_FETCH_STATE = 'SET_CALENDAR_FETCH_STATE';
 
@@ -9,7 +11,7 @@ export const setCalendarFetchState = lastFetchStatus => ({
 export const loadEvents = () => async ( dispatch) => {
 	dispatch(setCalendarFetchState('fetching'))
 	try {
-		const response = await fetch('http://localhost:5000/calendar');
+		const response = await fetchWithTimeout('http://localhost:5000/calendar');
 		const events = await response.json()
 		const parsed = events.map( item => ({ 
 			name: item.summary,

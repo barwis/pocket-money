@@ -1,3 +1,5 @@
+import fetchWithTimeout from '../../utils/fetchWithTimeout';
+
 export const SET_WEATHER_FETCH_STATE = 'SET_WEATHER_FETCH_STATE';
 export const LOAD_WEATHER_DATA = 'LOAD_WEATHER_DATA';
 export const LOAD_IMAGE = 'LOAD_IMAGE';

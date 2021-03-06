@@ -1,3 +1,4 @@
+import fetchWithTimeout from '../../utils/fetchWithTimeout';
 
 export const LOAD_SCHEDULE = 'LOAD_SCHEDULE';
 export const SET_LAST_UPDATED = 'SET_LAST_UPDATED'
@@ -19,12 +20,11 @@ export const loadSchedule = schedule => ({
 export const loadTodos = () => async ( dispatch ) => {
 	dispatch(setScheduleFetchState('fetching'));
 	try {
-		const response = await fetch('http://localhost:5000/recycle');
+		const response = await fetchWithTimeout('http://localhost:5000/recycle');
 		const schedule = await response.json();
 		dispatch(loadSchedule(schedule));
 		dispatch(setScheduleFetchState('ok'));
 	} catch (e) {
 		dispatch(setScheduleFetchState('error'));
 	}
-
 }

@@ -1,6 +1,6 @@
-async function fetchWithTimeout(resource, options) {
-	const { timeout = 8000 } = options;
-	
+async function fetchWithTimeout(resource, options = {}) {
+	const { timeout = 1000 } = options;
+	console.log(timeout)
 	const controller = new AbortController();
 	const id = setTimeout(() => controller.abort(), timeout);
   
@@ -9,7 +9,6 @@ async function fetchWithTimeout(resource, options) {
 	  signal: controller.signal  
 	});
 	clearTimeout(id);
-  
 	return response;
 }
 

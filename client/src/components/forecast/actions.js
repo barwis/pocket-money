@@ -1,5 +1,8 @@
+import fetchWithTimeout from '../../utils/fetchWithTimeout';
+
 export const SET_FORECAST_FETCH_STATE = 'SET_FORECAST_FETCH_STATE';
 export const LOAD_FORECAST_DATA = 'LOAD_FORECAST_DATA';
+
 
 export const setFetchState = lastFetchStatus => ({
 	type: SET_FORECAST_FETCH_STATE,
@@ -9,7 +12,7 @@ export const setFetchState = lastFetchStatus => ({
 export const loadForecast = () => async ( dispatch, getState ) => {
 	dispatch(setFetchState('fetching'));
 	try {
-		const response = await fetch('http://localhost:5000/forecast');
+		const response = await fetchWithTimeout('http://localhost:5000/forecast');
 		const weatherData = await response.json();
 		dispatch({
 			type: LOAD_FORECAST_DATA,
