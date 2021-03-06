@@ -37,12 +37,12 @@ const Calendar = ({events, loadEvents, lastFetchStatus}) => {
 		let formattedDate = date1.toLocaleDateString('en-GB', dateOptions);
 		if (!isAllDay) formattedDate = date1.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ', ' + formattedDate
 		return formattedDate;
-
 	};
 
 	return (
 		<Widget title="Events" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadEvents} lastFetchStatus={lastFetchStatus} >
 			<Events>
+			{!events.length && lastFetchStatus !== '-' && <li>no upcoming events</li>  }
 			{!!events.length && events.map( (item, index) =>  (
 				<Event key={index}>
 					<div>{item.name}</div>

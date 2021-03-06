@@ -1,4 +1,4 @@
-const componentInitialState = { lastFetchStatus: 'ok'};
+const componentInitialState = { lastFetchStatus: '-'};
 
 
 export default componentInitialState;

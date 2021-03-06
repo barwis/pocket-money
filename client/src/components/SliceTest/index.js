@@ -1,15 +1,15 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux'
-import {fetchDispatcher} from './slice'
+import { useDispatch, useSelector } from 'react-redux'
 
+// actions
+import { fetchDispatcher } from './slice'
 
 import styled from 'styled-components/macro';
 
-
-
 const Container = styled.div`
-color: white;
+	color: white;
 `;
+
 
 const SliceTest = () => {
 	const dispatch = useDispatch();

@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+
+// actions to dispatch
+import { loadForecast } from './reducers'
 
 import styled from 'styled-components/macro';
 import Widget from '../../containers/widget';
-
-import { loadForecast } from './actions'
 
 import { initialState  } from './reducers';
 
@@ -30,7 +32,6 @@ const ForecastDay = styled.div`
 	}
 `;
 
-
 const Icon = styled.div`
 display: block;
 width: 100%;
@@ -46,12 +47,12 @@ img {
 }
 `;
 
-
-
-const Forecast = ({ forecast = initialState, loadForecast,  lastFetchStatus }) => {
+const Forecast = () => {
+	const dispatch = useDispatch();
+	const { data, lastFetchStatus } = useSelector(state => state.forecast)
 
 	useEffect(() => {
-		loadForecast();
+		dispatch(loadForecast());
 		// const intervalId = setInterval(() => {
 		// 	loadForecast();
 		// }, 600000);
@@ -62,7 +63,7 @@ const Forecast = ({ forecast = initialState, loadForecast,  lastFetchStatus }) =
 	return (
 		<Widget title="Forecast" lastUpdated={new Date().toLocaleString()} onUpdateClick={loadForecast} lastFetchStatus={lastFetchStatus}>
 			<ForecastData>
-				{forecast.map( (item, index) => {
+				{data.map( (item, index) => {
 					return (<ForecastDay key={index}>
 						<span>{item.day}</span>
 						<Icon><img src={item.icon} alt={item.day} /></Icon>
@@ -74,13 +75,13 @@ const Forecast = ({ forecast = initialState, loadForecast,  lastFetchStatus }) =
 	)
 }
 
-const mapStateToProps = state => ({ 
-	forecast: state.forecast.data,
-	lastFetchStatus: state.forecast.lastFetchStatus
-})
-const mapDispatchToProps = dispatch => ({
-	loadForecast: () => dispatch(loadForecast())
-});
+// const mapStateToProps = state => ({ 
+// 	forecast: state.forecast.data,
+// 	lastFetchStatus: state.forecast.lastFetchStatus
+// })
+// const mapDispatchToProps = dispatch => ({
+// 	loadForecast: () => dispatch(loadForecast())
+// });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Forecast)
+export default Forecast

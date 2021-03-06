@@ -8,7 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { recycleSchedule } from './components/recycle/reducers';
 import { weather } from './components/weather/reducers';
 import { calendarReducer } from './components/calendar/reducers';
-import { forecastReducer as forecast } from './components/forecast/reducers';
+import forecast from './components/forecast/reducers';
 
 import sliceTest from './components/SliceTest/slice.js';
 

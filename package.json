@@ -5,7 +5,7 @@
   "main": ".eslintrc.js",
   "scripts": {
     "test": "mocha \"test/**/*.spec.js\"",
-    "postinstall": "(cd client && npm install); (cd server && npm install);",
+	"postinstall": "(cd client && yarn); (cd server && yarn);",
     "client": "npm start --prefix client",
     "server": "npm start --prefix server",
     "start": "concurrently \"npm run client\" \"npm run server\" "
@@ -23,19 +23,9 @@
   "homepage": "https://github.com/barwis/pocket-money#readme",
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "eslint": "^7.20.0",
-    "redux-persist": "^6.0.0",
-    "style-loader": "^2.0.0",
-    "supertest": "^4.0.2"
+    "rm": "^0.1.8"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "prop-types": "^15.7.2",
-    "react-google-login": "^5.2.2",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0",
-    "webpack": "^4.42.0"
+    "dotenv": "^8.2.0"
   }
 }
