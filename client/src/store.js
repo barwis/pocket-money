@@ -8,13 +8,16 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { recycleSchedule } from './components/recycle/reducers';
 import { weather } from './components/weather/reducers';
 import { calendarReducer } from './components/calendar/reducers';
-import { forecastReducer } from './components/forecast/reducers';
+import { forecastReducer as forecast } from './components/forecast/reducers';
+
+import sliceTest from './components/SliceTest/slice.js';
 
 const reducers = {
 	recycleSchedule,
 	weather,
+	sliceTest,
 	calendar: calendarReducer,
-	forecast: forecastReducer
+	forecast
 };
 
 const persistConfig = {

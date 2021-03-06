@@ -20,7 +20,7 @@ export const loadWeather = () => async ( dispatch, getState ) => {
 
 	dispatch(setFetchState('fetching'));
 	try {
-		const response = await fetch('http://localhost:5000/weather');
+		const response = await fetchWithTimeout('http://localhost:5000/weather');
 		const weatherData = await response.json();
 		const icon = weatherData.current.condition.icon;
 

@@ -5,6 +5,7 @@ import Weather from './components/weather';
 import DateTime from './components/dateTime';
 import Calendar from './components/calendar';
 import Forecast from './components/forecast';
+import SliceTest from './components/SliceTest';
 import './App.css'; 
 
 // function App() { 
@@ -16,6 +17,7 @@ const App = () => (
 		<Forecast />
 		<RecycleSchedule/>
 		<Calendar/>
+		<SliceTest/>
     </div>
 );
 

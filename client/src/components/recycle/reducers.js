@@ -26,7 +26,8 @@ export const recycleSchedule = (state = initialState, action) => {
 		return {
 			...state,
 			lastFetchStatus: payload.lastFetchStatus,
-			lastUpdated: new Date(payload.schedule[0].lastUpdated).toLocaleDateString()
+			lastUpdated: new Date(payload.schedule[0].lastUpdated).toLocaleDateString(),
+			schedule: payload.schedule
 		}
 	default:
 		return state;
