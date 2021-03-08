@@ -5,8 +5,8 @@ import './style.css';
 const WidgetHeader = ({ title, subtitle, lastUpdated, onUpdateClick }) => {
 	return (
 		<div className="heading">
-			{ title }
-			{ subtitle && <div className="subtitle">, {subtitle}</div> }
+			<div className="title">{ title }</div>
+			{ !!subtitle && <div className="subtitle">, {subtitle}</div> }
 			<div className="updateInfo" onClick={onUpdateClick}>
 				<i className='icon icon-update'></i> <div className="strong">{lastUpdated}</div>
 			</div>

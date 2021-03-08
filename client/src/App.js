@@ -6,19 +6,19 @@ import DateTime from './components/dateTime';
 import Calendar from './components/calendar';
 import Forecast from './components/forecast';
 import SliceTest from './components/SliceTest';
-import './App.css'; 
+import './App.css';
 
-// function App() { 
+// function App() {
 //   return (
 const App = () => (
-    <div className='app'>
+	<div className='app'>
 		<DateTime />
 		<Weather />
 		<Forecast />
 		<RecycleSchedule/>
 		<Calendar/>
 		<SliceTest/>
-    </div>
+	</div>
 );
 
 export default App;

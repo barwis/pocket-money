@@ -1,14 +1,12 @@
-async function fetchWithTimeout(resource, options = {}) {
+async function fetchWithTimeout ( resource, options = {}) {
 	const { timeout = 1000 } = options;
-	console.log(timeout)
 	const controller = new AbortController();
-	const id = setTimeout(() => controller.abort(), timeout);
-  
-	const response = await fetch(resource, {
-	  ...options,
-	  signal: controller.signal  
+	const id = setTimeout( () => controller.abort(), timeout );
+	const response = await fetch( resource, {
+		...options,
+		signal: controller.signal
 	});
-	clearTimeout(id);
+	clearTimeout( id );
 	return response;
 }
 

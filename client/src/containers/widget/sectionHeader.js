@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const Heading = styled.header`
 	padding: 16px;
@@ -27,12 +28,10 @@ const Icon = styled.i`
 `;
 
 const UpdateInfo = styled.span`
-cursor: pointer;
+	cursor: pointer;
 `;
 
-
-const SectionHeader = ({title, subtitle,  lastUpdated = '-', lastFetchStatus, onUpdateClick }) => {
-
+const SectionHeader = ({ title, subtitle, lastUpdated = '-', lastFetchStatus, onUpdateClick }) => {
 	return (
 		<Heading>
 			{ title }
@@ -41,6 +40,15 @@ const SectionHeader = ({title, subtitle,  lastUpdated = '-', lastFetchStatus, on
 			{ lastFetchStatus === 'fetching' && <div className="lds-dual-ring"></div> }
 			<UpdateInfo onClick={onUpdateClick}><Icon className='icon-update'></Icon> <Strong>{lastUpdated}</Strong></UpdateInfo>
 		</Heading>
-	)
-}
+	);
+};
+
+SectionHeader.propTypes = {
+	title: PropTypes.string,
+	subtitle: PropTypes.string,
+	lastUpdated: PropTypes.string,
+	lastFetchStatus: PropTypes.string,
+	onUpdateClick: PropTypes.func
+};
+
 export default SectionHeader;

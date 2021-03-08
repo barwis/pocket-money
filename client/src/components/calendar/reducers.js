@@ -3,9 +3,12 @@ import {
 	SET_CALENDAR_FETCH_STATE
 } from './actions';
 
-import componentInitialState from '../componentsInitialState'
+import componentInitialState from '../componentsInitialState';
 
-export const initialState = { events: [], ...componentInitialState}
+export const initialState = {
+	events: [],
+	...componentInitialState
+};
 
 export const calendarReducer = ( state = initialState, action ) => {
 	const { type, payload } = action;
@@ -13,15 +16,15 @@ export const calendarReducer = ( state = initialState, action ) => {
 	switch ( type ) {
 	case SET_CALENDAR_FETCH_STATE:
 		return {
-			...state, 
+			...state,
 			lastFetchStatus: payload.lastFetchStatus
-		}
+		};
 	case LOAD_EVENTS:
 		return {
-			...state, 
+			...state,
 			events: payload.events
-		}
+		};
 	default:
 		return state;
 	}
-}
+};

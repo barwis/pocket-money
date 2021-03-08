@@ -6,7 +6,7 @@ import DateTime from './components/dateTime';
 import Calendar from './components/calendar';
 
 const App = () => (
-	<div>
+	<div className="app">
 		<h1>test 1</h1>
 		<DateTime/>
 		<Calendar/>

@@ -5,33 +5,39 @@ import {
 	SET_WEATHER_FETCH_STATE
 } from './actions';
 
-import componentInitialState from '../componentsInitialState'
+import componentInitialState from '../componentsInitialState';
 
-export const initialState = { data: {location: {}, current: { condition: { image: '' }} }, ...componentInitialState };
+export const initialState = {
+	data: {
+		location: {},
+		current: { condition: { image: '' } }
+	},
+	...componentInitialState
+};
 
-export const weather = (state = initialState, action) => {
+export const weather = ( state = initialState, action ) => {
 	const { type, payload } = action;
 
-    switch (type) {
+	switch ( type ) {
 	case SET_WEATHER_FETCH_STATE:
 		return {
 			...state,
 			lastFetchStatus: payload.lastFetchStatus
-		}
-	case LOAD_WEATHER_DATA: 
+		};
+	case LOAD_WEATHER_DATA:
 		return {
-			...state, 
+			...state,
 			data: payload.weatherData
-		}
+		};
 	case SET_LAST_FETCH_STATUS:
 		return {
 			...state,
 			data: payload.lastFetchSuccessful
-		}
+		};
 	case LOAD_IMAGE:
 		return {
 			...state,
-			data: { 
+			data: {
 				...state.data,
 				current: {
 					...state.data.current,
@@ -41,7 +47,7 @@ export const weather = (state = initialState, action) => {
 					}
 				}
 			}
-		}
+		};
 	default:
 		return state;
 	}

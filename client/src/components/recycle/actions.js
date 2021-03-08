@@ -1,7 +1,7 @@
 import fetchWithTimeout from '../../utils/fetchWithTimeout';
 
 export const LOAD_SCHEDULE = 'LOAD_SCHEDULE';
-export const SET_LAST_UPDATED = 'SET_LAST_UPDATED'
+export const SET_LAST_UPDATED = 'SET_LAST_UPDATED';
 export const SET_SCHEDULE_FETCH_STATE = 'SET_SCHEDULE_FETCH_STATE';
 
 export const setScheduleFetchState = lastFetchStatus => ({
@@ -12,19 +12,19 @@ export const setScheduleFetchState = lastFetchStatus => ({
 export const loadSchedule = schedule => ({
 	type: LOAD_SCHEDULE,
 	payload: { schedule }
-})
+});
 
 // export const loadSchedule = () => async (dispatch, getState) => {
 // export const loadTodos = () => async (dispatch, getState) => {
 
 export const loadTodos = () => async ( dispatch ) => {
-	dispatch(setScheduleFetchState('fetching'));
+	dispatch( setScheduleFetchState( 'fetching' ) );
 	try {
-		const response = await fetchWithTimeout('http://localhost:5000/recycle');
+		const response = await fetchWithTimeout( 'http://localhost:5000/recycle' );
 		const schedule = await response.json();
-		dispatch(loadSchedule(schedule));
-		dispatch(setScheduleFetchState('ok'));
-	} catch (e) {
-		dispatch(setScheduleFetchState('error'));
+		dispatch( loadSchedule( schedule ) );
+		dispatch( setScheduleFetchState( 'ok' ) );
+	} catch ( e ) {
+		dispatch( setScheduleFetchState( 'error' ) );
 	}
-}
+};
