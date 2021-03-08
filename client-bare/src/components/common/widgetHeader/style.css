@@ -1,0 +1,28 @@
+div.heading {
+	color: white;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
+	margin: 0;
+	padding: 16px;
+}
+
+div.subtitle {
+	color: #d1d1d1;
+	display: inline;
+}
+
+div.strong {
+	line-height: 20px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+i.icon {
+	display: inline-block;
+	line-height: 20px;
+}
+
+.updateInfo {
+	cursor: pointer;
+}

@@ -1,0 +1,15 @@
+ul.events {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	text-align: left;
+	width: 100%;
+}
+
+li.event {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 10px;
+	font-size: 12px;
+}

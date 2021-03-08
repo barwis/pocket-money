@@ -1,0 +1,13 @@
+.time {
+	display: block;
+	text-align: center;
+	font-size: 6rem;
+    font-weight: 400;
+ 	margin: 20px;
+}
+
+.separator {
+	display: inline-block;
+	text-align: center;
+	width: 20px;
+}
