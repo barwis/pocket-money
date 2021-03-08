@@ -49,4 +49,16 @@ describe( 'WidgetHeader', () => {
 		expect( component.find( '.updateInfo .strong' ) ).toHaveLength( 1 );
 		expect( component.find( '.updateInfo .strong' ).text() ).toEqual( props.lastUpdated );
 	});
+
+	it( 'should handle update on click', () => {
+		const mockCallBack = jest.fn();
+
+		const button = mount( <WidgetHeader onUpdateClick={mockCallBack} /> );
+		button.find( '.updateInfo' ).simulate( 'click' );
+		expect( mockCallBack.mock.calls.length ).toEqual( 1 );
+	});
 });
+
+
+// wrapper.find('#next-btn-ready-modal').simulate('click');
+// expect(baseProps.toggleModal).toHaveBeenCalled();
