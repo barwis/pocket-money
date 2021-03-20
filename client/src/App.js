@@ -1,24 +1,21 @@
 import React from 'react';
-// import Header from './components/header';
-import RecycleSchedule from './components/recycle/recycle';
-import Weather from './components/weather';
+import { hot } from 'react-hot-loader';
+import './App.css';
+
 import DateTime from './components/dateTime';
 import Calendar from './components/calendar';
 import Forecast from './components/forecast';
-import SliceTest from './components/SliceTest';
-import './App.css';
+import Weather from './components/weather';
+import Recycle from './components/recycle';
 
-// function App() {
-//   return (
 const App = () => (
-	<div className='app'>
-		<DateTime />
+	<div className="app">
+		<DateTime/>
 		<Weather />
 		<Forecast />
-		<RecycleSchedule/>
+		<Recycle />
 		<Calendar/>
-		<SliceTest/>
 	</div>
 );
 
-export default App;
+export default hot( module )( App );

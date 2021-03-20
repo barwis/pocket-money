@@ -17,6 +17,7 @@ router.get(['/img/*/:fallback/:image'], async (req, res, next) => {
 	const fallbackUrl = req.params.fallback; // map into object for readability?
 	
 	const imgUrl = `${req.protocol}://${req.hostname}:3000/${imgRoute}/${filename[0]}.${filename[1]}`;
+	console.log(imgUrl);
 	const fallbacImagekUrl = `${req.protocol}://${req.hostname}:3000/${imgRoute}/${fallbackUrl}/${filename[0]}.${filename[2]}`;
 
 	try {

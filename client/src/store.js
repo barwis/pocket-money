@@ -5,25 +5,24 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { recycleSchedule } from './components/recycle/reducers';
-import { weather } from './components/weather/reducers';
-import { calendarReducer } from './components/calendar/reducers';
-import forecast from './components/forecast/reducers';
+// import { dateTimeReducer } from './components/DateTime/reducers';
 
-import sliceTest from './components/SliceTest/slice.js';
+import calendar from './components/calendar/slice';
+import forecast from './components/forecast/slice';
+import weather from './components/weather/slice';
+import recycle from './components/recycle/slice';
 
 const reducers = {
-	recycleSchedule,
+	calendar,
+	forecast,
 	weather,
-	sliceTest,
-	calendar: calendarReducer,
-	forecast
+	recycle
 };
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	stateReconciler: autoMergeLevel2,
+	stateReconciler: autoMergeLevel2
 };
 
 const rootReducer = combineReducers( reducers );

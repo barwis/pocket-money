@@ -1,94 +1,42 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { loadWeather } from './actions';
-// import styled from 'styled-components/macro';
+import React from 'react';
+import { useDispatch, useSelector } from '../../utils/redux-hooks';
 
-// import SectionHeader from '../sectionHeader/sectionHeader';
-import Widget from '../../containers/widget';
-import code from './countriesList';
+// componenets
+import Widget from '../_common/widget';
+import WidgetHeader from '../_common/widgetHeader';
 
-// const Condition = styled.div`
-// 	display: grid;
-// 	grid-gap: 30px;
-// 	align-items: center;
-// 	grid-template-columns: 1fr 1fr;
-// 	padding: 10px 33px 20px 60px;
-// `;
+// actions
+import { fetchWeather, loadWeatherIcon } from './slice';
 
-// const Temp = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// `;
+// utils
+import code from '../../utils/countriesList';
 
-// const TempReal = styled.div`
-// 	font-size: 55px;
-//     line-height: 1;
-//     font-weight: 100;
-// 	margin-top: -15px;
-// `;
+// styles
+import './style.css';
 
-// const TempFeelsLike = styled.div`
-// 	color: #afafaf;
-// 	font-size: 14px;
-// 	white-space: nowrap;
-// `;
+const Weather = () => {
+	const dispatch = useDispatch();
 
-// const WeatherDetails = styled.ul`
-// 	display: grid;
-// 	grid-template-columns: repeat(4, 1fr);
-// 	grid-template-rows: 1fr 1fr;
-// 	margin: 0;
-// 	grid-column-gap: 50px;
-// 	padding: 0;
-// 	width: 100%;
-// `;
+	// const lastFetchStatus = useSelector ( state => state.weather.lastFetchStatus);
+	const data = useSelector( state => state.weather.data );
+	const weatherIcon = useSelector( state => state.weather.data.current.condition.icon );
 
-// const WeatherImage = styled.img`
-// 	display: block;
-//     width: 112px;
-//     height: 112px;
-// 	opacity: ${props => ( props.src ? '1' : '0' )};
+	const widgetTitle = `${data.location.name}`;
 
-// 	.cls-1 {
-// 		fill:none;
-// 		stroke:#f1c40f;
-// 		stroke-miterlimit:1;
-// 		stroke-width:3px;
-// 		shape-rendering:geometricPrecision;
-// 		stroke-linecap: round;
-// 		stroke-linejoin: round;
-// 	}
-// `;
+	React.useEffect( () => {
+		dispatch( fetchWeather() );
+	}, [] );
 
-// const li = styled.li`
-// 	display:  flex;
-//     flex-direction: row;
-//     text-align: center;
-//     justify-content: center;
-
-// 	div {
-// 		display: block;
-// 	}
-
-// 	div:first-child {
-// 		font-size: 300%;
-// 	}
-// 	sup {
-// 		padding-left: 3px;
-// 	}
-// `;
-
-export const Weather = ({ data = [], loadData, lastFetchStatus }) => {
-	useEffect( () => {
-		loadData();
-	}, [ loadData ] );
+	React.useEffect( () => {
+		dispatch( loadWeatherIcon( weatherIcon ) );
+	}, [ weatherIcon ] );
 
 	return (
-		<Widget title={( data.location && data.location.name ) || 'Weather'} subtitle={data.location && code( data.location.country )} lastUpdated={new Date().toLocaleString()} onUpdateClick={loadData} lastFetchStatus={lastFetchStatus}>
-			<div>
+		<Widget>
+			<WidgetHeader title={widgetTitle} subtitle={data.location && code( data.location.country )} onUpdateClick={() => dispatch( fetchWeather() ) }/>
+			<div className="condition">
 				<div>
-					 <div className="weather-image" src={data.current.condition.image} alt={data.current.condition.text} />
+					 <img className="weather-image" src={ data.current.condition.localIcon} alt={data.current.condition.text } />
 				</div>
 				<div className="temp">
 					<div className="temp-real">{( data.current && data.current.temp_c ) || '-'}&deg;</div>
@@ -117,17 +65,4 @@ export const Weather = ({ data = [], loadData, lastFetchStatus }) => {
 	);
 };
 
-Weather.propTypes = {
-	data: PropTypes.array,
-	loadData: PropTypes.func,
-	lastFetchStatus: PropTypes.string
-};
-
-const mapStateToProps = state => ({
-	data: state.weather.data,
-	lastFetchStatus: state.weather.lastFetchStatus
-});
-
-const mapDispatchToProps = dispatch => ({ loadData: () => dispatch( loadWeather() ) });
-
-export default connect( mapStateToProps, mapDispatchToProps )( Weather );
+export default Weather;

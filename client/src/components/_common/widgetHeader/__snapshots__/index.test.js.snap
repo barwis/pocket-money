@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetHeader should render correctly 1`] = `
+<div
+  className="heading"
+>
+  <div
+    className="title"
+  />
+  <span
+    className="updateInfo"
+    onClick={[Function]}
+  >
+    <i
+      className="icon icon-update"
+    />
+     
+    <div
+      className="strong"
+    />
+  </span>
+</div>
+`;
