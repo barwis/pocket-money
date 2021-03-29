@@ -103,10 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-
-package-lock.json
-yarn.lock
-
 *.ai
 
 client/public/weather/*
