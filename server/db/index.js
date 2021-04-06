@@ -1,6 +1,7 @@
-const mysql = require('mysql');
+// const mysql = require('mysql');
+const mariadb = require('mariadb');
 
-const pool = mysql.createPool({
+const pool = mariadb.createPool({
 	connectionLimit: 10,
 	host: 'localhost',
 	user: 'root',
