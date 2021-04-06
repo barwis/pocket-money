@@ -4,7 +4,7 @@ const mariadb = require('mariadb');
 const pool = mariadb.createPool({
 	connectionLimit: 10,
 	host: 'localhost',
-	user: 'root',
+	user: 'smarthomeuser',
 	password: 'VenCeym3',
 	database: 'smart_home',
 })
