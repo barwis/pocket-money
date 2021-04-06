@@ -1,31 +1,32 @@
 {
-  "name": "pocket-money",
-  "version": "1.0.0",
-  "description": "",
-  "main": ".eslintrc.js",
-  "scripts": {
-    "test": "mocha \"test/**/*.spec.js\"",
-	"postinstall": "(cd client && yarn); (cd server && yarn);",
-    "client": "npm start --prefix client",
-    "server": "npm start --prefix server",
-    "start": "concurrently \"npm run client\" \"npm run server\" "
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/barwis/pocket-money.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/barwis/pocket-money/issues"
-  },
-  "homepage": "https://github.com/barwis/pocket-money#readme",
-  "devDependencies": {
-    "concurrently": "^5.2.0",
-    "rm": "^0.1.8"
-  },
-  "dependencies": {
-    "dotenv": "^8.2.0"
-  }
+	"name": "pocket-money",
+	"version": "1.0.0",
+	"description": "",
+	"main": ".eslintrc.js",
+	"scripts": {
+		"test": "mocha \"test/**/*.spec.js\"",
+		"postinstall": "(cd client && yarn); (cd server && yarn);",
+		"client": "npm start --prefix client",
+		"server": "npm start --prefix server",
+		"start": "concurrently \"npm run client\" \"npm run server\" "
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/barwis/pocket-money.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/barwis/pocket-money/issues"
+	},
+	"homepage": "https://github.com/barwis/pocket-money#readme",
+	"devDependencies": {
+		"concurrently": "^5.2.0",
+		"os-browserify": "^0.3.0",
+		"rm": "^0.1.8"
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0"
+	}
 }

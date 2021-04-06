@@ -18,7 +18,10 @@ module.exports = {
 			}
 		]
 	},
-	resolve: { extensions: ['*', '.js', '.jsx'] },
+	resolve: {
+		extensions: ['*', '.js', '.jsx'],
+		fallback: { 'os': require.resolve( 'os-browserify/browser' ) }
+	},
 	output: {
 		path: path.resolve( __dirname, 'dist/' ),
 		publicPath: '/dist/',
