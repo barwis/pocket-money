@@ -15,7 +15,7 @@ export const initialState = {
 export const fetchForecast = createAsyncThunk(
 	'forecast/fetchForecast',
 	async () => {
-		const response = await fetchWithTimeout( 'http://localhost:5000/forecast' );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/forecast` );
 		const weatherData = await response.json();
 		return weatherData;
 	}
@@ -40,12 +40,16 @@ const slice = createSlice({
 		builder.addCase( fetchForecast.pending, ( state, action ) => {
 			state.lastFetchStatus = 'fetching';
 		});
+
 		builder.addCase( fetchForecast.fulfilled, ( state, action ) => {
 			state.lastFetchStatus = 'ok';
 			state.data = action.payload;
+			state.lastUpdated = new Date().toLocaleString();
 		});
+
 		builder.addCase( fetchForecast.rejected, ( state, action ) => {
 			state.lastFetchStatus = 'error';
+			state.lastUpdated = new Date().toLocaleString();
 		});
 	}
 });

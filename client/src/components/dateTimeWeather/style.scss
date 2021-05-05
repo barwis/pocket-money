@@ -1,0 +1,21 @@
+.today {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    grid-template-rows: 1fr;
+}
+
+.date-time-conditions {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+}
+
+.current-time {
+    font-size: 5.5rem;
+    display: flex;
+}
+
+.conditions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 14px;
+  }

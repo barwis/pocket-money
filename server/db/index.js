@@ -1,11 +1,17 @@
-// const mysql = require('mysql');
-const mariadb = require('mariadb');
+let dbmodule;
 
-const pool = mariadb.createPool({
+try {
+	const mysql = require('mysql');
+	dbmodule = mysql;
+} catch {
+	const mariadb = require('mariadb');
+	dbmodule = mariadb;
+}
+const pool = dbmodule.createPool({
 	connectionLimit: 10,
 	host: 'localhost',
-	user: 'smarthomeuser',
-	password: 'VenCeym3',
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD,
 	database: 'smart_home',
 })
 
@@ -14,7 +20,7 @@ let mydb = {};
 mydb.all  = () => {
 	return new Promise((resolve, reject) => {
 		pool.query(`
-		select s.serviceName, r.lastUpdated, r.nextService
+		select s.serviceName, r.lastUpdated, r.nextService, r.lastService
 		from smart_home.recycleschedule r
 		inner join
 		( select serviceNameId, max(lastUpdated) as maxUpdated

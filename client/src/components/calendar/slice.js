@@ -11,7 +11,7 @@ export const initialState = {
 export const fetchCalendarEvents = createAsyncThunk(
 	'calendar/fetchCalendarEvents',
 	async () => {
-		const response = await fetchWithTimeout( 'http://localhost:5000/calendar' );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/calendar` );
 		const events = await response.json();
 
 		const parsed = events.map( item => ({
@@ -20,7 +20,6 @@ export const fetchCalendarEvents = createAsyncThunk(
 			end: item.end.date || item.end.dateTime,
 			isAllDay: !!item.start.date
 		}) );
-
 		return parsed;
 	}
 );
@@ -47,9 +46,11 @@ export const slice = createSlice({
 		builder.addCase( fetchCalendarEvents.fulfilled, ( state, action ) => {
 			state.lastFetchStatus = 'ok';
 			state.events = action.payload;
+			state.lastUpdated = new Date().toLocaleString();
 		});
 		builder.addCase( fetchCalendarEvents.rejected, ( state, action ) => {
 			state.lastFetchStatus = 'error';
+			state.lastUpdated = new Date().toLocaleString();
 		});
 	}
 });

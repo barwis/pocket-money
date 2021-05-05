@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from '../../utils/redux-hooks';
 import Widget from '../_common/widget';
 import WidgetHeader from '../_common/widgetHeader';
 
+// utils
+import dataUpdate from '../../utils/dataUpdate';
+
 // style
 import './style.css';
 
@@ -29,18 +32,24 @@ export 	const parseDates = ( start, end, isAllDay ) => {
 
 const Calendar = () => {
 	const dispatch = useDispatch();
-	const { events, lastFetchStatus } = useSelector( state => ({
-		events: state.calendar.events,
-		lastFetchStatus: state.calendar.lastFetchStatus
-	}) );
+	const {
+		events,
+		lastFetchStatus,
+		lastUpdated
+	} = useSelector( state => state.calendar );
 
 	React.useEffect( () => {
-		dispatch( fetchCalendarEvents() );
-	}, [ fetchCalendarEvents ] );
+		return dataUpdate( dispatch, fetchCalendarEvents, 600000 );
+	}, [ dispatch ] );
 
 	return (
 		<Widget>
-			<WidgetHeader title="Events" lastUpdated={new Date().toLocaleString()} lastFetchStatus={lastFetchStatus} />
+			<WidgetHeader
+				title="Events"
+				lastUpdated={lastUpdated}
+				lastFetchStatus={lastFetchStatus}
+				onUpdateClick={() => dispatch( fetchCalendarEvents() ) }
+			/>
 			<ul className="events">
 				{!!events.length && events.map( ( item, index ) => (
 					<li className="event" key={index}>

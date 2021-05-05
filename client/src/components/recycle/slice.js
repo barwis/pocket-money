@@ -13,7 +13,7 @@ const initialState = {
 export const loadRecycleSchedule = createAsyncThunk(
 	'recycle/loadRecycleSchedule',
 	async () => {
-		const response = await fetchWithTimeout( 'http://localhost:5000/recycle' );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/recycle` );
 		const schedule = await response.json();
 		return schedule;
 	}
@@ -34,9 +34,11 @@ const slice = createSlice({
 		builder.addCase( loadRecycleSchedule.fulfilled, ( state, action ) => {
 			state.lastFetchStatus = 'ok';
 			state.schedule = action.payload;
+			state.lastUpdated = new Date().toLocaleString();
 		});
 		builder.addCase( loadRecycleSchedule.rejected, ( state, action ) => {
 			state.lastFetchStatus = 'error';
+			state.lastUpdated = new Date().toLocaleString();
 		});
 	}
 });

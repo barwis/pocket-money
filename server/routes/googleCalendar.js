@@ -37,7 +37,18 @@ async function listEvents() {
 	});
 
 	const events = await res.data.items;
-	return events;
+
+	const distinctEvents = [];
+	const map = new Map();
+	
+	for (const item of events) {
+		if( !map.has( item.etag ) ) {
+			map.set( item.etag, true );    // set any value to Map
+			distinctEvents.push( item );
+		}
+	}
+
+	return distinctEvents;
 }
 
 module.exports = router;

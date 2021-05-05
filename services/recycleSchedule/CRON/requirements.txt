@@ -2,3 +2,4 @@
 mysql.connector
 requests
 beautifulsoup4
+mariadb

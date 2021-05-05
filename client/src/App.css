@@ -1,5 +1,6 @@
 body {
-	background: linear-gradient(to left, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100));
+	/* background: linear-gradient(to left, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100)); */
+	background: black;
 	color: white;
 }
 
@@ -7,9 +8,10 @@ body {
 	width: 400px;
     float: right;
 	margin: 0;
+	margin-right: 50px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'clear_sans_mediumregular';
 }
 
 * {

@@ -1,6 +1,10 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 
+const dotenv = require( 'dotenv' ).config({ path: '../.env' });
+const localIPaddress = dotenv.parsed.LOCAL_IP;
+const port = dotenv.parsed.PORT;
+
 module.exports = {
 	entry: './src/index.js',
 	mode: 'development',
@@ -15,6 +19,16 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [ 'style-loader', 'css-loader' ]
+			},
+			{
+				test: /\.scss$/,
+				use: [{
+					loader: "style-loader"
+				}, {
+					loader: "css-loader" 
+				}, {
+					loader: "sass-loader"
+				}]
 			}
 		]
 	},
@@ -29,10 +43,14 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: path.join( __dirname, 'public/' ),
-		port: 3000,
-		publicPath: 'http://localhost:3000/dist/',
+		host: localIPaddress,
+		port,
+		publicPath: `http://${localIPaddress}:${port}/dist/`,
 		hotOnly: true
 	},
-	plugins: [new webpack.HotModuleReplacementPlugin()],
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.DefinePlugin({ LOCAL_IP: JSON.stringify(dotenv.parsed.LOCAL_IP) })
+	],
 	devtool: 'eval-cheap-source-map'
 };

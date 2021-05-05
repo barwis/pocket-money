@@ -1,4 +1,8 @@
 
+.weather {
+
+}
+
 div.condition {
 	display: grid;
 	grid-gap: 30px;
@@ -15,7 +19,7 @@ div.temp-real {
 	font-size: 55px;
 	line-height: 1;
 	font-weight: 100;
-	margin-top: -15px;
+	/* margin-top: -15px; */
 }
 
 div.temp-feels-like {
@@ -26,11 +30,11 @@ div.temp-feels-like {
 
 ul.weather-details {
 	display: grid;
-	grid-column-gap: 50px;
+	grid-column-gap: 30px;
 	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 1fr 1fr;
+	grid-template-rows: 1fr auto;
 	margin: 0;
-	padding: 16px;
+	padding: 16px 16px 0;
 	width: 100%;
 	list-style-type: none;
 }

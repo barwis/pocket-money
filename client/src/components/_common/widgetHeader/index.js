@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const WidgetHeader = ({ title, subtitle, lastUpdated, onUpdateClick }) => {
+const WidgetHeader = ({ title, subtitle, lastUpdated, onUpdateClick, lastFetchStatus }) => {
+	const lastUpdatedClassName = lastFetchStatus === 'fetching' ? 'lastUpdated lastUpdated--fetching' : 'lastUpdated';
 	return (
 		<div className="heading">
-			<div className="title">{ title }</div>
-			{ !!subtitle && <div className="subtitle">, {subtitle}</div> }
+			<div className="mainInfo">
+				<div className="title">{ title }</div>
+				{ !!subtitle && <div className="subtitle">, {subtitle}</div> }
+				{ lastFetchStatus === 'fetching' && <div className="lds-dual-ring"></div> }
+			</div>
 			<span className="updateInfo" onClick={onUpdateClick}>
-				<i className='icon icon-update'></i> <div className="strong">{lastUpdated}</div>
+				<div className={lastUpdatedClassName}>{lastUpdated}</div> <i className='icon icon-update'></i>
 			</span>
 		</div>
 	);

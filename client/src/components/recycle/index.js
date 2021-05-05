@@ -9,20 +9,34 @@ import RecycleScheduleRow from './row';
 // actions
 import { loadRecycleSchedule } from './slice';
 
+// utils
+import dataUpdate from '../../utils/dataUpdate';
+
 // styles
 import './style.css';
 
 const Recycle = () => {
 	const dispatch = useDispatch();
-	const { schedule, lastFetchStatus } = useSelector( state => state.recycle );
+	// const { schedule, lastFetchStatus } = useSelector( state => state.recycle );
+
+	const {
+		schedule,
+		lastUpdated,
+		lastFetchStatus
+	} = useSelector( state => state.recycle );
 
 	useEffect( () => {
-		dispatch( loadRecycleSchedule() );
+		return dataUpdate( dispatch, loadRecycleSchedule, 600000 );
 	}, [ dispatch ] );
 
 	return (
 		<Widget>
-			<WidgetHeader title="Recycle" lastFetchStatus={lastFetchStatus}/>
+			<WidgetHeader
+				title="Recycle"
+				onUpdateClick={() => dispatch( loadRecycleSchedule() ) }
+				lastUpdated={lastUpdated}
+				lastFetchStatus={lastFetchStatus}
+			/>
 			<div className="recycle-list">
 				{ schedule.map( ( item, index ) => <RecycleScheduleRow key={index} scheduleRowData={item}/> ) }
 			</div>

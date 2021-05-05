@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RecycleScheduleRow = ({ scheduleRowData }) => {
-	let { serviceName, nextService } = scheduleRowData;
+	let { serviceName, nextService, lastService } = scheduleRowData;
 
 	const label = ( nextDateDiff ) => {
 		let str = '';
@@ -13,7 +13,7 @@ const RecycleScheduleRow = ({ scheduleRowData }) => {
 		}
 		switch ( nextDateDiff ) {
 		case 0:
-			str = 'today';
+			str = 'Today';
 			break;
 		case 1:
 			str = 'Tomorrow';
@@ -24,14 +24,17 @@ const RecycleScheduleRow = ({ scheduleRowData }) => {
 		return str;
 	};
 
-	const daysDiff = ( date ) => {
-		var date1 = new Date( date );
-		var date2 = new Date();
+	const daysDiff = ( nextService, lastService ) => {
+		let nextServiceDate = new Date( nextService );
+		let lastServiceDate = new Date( lastService );
+		let currentDate = new Date();
 
-		const diff = date1.getTime() - date2.getTime();
+		const toNextService = nextServiceDate.getTime() - currentDate.getTime();
+		const sinceLastService = lastServiceDate.getTime() - currentDate.getTime();
 
-		var days = Math.ceil( diff / ( 1000 * 3600 * 24 ) );
-		return label( days );
+		const daysTillNextService = Math.ceil( toNextService / ( 1000 * 3600 * 24 ) );
+		const daysSinceLastService = Math.ceil( sinceLastService / ( 1000 * 3600 * 24 ) );
+		return daysSinceLastService === 0 ? label( daysSinceLastService ) : label( daysTillNextService );
 	};
 
 	const icons = {
@@ -44,7 +47,7 @@ const RecycleScheduleRow = ({ scheduleRowData }) => {
 	return (
 		<div className="recycle-row">
 			<div className={icons[serviceName]}></div>
-			{ daysDiff( nextService ) }
+			{ daysDiff( nextService, lastService ) }
 		</div>
 	);
 };
@@ -52,7 +55,8 @@ const RecycleScheduleRow = ({ scheduleRowData }) => {
 RecycleScheduleRow.propTypes = {
 	scheduleRowData: PropTypes.shape({
 		serviceName: PropTypes.string,
-		nextService: PropTypes.string
+		nextService: PropTypes.string,
+		lastService: PropTypes.string
 	})
 };
 

@@ -1,8 +1,11 @@
+#! /usr/bin/python3
+
 import sys
-import mysql.connector
+# import mysql.connector
+import mariadb
 # import datetime
 from datetime import date, datetime
-from requests import Request, Session
+from requests import Request, Session, Timeout
 from html.parser import HTMLParser
 from pathlib import Path
 from types import SimpleNamespace
@@ -12,16 +15,17 @@ from bs4 import BeautifulSoup
 
 now = date.today()
 
-database = mysql.connector.connect(
+database = mariadb.connect(
     host='localhost',
-    user='root',
+    user='smarthomeuser',
     password='VenCeym3',
     database='smart_home',
     autocommit=True
 )
+
 cursor = database.cursor(prepared=True)
 
-print("\033c\033[3J", end='')
+# print("\033c\033[3J", end='')
 
 def loadText():
 	p = Path(__file__).with_name('html.txt')
@@ -33,20 +37,24 @@ def getData():
 	session = Session()
 
 	session.head('https://recyclingservices.bromley.gov.uk/property/10070020041')
-	response = session.post(
-		url='https://recyclingservices.bromley.gov.uk/property/10070020041',
-		data={
-			'N': '4294966750',
-			'form-trigger': 'moreId',
-			'moreId': '156#327',
-			'pageType': 'EventClass'
-		},
-		headers={
-			'Cookie': 'PHPSESSID=70ugg4js3v9ggda1me1ui4ghvr; ARRAffinity=636b585fe5d15d7d762bc9fbfada8b13cb6037f8072b93fc74ed3886f5d5b422; ARRAffinitySameSite=636b585fe5d15d7d762bc9fbfada8b13cb6037f8072b93fc74ed3886f5d5b422'
-		}
-	)
-	requestDuration = int(response.elapsed.total_seconds())
-	return response.text, requestDuration
+	try:
+		response = session.post(
+			url='https://recyclingservices.bromley.gov.uk/property/10070020041',
+			data={
+				'N': '4294966750',
+				'form-trigger': 'moreId',
+				'moreId': '156#327',
+				'pageType': 'EventClass'
+			},
+			headers={
+				'Cookie': 'PHPSESSID=70ugg4js3v9ggda1me1ui4ghvr; ARRAffinity=636b585fe5d15d7d762bc9fbfada8b13cb6037f8072b93fc74ed3886f5d5b422; ARRAffinitySameSite=636b585fe5d15d7d762bc9fbfada8b13cb6037f8072b93fc74ed3886f5d5b422'
+			},
+			timeout=300
+		)
+		requestDuration = int(response.elapsed.total_seconds())
+		return response.text, requestDuration
+	except Timeout:
+		sys.exit("your custom error message")
 
 def parseData(string): 
 	soup = BeautifulSoup(string, 'html.parser')
@@ -65,9 +73,15 @@ def parseData(string):
 	obj = []
 
 	for i in range(len(serviceNames)):
+		schedule = ''
+		try:
+			schedule = soup.select(serviceWrappers[i] + ' .schedule div')[0].getText().strip()
+		except:
+			sys.exit("error parsing response.")
+
 		service = {
 			"name": i+1,
-			"schedule":  soup.select(serviceWrappers[i] + ' .schedule div')[0].getText().strip(),
+			"schedule": schedule,
 			"lastService" : '',
 			"nextService" : ''
 			# 'lastService': soup.select(serviceWrappers[i] + ' td.last-service')[0]
@@ -105,7 +119,8 @@ def insert(cursor, serviceName, lastUpdated, requestDuration, lastServiceDate, n
 
 	try:
 		cursor.execute(sql_statement, sql_data )
-	except mysql.connector.Error as err:
+		print('data added')
+	except mariadb.Error as err:
 		print(sql_data)
 		print('something went wrong:')
 		print(err)

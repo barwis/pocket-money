@@ -7,6 +7,8 @@ const createError = require('http-errors');
 
 var cors = require('cors')
 
+require('dotenv').config({ path: '../.env' })
+
 const recycleScheduleRouter = require('./routes/recycleScheduleRouter');
 const weatherApiRouter = require('./routes/weatherRouter');
 const googleRouter = require('./routes/googleCalendar');
@@ -21,6 +23,7 @@ module.exports = (config) => {
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
+    app.use(express.static('public'))
 
     if (app.get('env') === 'development') {
         app.locals.pretty = true;
@@ -36,9 +39,9 @@ module.exports = (config) => {
 	// app.use(['/img', '/img*'], imgRouter);
 	app.get("/img*", imgRouter);
 	app.get("/img", imgRouter);
+	// console.log(process.env.LOCAL_IP);
 
-
-    app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
+    app.listen(port, process.env.LOCAL_IP, () => console.log(`App listening at http://${process.env.LOCAL_IP}:${port}`));
 
     return app;
 }

@@ -7,7 +7,7 @@ const DateTime = () => {
 	const [ currentDate, setCurrentDate ] = useState( new Date() );
 	const [ tick, setTick ] = useState( true );
 
-	const separator = tick ? ':' : ' ';
+	const separator = tick ? ':' : '\u00A0';
 	useEffect( () => {
 		const timer = setInterval( () => {
 			setCurrentDate( new Date() );
@@ -19,7 +19,11 @@ const DateTime = () => {
 	return (
 
 		<Widget className="dateTime">
-			<div className="time">{currentDate.getHours()}<div className="separator">{separator}</div>{( currentDate.getMinutes() < 10 ? '0' : '' ) + currentDate.getMinutes()}</div>
+			<div className="time">
+				<div>{currentDate.getHours()}</div>
+				<div className="separator">{separator}</div>
+				<div>{( currentDate.getMinutes() < 10 ? '0' : '' ) + currentDate.getMinutes()}</div>
+			</div>
 			<div>{new Intl.DateTimeFormat( 'en-GB', { weekday: 'long' }).format( currentDate )}, </div>
 			<div>
 				{new Intl.DateTimeFormat( 'en-GB', {

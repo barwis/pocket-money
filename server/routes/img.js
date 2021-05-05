@@ -11,10 +11,12 @@ router.get('/health', (req, res, next) => {
 router.get(['/img/*/:fallback/:image'], async (req, res, next) => {
 	const imgRoute = req.params[0];
 	const filename = req.params.image.split('.');
+	console.log(imgRoute, filename);
 	if ( filename.length !== 3) 
 		res.sendStatus(400)
 	
 	const fallbackUrl = req.params.fallback; // map into object for readability?
+	console.log('fallbackUrl', fallbackUrl)
 	
 	const imgUrl = `${req.protocol}://${req.hostname}:3000/${imgRoute}/${filename[0]}.${filename[1]}`;
 	console.log(imgUrl);

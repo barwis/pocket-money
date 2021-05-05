@@ -5,17 +5,28 @@ div.heading {
 	line-height: 20px;
 	margin: 0;
 	padding: 16px;
+	margin-bottom: 16px;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #999999;
 }
 
-div.subtitle {
+.subtitle {
 	color: #d1d1d1;
 	display: inline;
 }
 
-div.strong {
+.lastUpdated {
 	display: inline-block;
-	line-height: 20px;
-	vertical-align: top;
+	font-size: 10px;
+	font-weight: 300;
+	margin-right: 5px;
+}
+
+.lastUpdated--fetching {
+	opacity: 0.2;
 }
 
 i.icon {
@@ -24,8 +35,10 @@ i.icon {
 }
 
 .updateInfo {
+	align-items: center;
 	cursor: pointer;
-	float: right;
+	display: flex;
+	justify-content: center;
 }
 
 .title {
