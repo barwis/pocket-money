@@ -232,8 +232,6 @@ class DB:
         except mariadb.Error as err:
             LOGGER.log('error', f"{err}", parentObjectName=__class__.__name__, shouldTerminateApp=False)
 
-
-
 class SCRAPPER:
     def __init__(self, domConfig):
         self.domConfig = domConfig
