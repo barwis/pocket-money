@@ -9,13 +9,13 @@ import sys
 from pathlib import Path
 from datetime import date, datetime
 from time import strptime
-import json
-
 
 # requests
 import requests as req
 #  disable warning about https domain not being verified etc...
 req.packages.urllib3.disable_warnings()
+
+import re
 
 # database
 import mariadb
@@ -23,7 +23,6 @@ import mariadb
 # beautifulsoup
 from bs4 import BeautifulSoup
 
-import re
 import pprint
 
 # .ini loader
@@ -39,6 +38,8 @@ import inspect
 
 
 class LOGGER:
+    """Logger class. Takes care of logging. duh"""
+
     def __init__ ( self, logFileName = 'logfile.log' ):
         pathtoLogFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), logFileName)
         logging.basicConfig( filename=pathtoLogFile, level=logging.DEBUG, format='%(asctime)s %(levelname)-8s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -73,9 +74,7 @@ class LOGGER:
 
 
 class CONFIG:
-    ''' Config loader.
-        Something.
-    '''
+    ''' .ini loader.'''
     def __init__(self, configFile = 'config.ini'):
 
         # get abs path of config gile
@@ -199,48 +198,33 @@ class DB:
         except mariadb.Error as e:
             LOGGER.log('error', f"{e}", shouldTerminateApp=True)
 
-    def select(self):
-        LOGGER.log('info', "executing SELECT",  parentObjectName=__class__.__name__)
-
-        if (self.connected == False):
-            LOGGER.log('error', "Not connected to any database",  parentObjectName=__class__.__name__)
-            return False      
-
-        if (self.cursor == False):
-            return
-
-        self.cursor.execute("SELECT * FROM  mysql.general_log  WHERE command_type ='Query' LIMIT 5;")
-        res = self.cursor.fetchall()
-
     def insert(self, requestDuration, rawData):
         """Performs DB insert method"""
 
         currentDate = datetime.utcnow()
 
-
-        vals = []
+        rows = []
         keys = []
 
         for key in rawData:
-            if (type(key) == str and type(rawData[key]) == str):
-                keys.append(key)
-                vals.append('\'' + rawData[key] + '\'')
-            else:
-               LOGGER.log('error', json.dumps(rawData),  parentObjectName=__class__.__name__)
+            # print(key, '->', rawData[key])
+            print ('type',  type(rawData[key]), key, rawData[key])
+            keys.append(key)
+            rows.append('\'' + rawData[key] + '\'')
 
         # add currentDate and requestDuration to keys/rows 
 
         keys.append('lastUpdated')
-        vals.append('\'' + currentDate.strftime('%Y-%m-%d %H:%M:%S') + '\'')
+        rows.append('\'' + currentDate.strftime('%Y-%m-%d %H:%M:%S') + '\'')
 
         keys.append('requestDuration')
-        vals.append('\'' + str(requestDuration) + '\'')
+        rows.append('\'' + str(requestDuration) + '\'')
 
         if (self.connected == False):
             LOGGER.log('error', "Not connected to any database",  parentObjectName=__class__.__name__)
             return False
 
-        query = f"INSERT INTO recycleschedule ({(', ').join(keys)}) VALUES({(', ').join(vals)})"
+        query = f"INSERT INTO recycleschedule ({(', ').join(keys)}) VALUES({(', ').join(rows)})"
 
         if (self.cursor == False):
             return
@@ -249,13 +233,15 @@ class DB:
             self.cursor.execute( query )
             LOGGER.log('info', f"insert successful: {query}", parentObjectName=__class__.__name__)
         except mariadb.Error as err:
-            LOGGER.log('error', f"DBError: {err}", parentObjectName=__class__.__name__, shouldTerminateApp=True)
+            LOGGER.log('error', f"{err}", parentObjectName=__class__.__name__, shouldTerminateApp=False)
 
 class SCRAPPER:
     def __init__(self, domConfig):
         self.domConfig = domConfig
         self.content = False
         self.lastrequestDuration = 5
+        self.ordinals = ['st', 'nd', 'rd', 'th']
+        self.months = []
         LOGGER.log('info', '--- ')
         LOGGER.log('info', 'initialised ', parentObjectName=__class__.__name__)
 
@@ -268,20 +254,18 @@ class SCRAPPER:
             requestDuration = int(response.elapsed.total_seconds())
 
             LOGGER.log('info', '...done', parentObjectName=__class__.__name__)
-            # LOGGER.log('info', "Request took approx. " + str(requestDuration) + 's', parentObjectName=__class__.__name__)
             self.content = response.text
             self.lastrequestDuration = requestDuration
         except:
-            # sys.exit("Sum Ting Wong")
-            LOGGER.log('error', 'Sum Ting, Wong', parentObjectName=__class__.__name__, shouldTerminateApp=True)
+            LOGGER.log('error', 'Something went wrong...', parentObjectName=__class__.__name__, shouldTerminateApp=True)
 
     def getFakeContent(self):
-        fakeFileName = 'html.txt'
-        pathToConfigFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), fakeFileName)
-        if (os.path.exists(pathToConfigFile) == False):
+        fakeContentFile = 'html.txt'
+        pathToContentFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), fakeContentFile)
+        if (os.path.exists(pathToContentFile) == False):
             LOGGER.log('error', 'Could not find file with fake content', parentObjectName=__class__.__name__, shouldTerminateApp=True)
 
-        p = Path(pathToConfigFile)
+        p = Path(pathToContentFile)
         with p.open('r') as f:
             content = f.read()
             LOGGER.log('info', 'Fake content loaded', parentObjectName=__class__.__name__)
@@ -291,12 +275,14 @@ class SCRAPPER:
         """ removes 'st ', 'nd ', 'rd ', 'th ' from date strings"""
 
         s = string
-        ordinals = ['st', 'nd', 'rd', 'th']
-        for o in ordinals: 
+        
+        for o in self.ordinals: 
             s = s.replace(o, '')
         return s
 
     def parseDate(self, dateString):
+        """converts 'date' scraped from the website to an actual date"""
+
         now = datetime.now()
         theDate = []
         _dateString = self.removeOrd(dateString)
@@ -305,7 +291,7 @@ class SCRAPPER:
         if (len(dateList) < 2): 
             LOGGER.log('error', f"dateString '{dateString}' doesn't appear to have any spaces...",  parentObjectName=__class__.__name__ )
             return False
-
+                
         try:
             theDate.append(int(dateList[0]))
         except:
@@ -314,14 +300,14 @@ class SCRAPPER:
 
         # get numeral value of month
         month = dateList[1]
-        monthNum = 0
         try:
-            monthNum = strptime(month,'%B').tm_mon
+            monthNum = strptime(month,'%b').tm_mon
         except:
             LOGGER.log('error', f"{month} doesn't seem to be a 3-letter abbrevation of any month name",  parentObjectName=__class__.__name__ )
             return False
+
         try:
-            theDate.append(monthNum)
+            theDate.append(strptime(dateList[1],'%b').tm_mon)
         except:
             LOGGER.log('error', f"Something went wrong",  parentObjectName=__class__.__name__ )
             return False
@@ -350,15 +336,17 @@ class SCRAPPER:
         return parsedDate.strftime("%Y-%m-%d")
 
     def fixString(self, s):
-        # c = s
+        c = s
 
-        res = re.findall('^\d{1,2}[a-zA-Z]{2}[\x20][A-Z]\w+', s)
+        #  remove line breaks
+        c = ''.join( c.splitlines())
 
-        if len(res) == 1:
-            return res[0]
-        else:
-            return False
+        # remove multiple spaces
+        c = re.sub(' +', ' ', c)
 
+        print('c:', c)
+
+        return c
 
     def parse ( self ):
         if ( self.content ==  False ):
@@ -375,23 +363,26 @@ class SCRAPPER:
 
         for i in range(0, len(headings) -1):
             heading = headings[i].getText()
-         
+            # print('from website', schedules[i].select(self.domConfig.get("nextservice"))[0].getText().strip().split(', ')[1].split(' '))
             nextService = schedules[i].select(self.domConfig.get("nextservice"))[0].getText().strip().split(', ')[1]
             lastService = schedules[i].select(self.domConfig.get("lastservice"))[0].getText().strip().split(', ')[1]
+
+            # attempt to fix string issues
 
             nextService = self.fixString(nextService)
             lastService = self.fixString(lastService)
 
-            if ( nextService != False and lastService != False):
-                myDict = {
-                    "nextService": self.parseDate(nextService),
-                    "lastService": self.parseDate(lastService),
-                    "serviceNameId": str(i + 1),
-                }
+            myDict = {
+                "nextService": self.parseDate(nextService),
+                "lastService": self.parseDate(lastService),
+                "serviceNameId": str(i + 1),
+            }
 
-                dicts.append(myDict)
 
-        self.parsed = dicts
+            dicts.append(myDict)
+
+        
+        pprint.pprint(self.parsed)
 
 def main():
     # config
@@ -405,8 +396,8 @@ def main():
 
     # scrapper - load content
 
-    scrapper.getContent()
-    # scrapper.getFakeContent()
+    # scrapper.getContent()
+    scrapper.getFakeContent()
     scrapper.parse()
 
     # database
@@ -414,8 +405,8 @@ def main():
     dbConfig = config.get('db')
     db = DB(dbConfig)
     
-    for service in scrapper.parsed:
-        db.insert(scrapper.lastrequestDuration,  service)
+    # for service in scrapper.parsed:
+    #     db.insert(scrapper.lastrequestDuration,  service)
 
 if __name__ == "__main__":
     # clear()

@@ -1,5 +1,11 @@
 {
     "javascript.validate.enable": true,
     "javascript.suggestionActions.enabled": false,
-    "eslint.workingDirectories": [{ "mode": "auto" }]
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "python.pythonPath": "C:\\Python39\\python.exe",
+    "python.linting.enabled": true
 }

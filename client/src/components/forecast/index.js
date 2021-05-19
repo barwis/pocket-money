@@ -29,7 +29,7 @@ const Forecast = () => {
 
 	return (
 		<Widget className="forecast">
-			<div className="forecast-data">
+			<div className="forecast-data" onClick={() => dispatch( fetchForecast() ) }>
 				{data.map( ( item, index ) => {
 					return ( <div className="forecast-day" key={index}>
 						<span>{item.day}</span>

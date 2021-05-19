@@ -165,7 +165,6 @@
          url('fonts/ClearSans-Bold-webfont.svg#clear_sansbold') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -178,7 +177,6 @@
          url('fonts/ClearSans-BoldItalic-webfont.svg#clear_sansbold_italic') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -191,7 +189,6 @@
          url('fonts/ClearSans-Italic-webfont.svg#clear_sansitalic') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 
 @font-face {
@@ -324,5 +321,6 @@
 }
 
 body {
-	font-family: 'Roboto', sans-serif;
+	/* font-family: 'Roboto', sans-serif; */
+	font-family: 'clear_sansregular';
 }
