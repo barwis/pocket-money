@@ -1,58 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+	 viewBox="0 0 64 64" xml:space="preserve">
 <style type="text/css">
-	.st0{clip-path:url(#SVGID_2_);}
-	.st1{fill:none;stroke:#F1C413;stroke-miterlimit:10;}
+	#whole_sun {clip-path:url(#clip-mask);}
+
+	#sun_orb, 
+	.st5, 
+	.st6 {
+		fill:none;stroke:#F1C413;
+		stroke-miterlimit:10;
+	}
+
 	.st2{fill:none;stroke:#F1C413;stroke-linecap:round;stroke-miterlimit:10;}
 	.st3{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
 
+	.st5 {
+		stroke:#F1C413;
+		stroke-linecap:round;
+		stroke-miterlimit:10;
+		fill:none;
+
+		stroke-dasharray: 5;
+
+		transform-origin: 10px 27.5px;
+		transform: translate(12.5px);
+
+		animation: 
+			shine1 2s ease-in-out 0s infinite, 
+			spin 15s linear 0s infinite;
+	}
+
+	.st6 {
+		fill:none;stroke:#F1C413;stroke-linecap:round;stroke-miterlimit:10;
+		fill:none;
+		stroke-linecap:round;
+		stroke-miterlimit:10;
+		transform-origin: 10px 27.5px;
+		stroke-dashoffset: 0;
+		stroke-dasharray: 3;
+		transform: translate(12.5px);
+		animation: 
+			shine2 2s ease-in-out 0s infinite, 
+			spin 15s linear 0s infinite;
+	}
+
+	.ray {
+		transform-origin: 22.5px 27.5px;
+	}
+
+	#ray_1 { transform: rotate(0deg); }
+	#ray_2 { transform: rotate(30deg); }
+	#ray_3 { transform: rotate(60deg); }
+	#ray_4 { transform: rotate(90deg); }
+	#ray_5 { transform: rotate(120deg); }
+	#ray_6 { transform: rotate(150deg); }
+	#ray_7 { transform: rotate(180deg); }
+	#ray_8 { transform: rotate(210deg); }
+	#ray_9 { transform: rotate(240deg); }
+	#ray_10 { transform: rotate(270deg); }
+	#ray_11 { transform: rotate(300deg); }
+	#ray_12 { transform: rotate(330deg); }
+
+
 	#actual_sun {
-		outline: 1px solid red;
-		position: relative;
-		transform-origin: 50% 17px;
-		position: absolute;
-		animation:spin 4s linear infinite;
+		transform-origin: 22.5px 27.5px;
+	}
+
+	<!-- animate .asd mask - in reverse to sun -->
+	.asd { 
+		transform-origin: 22.5px 27.5px;
 	}
 
 
-	@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-	@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-	@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); }
+	@keyframes shine1 {
+		50% {
+			stroke-dashoffset: 1
+		}
+		100% {
+			stroke-dashoffset: 0;
+		}
+	}
+
+	@keyframes shine2 {
+		0% {
+			stroke-dashoffset: 1;
+		}
+		50% {
+			stroke-dashoffset: 0
+		}
+		100% {
+			stroke-dashoffset: 1;
+		}
+	}
+
+
+	@keyframes spin { 
+		0% {  -webkit-transform: translate(12.5px) rotate(0deg); }
+		100% { -webkit-transform: translate(12.5px) rotate(360deg);}; 
+	}
+
 </style>
 <g>
-	<g id="sun" style="outline: 1px solid blue; position: static;">
+	<g id="sun" style="background: red;">
 		<g>
 			<defs>
-				<path id="SVGID_1_" d="M4.5,9.5v35h9.98C12.97,43.3,12,41.49,12,39.47c0-3.3,2.56-6.02,5.89-6.46c0.22-4.2,3.84-7.54,8.29-7.54
+				<path class="asd" id="sun_mask" d="M4.5,9.5v35h9.98C12.97,43.3,12,41.49,12,39.47c0-3.3,2.56-6.02,5.89-6.46c0.22-4.2,3.84-7.54,8.29-7.54
 					c0.44,0,0.86,0.04,1.28,0.1C29.2,21.15,33.65,18,38.89,18c0.21,0,0.41,0.02,0.61,0.03V9.5H4.5z"/>
+				
+				<line class="st5" id="ray_long" x1="22.5" y1="27.5" x2="27.5" y2="27.5"/>
+				<line class="st6" id="ray_short" x1="22.5" y1="27.5" x2="25.5" y2="27.5"/>
 			</defs>
-			<clipPath id="SVGID_2_">
-				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			<clipPath id="clip-mask">
+				<use xlink:href="#sun_mask"  style="overflow:visible;"/>
 			</clipPath>
-			<g class="st0" id="actual_sun">
-				<circle class="st1" cx="22.5" cy="27.5" r="9.69"/>
-				<line class="st2" x1="22.5" y1="14.8" x2="22.5" y2="10"/>
-				<line class="st2" x1="22.5" y1="45" x2="22.5" y2="40.2"/>
-				<line class="st2" x1="35.2" y1="27.5" x2="40" y2="27.5"/>
-				<line class="st2" x1="5" y1="27.5" x2="9.8" y2="27.5"/>
-				<path class="st2" d="M13.75,12.34"/>
-				<path class="st2" d="M16.15,16.5"/>
-				<path class="st2" d="M28.85,38.5"/>
-				<path class="st2" d="M31.25,42.66"/>
-				<path class="st2" d="M37.66,18.75"/>
-				<path class="st2" d="M33.5,21.15"/>
-				<path class="st2" d="M11.5,33.85"/>
-				<path class="st2" d="M7.34,36.25"/>
-				<line class="st2" x1="11.5" y1="21.15" x2="9.13" y2="19.78"/>
-				<line class="st2" x1="35.87" y1="35.22" x2="33.5" y2="33.85"/>
-				<line class="st2" x1="28.85" y1="16.5" x2="30.22" y2="14.13"/>
-				<line class="st2" x1="14.78" y1="40.87" x2="16.15" y2="38.5"/>
-				<line class="st2" x1="16.15" y1="16.5" x2="14.78" y2="14.13"/>
-				<line class="st2" x1="30.22" y1="40.87" x2="28.85" y2="38.5"/>
-				<line class="st2" x1="33.5" y1="21.15" x2="35.87" y2="19.78"/>
-				<line class="st2" x1="9.13" y1="35.22" x2="11.5" y2="33.85"/>
+			
+
+			<g id="whole_sun">
+				<circle class="st1" id="sun_orb" cx="22.5" cy="27.5" r="9.69"/>
+				
+				<g class="ray" id="ray_1">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_2">
+					<use xlink:href="#ray_short" />
+				</g>
+				<g class="ray" id="ray_3">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_4">
+					<use xlink:href="#ray_short" />
+				</g>
+				<g class="ray" id="ray_5">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_6">
+					<use xlink:href="#ray_short" />
+				</g>
+				<g class="ray" id="ray_7">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_8">
+					<use xlink:href="#ray_short" />
+				</g>
+				<g class="ray" id="ray_9">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_10">
+					<use xlink:href="#ray_short" />
+				</g>
+				<g class="ray" id="ray_11">
+					<use xlink:href="#ray_long" />
+				</g>
+				<g class="ray" id="ray_12">
+					<use xlink:href="#ray_short" />
+				</g>
 			</g>
 		</g>
 	</g>

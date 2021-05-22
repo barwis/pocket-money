@@ -40,7 +40,8 @@ module.exports = {
 		host: localIPaddress,
 		port,
 		publicPath: `http://${localIPaddress}:${port}/dist/`,
-		hotOnly: true
+		hotOnly: true,
+		writeToDisk: true
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
