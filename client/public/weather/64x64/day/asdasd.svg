@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="sun" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<style type="text/css">
+	.cloud{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
+	.animationPath{fill:none;stroke:#000000;stroke-miterlimit:10;}
+
+
+	.dot {
+		transform-origin: 0, 0;
+		offset-path: path("M36.28,40.6C36.28,40.6,18,41,18,39s1-4,8-6s10-3,13-3s10,6,10,8s-2.39,2.5-2.39,2.5L36.28,40.6z");
+		animation: move 3s linear infinite;
+
+	}
+
+	@keyframes scale {
+		100% {
+			transform: scale(.6)
+		}
+	}
+
+
+	@keyframes move {
+		100% {
+				motion-offset: 100%;
+				offset-distance: 100%;
+		}
+	}
+
+</style>
+
+	<g clas="something">
+		<circle class="dot" cx="0" cy="0" r="5"/>
+	</g>
+	<path class="cloud" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
+	c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
+	C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
+
+	<path class="animationPath" d="M36.28,40.6C36.28,40.6,18,41,18,39s1-4,8-6s10-3,13-3s10,6,10,8s-2.39,2.5-2.39,2.5L36.28,40.6z"/>
+</svg>
