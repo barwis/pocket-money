@@ -6,21 +6,17 @@
 	#whole_sun {clip-path:url(#clip-mask);}
 
 	#sun_orb, 
-	.st5, 
-	.st6 {
-		fill:none;stroke:#F1C413;
-		stroke-miterlimit:10;
-	}
-
-	.st2{fill:none;stroke:#F1C413;stroke-linecap:round;stroke-miterlimit:10;}
-	.st3{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
-
-	.st5 {
+	.ray {
 		stroke:#F1C413;
 		stroke-linecap:round;
 		stroke-miterlimit:10;
 		fill:none;
+	}
 
+	.cloud{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
+
+	.ray--long {
+		stroke-dashoffset: 0;
 		stroke-dasharray: 5;
 
 		transform-origin: 10px 27.5px;
@@ -31,11 +27,7 @@
 			spin 15s linear 0s infinite;
 	}
 
-	.st6 {
-		fill:none;stroke:#F1C413;stroke-linecap:round;stroke-miterlimit:10;
-		fill:none;
-		stroke-linecap:round;
-		stroke-miterlimit:10;
+	.ray--short {
 		transform-origin: 10px 27.5px;
 		stroke-dashoffset: 0;
 		stroke-dasharray: 3;
@@ -45,7 +37,7 @@
 			spin 15s linear 0s infinite;
 	}
 
-	.ray {
+	.ray_container {
 		transform-origin: 22.5px 27.5px;
 	}
 
@@ -62,38 +54,16 @@
 	#ray_11 { transform: rotate(300deg); }
 	#ray_12 { transform: rotate(330deg); }
 
-
-	#actual_sun {
-		transform-origin: 22.5px 27.5px;
-	}
-
-	<!-- animate .asd mask - in reverse to sun -->
-	.asd { 
-		transform-origin: 22.5px 27.5px;
-	}
-
-
 	@keyframes shine1 {
-		50% {
-			stroke-dashoffset: 1
-		}
-		100% {
-			stroke-dashoffset: 0;
-		}
+		50% { stroke-dashoffset: 1; }
+		100% { stroke-dashoffset: 0; }
 	}
 
 	@keyframes shine2 {
-		0% {
-			stroke-dashoffset: 1;
-		}
-		50% {
-			stroke-dashoffset: 0
-		}
-		100% {
-			stroke-dashoffset: 1;
-		}
+		0% { stroke-dashoffset: 1; }
+		50% { stroke-dashoffset: 0; }
+		100% { stroke-dashoffset: 1; }
 	}
-
 
 	@keyframes spin { 
 		0% {  -webkit-transform: translate(12.5px) rotate(0deg); }
@@ -101,67 +71,62 @@
 	}
 
 </style>
-<g>
-	<g id="sun" style="background: red;">
-		<g>
-			<defs>
-				<path class="asd" id="sun_mask" d="M4.5,9.5v35h9.98C12.97,43.3,12,41.49,12,39.47c0-3.3,2.56-6.02,5.89-6.46c0.22-4.2,3.84-7.54,8.29-7.54
-					c0.44,0,0.86,0.04,1.28,0.1C29.2,21.15,33.65,18,38.89,18c0.21,0,0.41,0.02,0.61,0.03V9.5H4.5z"/>
-				
-				<line class="st5" id="ray_long" x1="22.5" y1="27.5" x2="27.5" y2="27.5"/>
-				<line class="st6" id="ray_short" x1="22.5" y1="27.5" x2="25.5" y2="27.5"/>
-			</defs>
-			<clipPath id="clip-mask">
-				<use xlink:href="#sun_mask"  style="overflow:visible;"/>
-			</clipPath>
+	<g id="sun">
+		<defs>
+			<path id="sun_mask" d="M4.5,9.5v35h9.98C12.97,43.3,12,41.49,12,39.47c0-3.3,2.56-6.02,5.89-6.46c0.22-4.2,3.84-7.54,8.29-7.54
+				c0.44,0,0.86,0.04,1.28,0.1C29.2,21.15,33.65,18,38.89,18c0.21,0,0.41,0.02,0.61,0.03V9.5H4.5z"/>
 			
+			<line class="ray ray--long" id="ray_long" x1="22.5" y1="27.5" x2="27.5" y2="27.5"/>
+			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="25.5" y2="27.5"/>
+		</defs>
 
-			<g id="whole_sun">
-				<circle class="st1" id="sun_orb" cx="22.5" cy="27.5" r="9.69"/>
-				
-				<g class="ray" id="ray_1">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_2">
-					<use xlink:href="#ray_short" />
-				</g>
-				<g class="ray" id="ray_3">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_4">
-					<use xlink:href="#ray_short" />
-				</g>
-				<g class="ray" id="ray_5">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_6">
-					<use xlink:href="#ray_short" />
-				</g>
-				<g class="ray" id="ray_7">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_8">
-					<use xlink:href="#ray_short" />
-				</g>
-				<g class="ray" id="ray_9">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_10">
-					<use xlink:href="#ray_short" />
-				</g>
-				<g class="ray" id="ray_11">
-					<use xlink:href="#ray_long" />
-				</g>
-				<g class="ray" id="ray_12">
-					<use xlink:href="#ray_short" />
-				</g>
+		<clipPath id="clip-mask">
+			<use xlink:href="#sun_mask"  style="overflow:visible;"/>
+		</clipPath>
+		
+		<g id="whole_sun">
+			<circle class="st1" id="sun_orb" cx="22.5" cy="27.5" r="9.69"/>
+			
+			<g class="ray_container" id="ray_1">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_2">
+				<use xlink:href="#ray_short" />
+			</g>
+			<g class="ray_container" id="ray_3">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_4">
+				<use xlink:href="#ray_short" />
+			</g>
+			<g class="ray_container" id="ray_5">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_6">
+				<use xlink:href="#ray_short" />
+			</g>
+			<g class="ray_container" id="ray_7">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_8">
+				<use xlink:href="#ray_short" />
+			</g>
+			<g class="ray_container" id="ray_9">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_10">
+				<use xlink:href="#ray_short" />
+			</g>
+			<g class="ray_container" id="ray_11">
+				<use xlink:href="#ray_long" />
+			</g>
+			<g class="ray_container" id="ray_12">
+				<use xlink:href="#ray_short" />
 			</g>
 		</g>
 	</g>
-	<g id="cloud">
-		<path class="st3" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
-			c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
-			C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
-	</g>
-</g>
+
+	<path class="cloud" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
+		c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
+		C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
 </svg>
