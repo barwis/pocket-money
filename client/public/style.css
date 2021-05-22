@@ -159,7 +159,7 @@
     font-family: 'clear_sansbold';
     src: url('fonts/ClearSans-Bold-webfont.eot');
     src: url('fonts/ClearSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Bold-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Bold-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Bold-webfont.woff') format('woff'),
          url('fonts/ClearSans-Bold-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Bold-webfont.svg#clear_sansbold') format('svg');
@@ -171,7 +171,7 @@
     font-family: 'clear_sansbold_italic';
     src: url('fonts/ClearSans-BoldItalic-webfont.eot');
     src: url('fonts/ClearSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-BoldItalic-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-BoldItalic-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-BoldItalic-webfont.woff') format('woff'),
          url('fonts/ClearSans-BoldItalic-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-BoldItalic-webfont.svg#clear_sansbold_italic') format('svg');
@@ -183,7 +183,7 @@
     font-family: 'clear_sansitalic';
     src: url('fonts/ClearSans-Italic-webfont.eot');
     src: url('fonts/ClearSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Italic-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Italic-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Italic-webfont.woff') format('woff'),
          url('fonts/ClearSans-Italic-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Italic-webfont.svg#clear_sansitalic') format('svg');
@@ -195,7 +195,7 @@
     font-family: 'clear_sans_lightregular';
     src: url('fonts/ClearSans-Light-webfont.eot');
     src: url('fonts/ClearSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Light-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Light-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Light-webfont.woff') format('woff'),
          url('fonts/ClearSans-Light-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Light-webfont.svg#clear_sans_lightregular') format('svg');
@@ -208,7 +208,7 @@
     font-family: 'clear_sans_mediumregular';
     src: url('fonts/ClearSans-Medium-webfont.eot');
     src: url('fonts/ClearSans-Medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Medium-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Medium-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Medium-webfont.woff') format('woff'),
          url('fonts/ClearSans-Medium-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Medium-webfont.svg#clear_sans_mediumregular') format('svg');
@@ -221,7 +221,7 @@
     font-family: 'clear_sans_mediumitalic';
     src: url('fonts/ClearSans-MediumItalic-webfont.eot');
     src: url('fonts/ClearSans-MediumItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-MediumItalic-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-MediumItalic-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-MediumItalic-webfont.woff') format('woff'),
          url('fonts/ClearSans-MediumItalic-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-MediumItalic-webfont.svg#clear_sans_mediumitalic') format('svg');
@@ -234,7 +234,7 @@
     font-family: 'clear_sansregular';
     src: url('fonts/ClearSans-Regular-webfont.eot');
     src: url('fonts/ClearSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Regular-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Regular-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Regular-webfont.woff') format('woff'),
          url('fonts/ClearSans-Regular-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Regular-webfont.svg#clear_sansregular') format('svg');
@@ -247,7 +247,7 @@
     font-family: 'clear_sans_thinregular';
     src: url('fonts/ClearSans-Thin-webfont.eot');
     src: url('fonts/ClearSans-Thin-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/ClearSans-Thin-webfont.woff2') format('woff2'),
+         /* url('fonts/ClearSans-Thin-webfont.woff2') format('woff2'), */
          url('fonts/ClearSans-Thin-webfont.woff') format('woff'),
          url('fonts/ClearSans-Thin-webfont.ttf') format('truetype'),
          url('fonts/ClearSans-Thin-webfont.svg#clear_sans_thinregular') format('svg');

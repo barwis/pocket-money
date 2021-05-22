@@ -16,6 +16,10 @@
 		"amd": true,
 		"jest": true
     },
+	"globals": {
+		"LOCAL_IP": true,
+		"PORT": true
+	},
     "rules": {
         "accessor-pairs": "error",
 		"arrow-spacing": ["error", { "before": true, "after": true }],

@@ -105,7 +105,5 @@ dist
 
 *.ai
 
-client/public/weather/*
-client/public/weather_icons - Copy/*
 
 *.ini

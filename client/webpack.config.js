@@ -14,21 +14,15 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules)/,
 				loader: 'babel-loader',
-				options: { presets: [ '@babel/env' ] }
+				options: { presets: ['@babel/env'] }
 			},
 			{
 				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader' ]
+				use: ['style-loader', 'css-loader']
 			},
 			{
 				test: /\.scss$/,
-				use: [{
-					loader: "style-loader"
-				}, {
-					loader: "css-loader" 
-				}, {
-					loader: "sass-loader"
-				}]
+				use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
 			}
 		]
 	},
@@ -50,7 +44,10 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.DefinePlugin({ LOCAL_IP: JSON.stringify(dotenv.parsed.LOCAL_IP) })
+		new webpack.DefinePlugin({
+			LOCAL_IP: JSON.stringify( dotenv.parsed.LOCAL_IP ),
+			PORT: JSON.stringify( dotenv.parsed.PORT )
+		})
 	],
 	devtool: 'eval-cheap-source-map'
 };

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;}
+	.st2{fill:none;stroke:#878787;stroke-miterlimit:10;}
+	.st3{fill:#B2B2B2;}
+	
+	.st4{display:inline;fill:none;stroke:#ECF0F1;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st5{clip-path:url(#SVGID_2_);}
+	.st6{fill:none;stroke:#F1C411;stroke-miterlimit:10;}
+	.st7{fill:none;stroke:#F1C411;stroke-linecap:round;stroke-miterlimit:10;}
+	.st8{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
+</style>
+<g id="Layer_1" class="st0">
+	<g class="st1">
+		<rect x="0" y="0" class="st2" width="64" height="64"/>
+		<rect x="0" y="0" class="st3" width="64" height="17"/>
+		<rect x="0" y="47" class="st3" width="64" height="17"/>
+		<rect x="0" y="17" class="st3" width="6" height="30"/>
+		<rect x="58" y="17" class="st3" width="6" height="30"/>
+		<rect x="6" y="17" class="st2" width="52" height="30"/>
+	</g>
+	<rect class="st4" width="64" height="64"/>
+</g>
+<g id="Layer_2">
+	<g>
+		<defs>
+			<path id="SVGID_1_" d="M12,39.47c0-3.3,2.56-6.02,5.89-6.46c0.22-4.2,3.84-7.54,8.29-7.54c0.44,0,0.86,0.04,1.28,0.1
+				C29.2,21.15,33.65,18,38.89,18c0.21,0,0.41,0.02,0.61,0.03V8.5H4v35h9.47C12.55,42.39,12,40.99,12,39.47z"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+		</clipPath>
+		<g class="st5">
+			<circle class="st6" cx="22.5" cy="26.5" r="9.69"/>
+			<line class="st7" x1="22.5" y1="13.8" x2="22.5" y2="9"/>
+			<line class="st7" x1="22.5" y1="44" x2="22.5" y2="39.2"/>
+			<line class="st7" x1="35.2" y1="26.5" x2="40" y2="26.5"/>
+			<line class="st7" x1="5" y1="26.5" x2="9.8" y2="26.5"/>
+			<path class="st7" d="M13.75,11.34"/>
+			<path class="st7" d="M16.15,15.5"/>
+			<path class="st7" d="M28.85,37.5"/>
+			<path class="st7" d="M31.25,41.66"/>
+			<path class="st7" d="M37.66,17.75"/>
+			<path class="st7" d="M33.5,20.15"/>
+			<path class="st7" d="M11.5,32.85"/>
+			<path class="st7" d="M7.34,35.25"/>
+			<line class="st7" x1="11.5" y1="20.15" x2="9.13" y2="18.78"/>
+			<line class="st7" x1="35.87" y1="34.22" x2="33.5" y2="32.85"/>
+			<line class="st7" x1="28.85" y1="15.5" x2="30.22" y2="13.13"/>
+			<line class="st7" x1="14.78" y1="39.87" x2="16.15" y2="37.5"/>
+			<line class="st7" x1="16.15" y1="15.5" x2="14.78" y2="13.13"/>
+			<line class="st7" x1="30.22" y1="39.87" x2="28.85" y2="37.5"/>
+			<line class="st7" x1="33.5" y1="20.15" x2="35.87" y2="18.78"/>
+			<line class="st7" x1="9.13" y1="34.22" x2="11.5" y2="32.85"/>
+			<path class="st6" d="M35.5,32"/>
+		</g>
+	</g>
+	<path class="st8" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
+		c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
+		C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
+</g>
+</svg>

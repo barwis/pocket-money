@@ -23,42 +23,56 @@ const Weather = () => {
 		lastFetchStatus
 	} = useSelector( state => state.weather );
 
-	const weatherIcon = useSelector( state => state.weather.data.current.condition.icon );
-
 	const widgetTitle = `${data.location.name}`;
+
+	const {
+		condition,
+		temp_c: temp,
+		feelslike_c: feelsLike,
+		wind_kph: windSpeed,
+		humidity,
+		precip_mm: precip,
+		pressure_mb: pressure
+	} = useSelector( state => state.weather.data.current );
+
+	const weatherIcon = condition.icon;
+
+	const imgPath = `/weather/64x64/day/svg/`;
+
+	// helper functions
+	const updateWeather = () => dispatch( fetchWeather() );
+	const updateWeatherIcon = ( weatherIcon ) => dispatch( loadWeatherIcon( weatherIcon ) );
 
 	React.useEffect( () => {
 		return dataUpdate( dispatch, fetchWeather, 600000 );
 	}, [ dispatch ] );
 
 	React.useEffect( () => {
-		dispatch( loadWeatherIcon( weatherIcon ) );
+		updateWeatherIcon( weatherIcon );
 	}, [ weatherIcon ] );
-
-	const img_path = `http://${LOCAL_IP}/~pi/day/`;
 
 	return (
 		<Widget className="weather">
 			<WidgetHeader
 				title={widgetTitle}
 				subtitle={data.location && code( data.location.country )}
-				onUpdateClick={() => dispatch( fetchWeather() ) }
+				onUpdateClick={updateWeather}
 				lastUpdated={lastUpdated}
 				lastFetchStatus={lastFetchStatus}
 			/>
 			<div className="condition">
 				<div>
-					 {/* <img className="weather-image" src={ data.current.condition.localIcon} alt={data.current.condition.text } /> */}
-					 <img className="weather-image" src={ img_path + data.current.condition.icon + '.png'} alt={data.current.condition.text } />
+					 <img className="weather-image" src={ condition.icon && imgPath + '116.svg'} alt={ condition.text } />
+					 {/* <img className="weather-image" src={ condition.icon && imgPath + condition.icon + '.svg'} alt={ condition.text } /> */}
 				</div>
 				<div className="temp">
-					<div className="temp-real">{ data.current && data.current.temp_c }&deg;</div>
-					<div className="temp-feels-like">Feels like {( data.current && data.current.feelslike_c ) || '-'}&deg;</div>
+					<div className="temp-real">{ data.current && temp }&deg;</div>
+					<div className="temp-feels-like">Feels like {( data.current && feelsLike ) || '-'}&deg;</div>
 				</div>
 			</div>
 			<ul className="weather-details">
 				<li>
-					<div className="icon-wind"> </div>
+					<div className="icon-wind"></div>
 				</li>
 				<li>
 					<div className="icon-raindrop"></div>
@@ -69,10 +83,10 @@ const Weather = () => {
 				<li>
 					<div className="icon-cloud-download"></div>
 				</li>
-				<li>{data.current && Math.round( data.current.wind_kph )}<sup>km/h</sup></li>
-				<li>{data.current && data.current.humidity}<sup>%</sup></li>
-				<li>{data.current && data.current.precip_mm}<sup>mm</sup></li>
-				<li>{data.current && data.current.pressure_mb}<sup>hPa</sup></li>
+				<li>{data.current && Math.round( windSpeed )}<sup>km/h</sup></li>
+				<li>{data.current && humidity}<sup>%</sup></li>
+				<li>{data.current && precip}<sup>mm</sup></li>
+				<li>{data.current && pressure}<sup>hPa</sup></li>
 			</ul>
 		</Widget>
 	);
