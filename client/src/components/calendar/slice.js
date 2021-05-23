@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import componentInitialState from '../componentsInitialState';
-import fetchWithTimeout from '../../utils/fetchWithTimeout';
+import { fetchWithTimeout } from '../../utils';
 
 export const initialState = {
 	events: [],

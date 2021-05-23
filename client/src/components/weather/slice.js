@@ -20,15 +20,34 @@ export const initialState = {
 
 export const getImage = state => state.data.current.condition.icon;
 
+export const logIconUsage = createAsyncThunk(
+	'weather/logIconUsage',
+	async ( icon ) => {
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/weather`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+			body: `icon=${encodeURIComponent( icon )}`
+		});
+		const result = await response.json();
+		return result;
+	}, {
+		condition: ( name, { getState, extra }) => {
+			const state = getState();
+			const icon = state.weather.data.current.condition.icon;
+			return !!icon;
+		}
+	}
+);
+
 export const loadWeatherIcon = createAsyncThunk(
 	'weather/loadWeatherIcon',
 	async ( name ) => {
-		const url = `http://${LOCAL_IP}:5000/img/weather/64x64/day/fallback/${name}.svg.png`;
+		// http://192.168.50.229:5000/img/weather/64x64/day/113.svg.png
+		const url = `http://${LOCAL_IP}:5000/img/weather/64x64/day/${name}.svg.png`;
 		const response = await fetch( url );
 		const data = await response.json();
 		return data;
 	}, {
-		// only load custom icon, when icon set in store
 		condition: ( name, { getState, extra }) => {
 			const state = getState();
 			return !!state.weather.data.current.condition.icon;
@@ -71,10 +90,14 @@ export const slice = createSlice({
 		});
 		builder.addCase( loadWeatherIcon.rejected, ( state, action ) => {
 			state.data.current.condition.status = 'error';
+			console.log( 'loadWeatherIcon.rejected', action );
 		});
 		builder.addCase( loadWeatherIcon.fulfilled, ( state, action ) => {
 			state.data.current.condition.status = 'ok';
 			state.data.current.condition.localIcon = action.payload.url;
+		});
+		builder.addCase( logIconUsage.rejected, ( state, action ) => {
+			console.log( 'rejected, reason:', action );
 		});
 	}
 });

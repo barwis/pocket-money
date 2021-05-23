@@ -23,7 +23,7 @@ export const getImage = state => state.data.current.condition.icon;
 export const loadWeatherIcon = createAsyncThunk(
 	'weather/loadWeatherIcon',
 	async ( name ) => {
-		const url = `http://${LOCAL_IP}:5000/img/weather/64x64/day/fallback/${name}.svg.png`;
+		const url = `http://${LOCAL_IP}:5000/img/weather/64x64/day/${name}.svg.png`;
 		const response = await fetch( url );
 		const data = await response.json();
 		return data;

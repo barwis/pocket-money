@@ -7,11 +7,10 @@ import Calendar from './components/calendar';
 import Forecast from './components/forecast';
 import Weather from './components/weather';
 import Recycle from './components/recycle';
-import DateTimeWeather from './components/dateTimeWeather';
+// import DateTimeWeather from './components/dateTimeWeather';
 
 const App = () => (
 	<div className="app">
-		<DateTimeWeather />
 		<DateTime/>
 		<Weather />
 		<Forecast />
