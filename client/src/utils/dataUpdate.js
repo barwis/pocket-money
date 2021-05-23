@@ -1,5 +1,4 @@
 const dataUpdate = ( dispatch, callback, interval = 600000 ) => {
-	console.log( 'dateupdate' );
 	dispatch( callback() );
 
 	const intervalId = setInterval( () => {

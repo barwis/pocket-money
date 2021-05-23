@@ -91,9 +91,7 @@ db.all = () => {
 
 db.saveIconUsage = ( icon ) => {
 	const c = new Date();
-	console.log( c.toLocaleString( 'en-GB' ) );
 	const format = `${c.getFullYear()}-${c.getMonth() + 1}-${c.getDate()} ${c.toLocaleTimeString()}`;
-	console.log( format, icon );
 
 	return new Promise( ( resolve, reject ) => {
 		pool.query( 'INSERT INTO weatherIconStats (date, icon) VALUES (?, ?)',
