@@ -10,7 +10,7 @@ import { fetchWeather, loadWeatherIcon, logIconUsage } from './slice';
 
 // utils
 import code from '../../utils/countriesList';
-import dataUpdate from '../../utils/dataUpdate';
+import { dataUpdate } from '../../utils';
 
 // styles
 import './style.css';

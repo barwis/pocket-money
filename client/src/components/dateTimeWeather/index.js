@@ -10,8 +10,7 @@ import { fetchWeather, loadWeatherIcon } from './slice';
 
 // utils
 import code from '../../utils/countriesList';
-import dataUpdate from '../../utils/dataUpdate';
-
+import { dataUpdate } from '../../utils';
 
 import './style.scss';
 // import './style.css';
@@ -32,7 +31,7 @@ const DateTimeWeather = () => {
 	const weatherIcon = useSelector( state => state.weather.data.current.condition.icon );
 
 	const widgetTitle = `${data.location.name}`;
-	
+
 	React.useEffect( () => {
 		const timer = setInterval( () => {
 			setCurrentDate( new Date() );
@@ -40,7 +39,7 @@ const DateTimeWeather = () => {
 		}, 1000 );
 		return () => clearInterval( timer );
 	}, [ tick ] );
-	
+
 	React.useEffect( () => {
 		return dataUpdate( dispatch, fetchWeather, 600000 );
 	}, [ dispatch ] );
@@ -48,7 +47,7 @@ const DateTimeWeather = () => {
 	React.useEffect( () => {
 		dispatch( loadWeatherIcon( weatherIcon ) );
 	}, [ weatherIcon ] );
-	
+
 	const getDate = () => {
 		const dow = new Intl.DateTimeFormat( 'en-GB', { weekday: 'long' }).format( currentDate );
 		const todaysDate = new Intl.DateTimeFormat( 'en-GB', {
@@ -56,10 +55,10 @@ const DateTimeWeather = () => {
 			month: 'long',
 			year: 'numeric'
 		}).format( currentDate );
-		
-		return `${dow}, ${todaysDate}`
-	}
-	
+
+		return `${dow}, ${todaysDate}`;
+	};
+
 	return (
 		<Widget>
 			<WidgetHeader
@@ -87,14 +86,13 @@ const DateTimeWeather = () => {
 					</div>
 					<div className="weather__details">
 						<div className="weather__temp weather__temp--current">{ data.current && data.current.temp_c }°C</div>
-						<div className="weather__temp weather__temp--max">{ data.forecast && Math.round(data.forecast.maxtemp_c) }°C</div>
-						<div className="weather__temp weather__temp--min">{ data.forecast && Math.round(data.forecast.mintemp_c) }°C</div>
+						<div className="weather__temp weather__temp--max">{ data.forecast && Math.round( data.forecast.maxtemp_c ) }°C</div>
+						<div className="weather__temp weather__temp--min">{ data.forecast && Math.round( data.forecast.mintemp_c ) }°C</div>
 					</div>
 				</div>
 			</div>
 		</Widget>
-		);
-		
-	};
-	
-	export default DateTimeWeather;
+	);
+};
+
+export default DateTimeWeather;

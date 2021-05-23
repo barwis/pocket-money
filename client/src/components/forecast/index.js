@@ -9,7 +9,7 @@ import Widget from '../_common/widget';
 import WidgetHeader from '../_common/widgetHeader';
 
 // utils
-import dataUpdate from '../../utils/dataUpdate';
+import { dataUpdate } from '../../utils';
 
 // styles
 import './style.css';

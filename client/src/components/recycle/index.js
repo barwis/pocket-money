@@ -10,8 +10,7 @@ import RecycleScheduleRow from './row';
 import { loadRecycleSchedule } from './slice';
 
 // utils
-import dataUpdate from '../../utils/dataUpdate';
-
+import { dataUpdate } from '../../utils';
 // styles
 import './style.css';
 
