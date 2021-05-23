@@ -63,7 +63,7 @@ const Weather = () => {
 			/>
 			<div className="condition">
 				<div>
-					 <img className="weather-image" src={ condition.icon && imgPath + '116.svg'} alt={ condition.text } />
+					 <img className="weather-image" src={ condition.icon && imgPath + `${condition.icon}.svg`} alt={ condition.text } />
 					 {/* <img className="weather-image" src={ condition.icon && imgPath + condition.icon + '.svg'} alt={ condition.text } /> */}
 				</div>
 				<div className="temp">
