@@ -7,30 +7,113 @@
 		fill: none;
 		stroke: #F1C413;
 		stroke-linecap: round;
-		stroke-miterlimit: 10;
 	}
+
+	.ray_container {
+		transform-origin: 32px 32px;
+	}
+
+	.ray {
+		transform-origin: 32px 32px;
+	}
+
+	.ray--long {
+		stroke-dasharray: 5;
+
+		animation: 
+			shine1 2s ease-in-out 0s infinite,
+			spin 30s linear 0s infinite;
+	}
+
+	.ray--short {
+		stroke-dasharray: 3;
+
+		animation: 
+			shine2 2s ease-in-out 0s infinite,
+			spin 30s linear 0s infinite;
+	}
+
+	#ray_1 { transform: rotate(0deg); }
+	#ray_2 { transform: rotate(30deg); }
+	#ray_3 { transform: rotate(60deg); }
+	#ray_4 { transform: rotate(90deg); }
+	#ray_5 { transform: rotate(120deg); }
+	#ray_6 { transform: rotate(150deg); }
+	#ray_7 { transform: rotate(180deg); }
+	#ray_8 { transform: rotate(210deg); }
+	#ray_9 { transform: rotate(240deg); }
+	#ray_10 { transform: rotate(270deg); }
+	#ray_11 { transform: rotate(300deg); }
+	#ray_12 { transform: rotate(330deg); }
+
+
+	@keyframes shine1 {
+		50% { stroke-dashoffset: 1; }
+		100% { stroke-dashoffset: 0; }
+	}
+
+	@keyframes shine2 {
+		0% { stroke-dashoffset: 1; }
+		50% { stroke-dashoffset: 0; }
+		100% { stroke-dashoffset: 1; }
+	}
+
+	@keyframes spin { 
+		0% { -webkit-transform:  rotate(0deg); }
+		100% {-webkit-transform:  rotate(360deg);} 
+	}
+		<!-- <line class="ray raylong" id="ray_long" x1="32" y1="14" x2="32" y2="18.94"/> -->
+		
 </style>
 <g id="Layer_2">
-		<circle cx="32" cy="32" r="9.97"/>
-		<line x1="32" y1="18.94" x2="32" y2="14"/>
-		<line x1="32" y1="50" x2="32" y2="45.06"/>
-		<line x1="45.06" y1="32" x2="50" y2="32"/>
-		<line x1="14" y1="32" x2="18.94" y2="32"/>
-		<path d="M23,16.41"/>
-		<path d="M25.47,20.69"/>
-		<path d="M38.53,43.31"/>
-		<path d="M41,47.59"/>
-		<path d="M47.59,23"/>
-		<path d="M43.31,25.47"/>
-		<path d="M20.69,38.53"/>
-		<path d="M16.41,41"/>
-		<line x1="20.69" y1="25.47" x2="18.25" y2="24.06"/>
-		<line x1="45.75" y1="39.94" x2="43.31" y2="38.53"/>
-		<line x1="38.53" y1="20.69" x2="39.94" y2="18.25"/>
-		<line x1="24.06" y1="45.75" x2="25.47" y2="43.31"/>
-		<line x1="25.47" y1="20.69" x2="24.06" y2="18.25"/>
-		<line x1="39.94" y1="45.75" x2="38.53" y2="43.31"/>
-		<line x1="43.31" y1="25.47" x2="45.75" y2="24.06"/>
-		<line x1="18.25" y1="39.94" x2="20.69" y2="38.53"/>
+	<defs>
+		<line class="ray ray--long" id="ray_long" x1="45.06" y1="32" x2="50" y2="32"/>
+		<line class="ray ray--short" id="ray_short" x1="45.06" y1="32" x2="50" y2="32"/>
+	</defs>
+
+	<circle cx="32" cy="32" r="9.97"/>
+
+	<g class="ray_container" id="ray_1">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_2">
+		<use xlink:href="#ray_short" />
+	</g>
+	<g class="ray_container" id="ray_3">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_4">
+		<use xlink:href="#ray_short" />
+	</g>	
+	<g class="ray_container" id="ray_5">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_6">
+		<use xlink:href="#ray_short" />
+	</g>
+	<g class="ray_container" id="ray_7">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_8">
+		<use xlink:href="#ray_short" />
+	</g>
+	<g class="ray_container" id="ray_9">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_10">
+		<use xlink:href="#ray_short" />
+	</g>
+	<g class="ray_container" id="ray_11">
+		<use xlink:href="#ray_long" />
+	</g>
+	
+	<g class="ray_container" id="ray_12">
+		<use xlink:href="#ray_short" />
+	</g>
 </g>
 </svg>

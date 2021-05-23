@@ -33,7 +33,7 @@
 
 			animation: 
 				shine1 2s ease-in-out 0s infinite, 
-				spin 15s linear 0s infinite;
+				spin 30s linear 0s infinite;
 		}
 
 		.ray--short {
@@ -41,7 +41,7 @@
 
 			animation: 
 				shine2 2s ease-in-out 0s infinite, 
-				spin 15s linear 0s infinite;
+				spin 30s linear 0s infinite;
 		}
 
 		#ray_1 { transform: rotate(0deg); }
@@ -85,16 +85,12 @@
 		}
 	</style>
 
-
-
 	<g id="weather_icon" >
 
 		<defs>
 			<line class="ray ray--long" id="ray_long" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
 			<!-- <use xlink:href="#ray_long" id="ray_short"/>  -->
 			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
-
-			<line class="myray" id="myray" x1="0" y1="0" x2="5" y2="0" stroke="cyan" />
 
 
 			<path id="clouds" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
@@ -107,16 +103,11 @@
 			</mask>
 		</defs>
 		
-
-
-
-		<use xlink:href="#clouds" style="stroke:#3498db; fill: none;" />
-		
 		<g id="whole_sun" mask="url(#SVGMask)">
 			<circle class="sun_orb" id="sun_orb" cx="22.5" cy="27.5" r="9.69"/>
 			
 			<g class="ray_container" id="ray_1">
-				<use xlink:href="#ray_long" stroke="red"/>
+				<use xlink:href="#ray_long" />
 			</g>
 			<g class="ray_container" id="ray_2">
 				<use xlink:href="#ray_short" stroke="red"/>
@@ -144,8 +135,6 @@
 			</g>
 			<g class="ray_container" id="ray_10">
 				<use xlink:href="#ray_short" stroke="yellow" />
-				<!-- <use xlink:href="#myray" style="transform: rotate(25);"/> -->
-
 			</g>
 			<g class="ray_container" id="ray_11">
 				<use xlink:href="#ray_long"  stroke="blue"/>
@@ -154,8 +143,9 @@
 				<use xlink:href="#ray_short" stroke="red"/>
 			</g>
 		</g>
+
+		<use xlink:href="#clouds" style="stroke:#3498db; fill: none;" />
+
 	</g>
-				<!-- <use xlink:href="#myray" style="transform: rotate(25);"/> -->
-				
 
 </svg>
