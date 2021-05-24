@@ -17,6 +17,10 @@
 	display: block;
 }
 
+.forecast-day span:last-child {
+	font-size: 10px;
+}
+
 .forecast-day span div {
 	display: inline;
 }

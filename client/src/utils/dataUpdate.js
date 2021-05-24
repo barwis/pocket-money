@@ -1,8 +1,9 @@
-const dataUpdate = ( dispatch, callback, interval = 600000 ) => {
-	dispatch( callback() );
+const dataUpdate = ( dispatch, action, interval = 600000, callback = null ) => {
+	dispatch( action() );
 
 	const intervalId = setInterval( () => {
-		dispatch( callback() );
+		dispatch( action() );
+		if ( callback ) { callback(); }
 	}, interval );
 
 	return () => clearInterval( intervalId );

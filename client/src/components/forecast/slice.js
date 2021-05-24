@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import fetchWithTimeout from '../../utils/fetchWithTimeout';
 
 import componentInitialState from '../componentsInitialState';
+import { conditions } from '../../utils';
 
 export const initialState = {
 	data: [ {
@@ -15,9 +16,23 @@ export const initialState = {
 export const fetchForecast = createAsyncThunk(
 	'forecast/fetchForecast',
 	async () => {
+		console.log( 'fetchForecast' );
 		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/forecast` );
-		const weatherData = await response.json();
-		return weatherData;
+		const data = await response.json();
+
+		console.log( 'data0', data );
+
+		data.forEach( item => {
+			const sorted = conditions.getDataBy({
+				property: 'code',
+				value: item.code
+			});
+			item.externalData = sorted;
+		});
+
+		console.log( 'data', data );
+
+		return data;
 	}
 );
 

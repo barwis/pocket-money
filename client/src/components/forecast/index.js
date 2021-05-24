@@ -16,13 +16,21 @@ import './style.css';
 
 const Forecast = () => {
 	const dispatch = useDispatch();
-	// const { data, lastFetchStatus } = useSelector( state => state.forecast );
+
+	const imgPath = `/weather/64x64/day/svg/`;
+
+	const getImgUrl = ( imgFileName ) => {
+		console.log( imgFileName );
+		return `${imgFileName}`;
+	};
+
 	const {
-		data,
-		lastUpdated,
-		lastFetchStatus
+		data
+		// lastUpdated,
+		// lastFetchStatus
 	} = useSelector( state => state.forecast );
 
+	console.log( 'dadadada', data );
 	useEffect( () => {
 		return dataUpdate( dispatch, fetchForecast, 600000 );
 	}, [ dispatch ] );
@@ -33,7 +41,7 @@ const Forecast = () => {
 				{data.map( ( item, index ) => {
 					return ( <div className="forecast-day" key={index}>
 						<span>{item.day}</span>
-						<div className="icon"><img src={item.icon} alt={item.day} /></div>
+						<div className="icon"><img src={item.icon && getImgUrl( item.externalData )} alt={item.day} /></div>
 						<span>{item.temp}{!!item.temp && <div>&deg;C</div>}</span>
 					</div> );
 				})}
