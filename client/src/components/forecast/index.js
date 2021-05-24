@@ -20,7 +20,6 @@ const Forecast = () => {
 	const imgPath = `/weather/64x64/day/svg/`;
 
 	const getImgUrl = ( imgFileName ) => {
-		console.log( imgFileName );
 		return `${imgFileName}`;
 	};
 
@@ -30,7 +29,6 @@ const Forecast = () => {
 		// lastFetchStatus
 	} = useSelector( state => state.forecast );
 
-	console.log( 'dadadada', data );
 	useEffect( () => {
 		return dataUpdate( dispatch, fetchForecast, 600000 );
 	}, [ dispatch ] );

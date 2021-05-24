@@ -41,7 +41,8 @@ module.exports = {
 		port,
 		publicPath: `http://${localIPaddress}:${port}/dist/`,
 		hotOnly: true,
-		writeToDisk: true
+		writeToDisk: true,
+		historyApiFallback: true
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),

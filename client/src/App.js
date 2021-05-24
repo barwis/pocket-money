@@ -9,14 +9,23 @@ import Weather from './components/weather';
 import Recycle from './components/recycle';
 import DateTimeWeather from './components/dateTimeWeather';
 
-const App = () => (
-	<div className="app">
-		{/* <DateTimeWeather /> */}
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+const Homepage = () =>
+	<>
 		<DateTime/>
 		<Weather />
 		<Forecast/>
 		<Recycle />
 		<Calendar/>
+	</>;
+
+const App = () => (
+	<div className="app">
+		<Switch>
+			<Route path="/" component={Homepage} exact />
+		</Switch>
+
 	</div>
 );
 
