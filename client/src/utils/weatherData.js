@@ -17,7 +17,7 @@ const c = [
 	{
 		desc: ['Overcast', 'Overcast clouds'],
 		code: [1009, 804],
-		icon: ['112', 'c04']
+		icon: ['113', 'c04']
 	},
 	{
 		desc: ['Mist', 'Mist'],
@@ -284,7 +284,7 @@ const c = [
 	{
 		desc: [null, 'Broken clouds'],
 		code: [null, 803],
-		icon: [null, 'c03']
+		icon: ['803', 'c03']
 	}
 ];
 

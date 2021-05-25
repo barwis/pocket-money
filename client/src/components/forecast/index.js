@@ -20,7 +20,7 @@ const Forecast = () => {
 	const imgPath = `/weather/64x64/day/svg/`;
 
 	const getImgUrl = ( imgFileName ) => {
-		return `${imgFileName}`;
+		return `${imgPath}${imgFileName}.svg`;
 	};
 
 	const {
@@ -37,9 +37,15 @@ const Forecast = () => {
 		<Widget className="forecast">
 			<div className="forecast-data" onClick={() => dispatch( fetchForecast() ) }>
 				{data.map( ( item, index ) => {
+					let newIcon;
+					if ( item.externalData ) {
+						// console.log( 'exter', item.externalData.icon.filter( Boolean )[0] );
+						newIcon = item.externalData.icon.filter( Boolean )[0];
+					}
 					return ( <div className="forecast-day" key={index}>
 						<span>{item.day}</span>
-						<div className="icon"><img src={item.icon && getImgUrl( item.externalData )} alt={item.day} /></div>
+						<div className="icon"><img src={item.icon && getImgUrl( newIcon )} alt={item.code} /></div>
+						{/* <div className="icon"><img src={item.icon && getImgUrl( item.externalData )} alt={item.day} /></div> */}
 						<span>{item.temp}{!!item.temp && <div>&deg;C</div>}</span>
 					</div> );
 				})}
