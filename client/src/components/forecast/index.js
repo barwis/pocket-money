@@ -44,8 +44,8 @@ const Forecast = () => {
 					}
 					return ( <div className="forecast-day" key={index}>
 						<span>{item.day}</span>
-						<div className="icon"><img src={item.icon && getImgUrl( newIcon )} alt={item.code} /></div>
-						{/* <div className="icon"><img src={item.icon && getImgUrl( item.externalData )} alt={item.day} /></div> */}
+						{/* <div className="icon"><img src={item.icon && getImgUrl( newIcon )} alt={item.code} /></div> */}
+						<div className="icon"><img src={item.icon } alt={item.day} /></div>
 						<span>{item.temp}{!!item.temp && <div>&deg;C</div>}</span>
 					</div> );
 				})}
