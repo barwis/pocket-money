@@ -11,12 +11,14 @@ import calendar from './components/calendar/slice';
 import forecast from './components/forecast/slice';
 import weather from './components/weather/slice';
 import recycle from './components/recycle/slice';
+import icons from './components/iconsList/slice';
 
 const reducers = {
 	calendar,
 	forecast,
 	weather,
-	recycle
+	recycle,
+	icons
 };
 
 const persistConfig = {

@@ -20,9 +20,3 @@ export const calendarMockResponse = [{
 	'reminders': { 'useDefault': true },
 	'eventType': 'default'
 }];
-
-
-name :"test"
-start :"2021-03-11T01:00:00Z"
-end :"2021-03-11T02:00:00Z"
-isAllDay: false

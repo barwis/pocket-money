@@ -3,12 +3,9 @@ import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as ReactReduxHooks from './redux-hooks';
+import * as ReactReduxHooks from '../../utils/redux-hooks';
 import Calendar, { parseDates } from './';
 import reducer, { fetchCalendarEvents, fetchSuccessful, fetchPending, fetchFailed, initialState, setFetchState, loadEvents } from './slice';
-
-
-import { useDispatch, useSelector } from './redux-hooks';
 
 import { calendarMockResponse } from './mocks';
 
@@ -125,6 +122,10 @@ describe( 'calendar slice', () => {
 	});
 
 	describe( 'extrareducers', () => {
+		const mockLastUpdated = 'foo';
+
+		jest.spyOn( Date.prototype, 'toLocaleString' ).mockReturnValue( mockLastUpdated );
+
 		it( 'updats state when fetchCalendarEvents is pending', () => {
 			const action = { type: fetchCalendarEvents.pending.type };
 			const state = reducer( initialState, action );
@@ -144,6 +145,7 @@ describe( 'calendar slice', () => {
 			const state = reducer( initialState, action );
 			const expectedState = {
 				...testState,
+				lastUpdated: mockLastUpdated,
 				lastFetchStatus: 'ok'
 			};
 			expect( expectedState ).toEqual( state );
@@ -154,9 +156,9 @@ describe( 'calendar slice', () => {
 			const state = reducer( initialState, action );
 			const expectedState = {
 				...initialState,
+				lastUpdated: mockLastUpdated,
 				lastFetchStatus: 'error'
 			};
-
 			expect( expectedState ).toEqual( state );
 		});
 	});

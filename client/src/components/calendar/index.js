@@ -1,10 +1,12 @@
 import React from 'react';
-import { fetchCalendarEvents } from './slice';
 import { useDispatch, useSelector } from '../../utils/redux-hooks';
 
 // componenets
 import Widget from '../_common/widget';
 import WidgetHeader from '../_common/widgetHeader';
+
+// actions
+import { fetchCalendarEvents } from './slice';
 
 // utils
 import { dataUpdate } from '../../utils';

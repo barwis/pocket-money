@@ -35,7 +35,8 @@ const Weather = () => {
 		pressure_mb: pressure
 	} = useSelector( state => state.weather.data.current );
 
-	const weatherIcon = condition.icon;
+	const weatherIcon = condition?.icon;
+	const weatherText = condition?.text;
 
 	const imgPath = `/weather/64x64/day/svg/`;
 
@@ -63,7 +64,7 @@ const Weather = () => {
 			/>
 			<div className="condition">
 				<div>
-					 <img className="weather-image" src={ condition.icon && imgPath + `${condition.icon}.svg`} alt={ condition.text } />
+					 <img className="weather-image" src={ imgPath + `${weatherIcon}.svg`} alt={ weatherText} />
 					 {/* <img className="weather-image" src={ condition.icon && imgPath + condition.icon + '.svg'} alt={ condition.text } /> */}
 				</div>
 				<div className="temp">

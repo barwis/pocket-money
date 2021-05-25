@@ -55,6 +55,14 @@ export const loadWeatherIcon = createAsyncThunk(
 	}
 );
 
+export const logIconUsagefetchSuccessful = logIconUsage.fulfilled;
+export const logIconUsagefetchPending = logIconUsage.pending;
+export const logIconUsagefetchFailed = logIconUsage.rejected;
+
+export const loadWeatherIconfetchSuccessful = logIconUsage.fulfilled;
+export const loadWeatherIconfetchPending = logIconUsage.pending;
+export const loadWeatherIconfetchFailed = logIconUsage.rejected;
+
 export const fetchWeather = createAsyncThunk(
 	'weather/fetchWeather',
 	async () => {

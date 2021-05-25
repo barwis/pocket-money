@@ -4,7 +4,7 @@ import './style.css';
 
 const Widget = ({ className, children }) => {
 	return (
-		<div className={  'widget-wrapper ' + ( className || '' ) }>
+		<div className={ 'widget-wrapper ' + ( className || '' ) }>
 			{children}
 		</div>
 	);
