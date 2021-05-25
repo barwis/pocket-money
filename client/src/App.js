@@ -8,25 +8,33 @@ import Forecast from './components/forecast';
 import Weather from './components/weather';
 import Recycle from './components/recycle';
 import DateTimeWeather from './components/dateTimeWeather';
+import IconsList from './components/iconsList';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const Homepage = () =>
+const Icons = () =>
 	<>
+		<IconsList/>
+	</>;
+
+const Homepage = () =>
+	<div className="app">
+
 		<DateTime/>
 		<Weather />
 		<Forecast/>
 		<Recycle />
 		<Calendar/>
-	</>;
+	</div>;
 
 const App = () => (
-	<div className="app">
+	<>
 		<Switch>
 			<Route path="/" component={Homepage} exact />
+			<Route path="/iconsList" component={Icons} exact />
 		</Switch>
 
-	</div>
+	</>
 );
 
 export default hot( module )( App );

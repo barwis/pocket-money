@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
 const IconsList = () => {
+	return (
+		<div>something</div>
+	);
 };
 
 export default IconsList;
