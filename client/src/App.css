@@ -4,11 +4,11 @@ body {
 	color: white;
 }
 
+
+
 .app {
 	width: 400px;
-    float: right;
-	margin: 0;
-	margin-right: 50px;
+	margin: 0 auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'clear_sans_mediumregular';
@@ -16,4 +16,14 @@ body {
 
 * {
 	box-sizing: border-box;
+}
+
+@media (min-width: 1024px)  {
+
+	.app {
+		float: right;
+		margin-right: 50px;
+
+	}
+
 }
