@@ -16,7 +16,6 @@ export const initialState = {
 export const fetchForecast = createAsyncThunk(
 	'forecast/fetchForecast',
 	async () => {
-		console.log( 'fetchForecast' );
 		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/forecast` );
 		const data = await response.json();
 
@@ -27,8 +26,6 @@ export const fetchForecast = createAsyncThunk(
 			});
 			item.externalData = sorted;
 		});
-
-		console.log( 'data', data );
 
 		return data;
 	}

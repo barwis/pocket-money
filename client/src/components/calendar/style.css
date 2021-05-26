@@ -1,57 +1,50 @@
 .events {
-	box-sizing: border-box;
-	padding: 20px 0;
-	margin: 0;
-	list-style-type: none;
-	text-align: left;
-	width: 100%;
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	font-size: 12px;
-	grid-gap: 20px 10px ;
-
+  box-sizing: border-box;
+  padding: 20px 0;
+  margin: 0;
+  list-style-type: none;
+  text-align: left;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  font-size: 12px;
+  grid-gap: 20px 10px;
 }
-/* .event__date, 
-.event__name {
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-} */
 
 .event__name {
-	overflow: hidden;
-	position: relative;
-	white-space: nowrap;
-
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
 }
 
 .event__name .wrap {
-	width: 200%;
-  
-	position: absolute;
-	overflow: hidden;
+  width: fit-content;
+  display: flex;
+  position: relative;
 }
 
 .event__name .wrap span {
-	display: block;
-	float: left;
-	width: 50%;
+  position: relative;
 }
 
-/* 
-li.event {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	font-size: 12px;
+.event__name .wrap span.animated {
+  padding-right: 30px;
+  animation: marquee 8s linear infinite;
 }
 
-li.event div {
-	flex-grow: 1;
+.event__name .wrap span.animated:after {
+  content: "\2022";
+  position: absolute;
+  right: 13px;
+  color: #2980b9;
 }
 
-li.event:last-child {
-	margin-bottom: 0;
-	border-bottom: none;
-} */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}

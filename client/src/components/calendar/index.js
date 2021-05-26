@@ -1,6 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from '../../utils/redux-hooks';
 
+/* istanbul ignore file */
+import { useState, useRef } from 'react';
+
 // componenets
 import Widget from '../_common/widget';
 import WidgetHeader from '../_common/widgetHeader';
@@ -34,6 +37,9 @@ export 	const parseDates = ( start, end, isAllDay ) => {
 
 const Calendar = () => {
 	const dispatch = useDispatch();
+	const itemEls = useRef( [] );
+	const [flatEvents, setFlatEvents] = useState( [] );
+
 	const {
 		events,
 		lastFetchStatus,
@@ -44,6 +50,56 @@ const Calendar = () => {
 		return dataUpdate( dispatch, fetchCalendarEvents, 600000 );
 	}, [ dispatch ] );
 
+	React.useEffect( () => {
+		if ( events.length > 0 ) {
+			flattenEvents( events );
+		}
+	}, [events] );
+
+	React.useEffect( () => {
+		itemEls.current
+			.filter( item => item.className === 'event__name' )
+			.forEach( ( item, index ) => detect( item, index ) );
+	}, [flatEvents] );
+
+	const flattenEvents = ( arr ) => {
+		const newFlat = [ ];
+
+		arr.forEach( item => {
+			newFlat.push({
+				id: 'name',
+				value: item.name
+			});
+			newFlat.push({
+				id: 'date',
+				value: parseDates( item.start, item.end, item.isAllDay )
+			});
+		});
+
+		setFlatEvents( newFlat );
+	};
+
+	const detect = ( item, index ) => {
+		const c = {
+			item,
+			id: index,
+			width: item.clientWidth,
+			child: item.querySelector( '.wrap' ),
+			childWidth: item.className === 'event__name' && item.querySelector( '.wrap' ).clientWidth
+		};
+
+		if ( c.width < c.childWidth ) {
+			c.shouldBeAnimated = true;
+			const span = c.child.querySelector( 'span' );
+			span.classList.add( 'animated' );
+			const animationSpeed = `${Math.floor( c.childWidth / 50 ) + 10}s`;
+			span.style.animationDuration = animationSpeed;
+
+			const secondSpan = span.cloneNode( true );
+			c.child.appendChild( secondSpan );
+		}
+	};
+
 	return (
 		<Widget>
 			<WidgetHeader
@@ -53,17 +109,15 @@ const Calendar = () => {
 				onUpdateClick={() => dispatch( fetchCalendarEvents() ) }
 			/>
 			<div className="events">
-				{!!events.length && events.map( ( item, index ) => (
-					<>
-						<div className="event__name">
-							<div className="wrap">
-								<span>{item.name}</span>
-								<span>{item.name}</span>
-							</div>
+				{!!flatEvents.length > 0 && flatEvents.map( ( item, index ) => {
+					const className = `event__${item.id}`;
+					return (
+						<div ref={( element ) => itemEls.current.push( element )} key={index} className={className}>
+							{item.id === 'name' && <div className="wrap"><span>{item.value}</span></div>}
+							{item.id === 'date' && item.value}
 						</div>
-						<div className="event__date">{parseDates( item.start, item.end, item.isAllDay )}</div>
-					</>
-				) )}
+					);
+				})}
 			</div>
 		</Widget>
 	);
