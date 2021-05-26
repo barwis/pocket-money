@@ -90,7 +90,10 @@ const Calendar = () => {
 
 		if ( c.width < c.childWidth ) {
 			c.shouldBeAnimated = true;
-			const span = c.child.querySelector( 'span' );
+			const spans = c.child.querySelectorAll( 'span' );
+			if ( spans.length !== 1 ) { return; }
+			const span = spans[0]; // c.child.querySelector( 'span' );
+
 			span.classList.add( 'animated' );
 			const animationSpeed = `${Math.floor( c.childWidth / 100 ) * 5}s`;
 			span.style.animationDuration = animationSpeed;
@@ -98,6 +101,10 @@ const Calendar = () => {
 			const secondSpan = span.cloneNode( true );
 			c.child.appendChild( secondSpan );
 		}
+	};
+
+	const pushmaybe = ( item, index ) => {
+		itemEls.current[index] = item;
 	};
 
 	return (
@@ -112,7 +119,7 @@ const Calendar = () => {
 				{!!flatEvents.length > 0 && flatEvents.map( ( item, index ) => {
 					const className = `event__${item.id}`;
 					return (
-						<div ref={( element ) => itemEls.current.push( element )} key={index} className={className}>
+						<div ref={( element ) => pushmaybe( element, index )} key={index} className={className}>
 							{item.id === 'name' && <div className="wrap"><span>{item.value}</span></div>}
 							{item.id === 'date' && item.value}
 						</div>
