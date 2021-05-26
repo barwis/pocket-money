@@ -1,12 +1,43 @@
-ul.events {
+.events {
 	box-sizing: border-box;
-	padding: 20px;
+	padding: 20px 0;
 	margin: 0;
 	list-style-type: none;
 	text-align: left;
 	width: 100%;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	font-size: 12px;
+	grid-gap: 20px 10px ;
+
+}
+/* .event__date, 
+.event__name {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+} */
+
+.event__name {
+	overflow: hidden;
+	position: relative;
+	white-space: nowrap;
+
 }
 
+.event__name .wrap {
+	width: 200%;
+  
+	position: absolute;
+	overflow: hidden;
+}
+
+.event__name .wrap span {
+	display: block;
+	float: left;
+	width: 50%;
+}
+
+/* 
 li.event {
 	display: flex;
 	justify-content: space-between;
@@ -16,7 +47,11 @@ li.event {
 	font-size: 12px;
 }
 
+li.event div {
+	flex-grow: 1;
+}
+
 li.event:last-child {
 	margin-bottom: 0;
 	border-bottom: none;
-}
+} */

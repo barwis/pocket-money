@@ -15,6 +15,7 @@ const googleRouter = require( './routes/googleCalendar' );
 const forecastApiRouter = require( './routes/forecastRouter' );
 const imgRouter = require( './routes/img' );
 const logRouter = require( './routes/logRouter' );
+const tailRouter = require( './routes/tail' );
 
 module.exports = ( config ) => {
 	const app = express();
@@ -41,6 +42,7 @@ module.exports = ( config ) => {
 	app.use( '/forecast', forecastApiRouter );
 	app.use( '/calendar', googleRouter );
 	app.use( '/log', logRouter );
+	app.use( '/cronLog', tailRouter );
 	// app.use(['/img', '/img*'], imgRouter);
 	app.get( '/img*', imgRouter );
 	app.get( '/img', imgRouter );

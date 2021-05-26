@@ -52,14 +52,19 @@ const Calendar = () => {
 				lastFetchStatus={lastFetchStatus}
 				onUpdateClick={() => dispatch( fetchCalendarEvents() ) }
 			/>
-			<ul className="events">
+			<div className="events">
 				{!!events.length && events.map( ( item, index ) => (
-					<li className="event" key={index}>
-						<div className="event__name">{item.name}</div>
+					<>
+						<div className="event__name">
+							<div className="wrap">
+								<span>{item.name}</span>
+								<span>{item.name}</span>
+							</div>
+						</div>
 						<div className="event__date">{parseDates( item.start, item.end, item.isAllDay )}</div>
-					</li> )
-				)}
-			</ul>
+					</>
+				) )}
+			</div>
 		</Widget>
 	);
 };
