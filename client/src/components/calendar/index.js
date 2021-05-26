@@ -92,7 +92,7 @@ const Calendar = () => {
 			c.shouldBeAnimated = true;
 			const span = c.child.querySelector( 'span' );
 			span.classList.add( 'animated' );
-			const animationSpeed = `${Math.floor( c.childWidth / 50 ) + 10}s`;
+			const animationSpeed = `${Math.floor( c.childWidth / 100 ) * 5}s`;
 			span.style.animationDuration = animationSpeed;
 
 			const secondSpan = span.cloneNode( true );
