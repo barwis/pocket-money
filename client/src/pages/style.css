@@ -1,0 +1,18 @@
+.settings {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: block;
+    width: 30px;
+}
+
+.settings:hover {
+    animation: spin 3s linear infinite;
+    cursor: pointer;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
