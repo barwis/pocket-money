@@ -1,75 +1,69 @@
-
-.weather {
-
+.condition {
+  display: flex;
+  grid-gap: 30px;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
 }
 
-div.condition {
-	display: grid;
-	grid-gap: 30px;
-	align-items: center;
-	grid-template-columns: 1fr 1fr;
-	padding: 10px 33px 20px 60px;
+.temp {
+  display: flex;
+  flex-direction: column;
+}
+.temp-real {
+  font-size: 55px;
+  line-height: 1;
+  font-weight: 100;
+  /* margin-top: -15px; */
 }
 
-div.temp {
-	display: flex;
-	flex-direction: column;
-}
-div.temp-real {
-	font-size: 55px;
-	line-height: 1;
-	font-weight: 100;
-	/* margin-top: -15px; */
+.temp-feels-like {
+  color: #afafaf;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
-div.temp-feels-like {
-	color: #afafaf;
-	font-size: 14px;
-	white-space: nowrap;
+.weather-details {
+  display: grid;
+  grid-column-gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  padding-bottom: 16px;
+  width: 100%;
+  list-style-type: none;
 }
 
-ul.weather-details {
-	display: grid;
-	grid-column-gap: 30px;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 1fr auto;
-	margin: 0;
-	padding: 16px 16px 0;
-	width: 100%;
-	list-style-type: none;
-}
-
-div.weather-image {
-	display: block;
-	opacity: 1;
-	height: 112px;
-	width: 112px;
+.weather-image {
+  display: block;
+  opacity: 1;
+  height: 112px;
+  width: 112px;
 }
 
 .cls-1 {
-	fill:none;
-	shape-rendering:geometricPrecision;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-miterlimit:1;
-	stroke-width:3px;
-	stroke:#f1c40f;
+  fill: none;
+  shape-rendering: geometricPrecision;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-miterlimit: 1;
+  stroke-width: 3px;
+  stroke: #f1c40f;
 }
 
-ul.weather-details li {
-	display:  flex;
-	flex-direction: row;
-	justify-content: center;
-	text-align: center;
+.weather-details > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
-ul.weather-details li div {
-	display: block;
+.weather-details [class^="icon-"] {
+  font-size: 50px;
 }
 
-ul.weather-details li div:first-child {
-	font-size: 300%;
+.weather-details li div:first-child {
+  font-size: 300%;
 }
-ul.weather-details li sup {
-	padding-left: 3px;
+.weather-details li sup {
+  padding-left: 3px;
 }

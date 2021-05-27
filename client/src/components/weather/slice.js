@@ -39,7 +39,7 @@ export const logIconUsage = createAsyncThunk(
 	}
 );
 
-export const loadWeatherIcon = createAsyncThunk(
+export const loadWeatherIcon = createAsyncThunk(		// TODO: move this to backend
 	'weather/loadWeatherIcon',
 	async ( name ) => {
 		// http://192.168.50.229:5000/img/weather/64x64/day/113.svg.png

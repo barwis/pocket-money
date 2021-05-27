@@ -7,19 +7,32 @@ import Weather from '../components/weather';
 import Recycle from '../components/recycle';
 import DateTimeWeather from '../components/dateTimeWeather';
 import IconsList from '../components/iconsList';
+import { Cog, Settings } from '../components/settings';
+import { useSelector } from '../utils/redux-hooks';
 
-import './style.css';
+// const { components } = useSelector( state => state.settings );
 
-const Settings = () => <a className="settings"><img src="/icons/cog.svg"/></a>;
+const Homepage = () => {
+	const { settingsOpen, components } = useSelector( state => state.settings );
+	// components: {
+	// 	dateTime: true,
+	// 	weather: true,
+	// 	forecast: true,
+	// 	recycle: true,
+	// 	calendar: true
+	// }
+	return (
+		<div className="app">
+			{components.dateTime.isVisible && <DateTime/>}
+			{components.weather.isVisible && <Weather />}
+			{components.forecast.isVisible && <Forecast/>}
+			{components.recycle.isVisible && <Recycle />}
+			{components.calendar.isVisible && <Calendar/>}
 
-const Homepage = () =>
-	<div className="app">
-		<Settings/>
-		<DateTime/>
-		<Weather />
-		<Forecast/>
-		<Recycle />
-		<Calendar/>
-	</div>;
+			{settingsOpen && <Settings/>}
+			<Cog/>
+		</div>
+	);
+};
 
 export default Homepage;

@@ -24,23 +24,32 @@ const Forecast = () => {
 	};
 
 	const {
-		data
-		// lastUpdated,
-		// lastFetchStatus
+		data,
+		lastUpdated,
+		lastFetchStatus
 	} = useSelector( state => state.forecast );
 
 	useEffect( () => {
 		return dataUpdate( dispatch, fetchForecast, 600000 );
 	}, [ dispatch ] );
 
+	const updateForecast = () => dispatch( fetchForecast() );
+
 	return (
 		<Widget className="forecast">
-			<div className="forecast-data" onClick={() => dispatch( fetchForecast() ) }>
+			<WidgetHeader
+				title="Forecast"
+				subtitle={data.location}
+				onUpdateClick={updateForecast}
+				lastUpdated={lastUpdated}
+				lastFetchStatus={lastFetchStatus}
+			/>
+			<div className="forecast-data">
 				{data.map( ( item, index ) => {
 					let newIcon;
 					if ( item.externalData ) {
 						// console.log( 'exter', item.externalData.icon.filter( Boolean )[0] );
-						newIcon = item.externalData.icon.filter( Boolean )[0];
+						// newIcon = item.externalData.icon.filter( Boolean )[0];
 					}
 					return ( <div className="forecast-day" key={index}>
 						<span>{item.day}</span>

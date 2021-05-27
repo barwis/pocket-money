@@ -1,20 +1,19 @@
 .dateTime {
-	text-align: center;
+  text-align: center;
 }
 
 .time {
-	display: flex;
-	text-align: center;
-	font-size: 6rem;
-    font-weight: 400;
- 	padding: 20px;
-	justify-content: center;
+  display: flex;
+  text-align: center;
+  font-size: 6rem;
+  font-weight: 400;
+  justify-content: center;
 }
 
 .separator {
-    display: block;
-    padding-right: 5px;
-    text-align: center;
-    width: 30px;
-	margin-top: -5px;
+  display: block;
+  padding-right: 5px;
+  text-align: center;
+  width: 30px;
+  margin-top: -5px;
 }

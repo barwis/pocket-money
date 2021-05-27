@@ -24,9 +24,9 @@ const DateTime = () => {
 				<div className="separator">{separator}</div>
 				<div>{( currentDate.getMinutes() < 10 ? '0' : '' ) + currentDate.getMinutes()}</div>
 			</div>
-			<div>{new Intl.DateTimeFormat( 'en-GB', { weekday: 'long' }).format( currentDate )}, </div>
 			<div>
 				{new Intl.DateTimeFormat( 'en-GB', {
+					weekday: 'long',
 					day: 'numeric',
 					month: 'long',
 					year: 'numeric'

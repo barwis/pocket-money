@@ -1,4 +1,5 @@
-const c = [
+
+const weatherData = [
 	{
 		desc: [ 'Sunny', 'Clear Sky' ],
 		code: [1000, 800],
@@ -289,14 +290,14 @@ const c = [
 ];
 
 const conditions = {
-	getData: () => c,
+	getData: () => weatherData,
 	getDataBy: ( obj ) => {
 		const { property, value } = obj;
 		if ( !property ) {
 			console.log( 'not enough params' );
 		}
 
-		let res = c.find( ( item, index ) => {
+		let res = weatherData.find( ( item, index ) => {
 			if ( item[property].includes( value ) ) {
 				return true;
 			}

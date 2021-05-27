@@ -1,6 +1,6 @@
 .events {
   box-sizing: border-box;
-  padding: 20px 0;
+  padding: 0;
   margin: 0;
   list-style-type: none;
   text-align: left;
@@ -37,6 +37,10 @@
   position: absolute;
   right: 13px;
   color: #2980b9;
+}
+
+.event__date {
+  text-align: right;
 }
 
 @keyframes marquee {

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // import { dateTimeReducer } from './components/DateTime/reducers';
-
+import settings from './components/settings/slice';
 import calendar from './components/calendar/slice';
 import forecast from './components/forecast/slice';
 import weather from './components/weather/slice';
@@ -14,6 +14,7 @@ import recycle from './components/recycle/slice';
 import icons from './components/iconsList/slice';
 
 const reducers = {
+	settings,
 	calendar,
 	forecast,
 	weather,
@@ -38,10 +39,23 @@ const persistedReducer = persistReducer( persistConfig, rootReducer );
 // 	)
 // );
 
-export const configureStore = () =>
-	createStore(
-		persistedReducer,
-		composeWithDevTools(
-			applyMiddleware( thunk )
-		)
-	);
+const store = createStore(
+	persistedReducer,
+	composeWithDevTools(
+		applyMiddleware( thunk )
+	)
+);
+
+let persistor = persistStore( store );
+
+// let persistor = persistStore( store );
+
+export { store, persistor };
+
+// export const configureStore = () =>
+// 	createStore(
+// 		persistedReducer,
+// 		composeWithDevTools(
+// 			applyMiddleware( thunk )
+// 		)
+// 	);

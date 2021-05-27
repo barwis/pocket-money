@@ -28,7 +28,7 @@ const Weather = () => {
 	const {
 		condition,
 		temp_c: temp,
-		feelslike_c: feelsLike,
+		feelslike_c: feelslike,
 		wind_kph: windSpeed,
 		humidity,
 		precip_mm: precip,
@@ -64,32 +64,36 @@ const Weather = () => {
 			/>
 			<div className="condition">
 				<div>
-					 <img className="weather-image" src={ weatherIcon && imgPath + `${weatherIcon}.svg`} alt={ weatherText} />
-					 {/* <img className="weather-image" src={ condition.icon && imgPath + condition.icon + '.svg'} alt={ condition.text } /> */}
+					<a href="/iconsList"><img className="weather-image" src={ weatherIcon && imgPath + `${weatherIcon}.svg`} alt={ weatherText} /></a>
 				</div>
 				<div className="temp">
 					<div className="temp-real">{ data.current && temp }&deg;</div>
-					<div className="temp-feels-like">Feels like {( data.current && feelsLike ) || '-'}&deg;</div>
+					<div className="temp-feels-divke">Feels like {( data.current && feelslike ) || '-'}&deg;</div>
 				</div>
 			</div>
-			<ul className="weather-details">
-				<li>
+			<div className="weather-details">
+				<div>
 					<div className="icon-wind"></div>
-				</li>
-				<li>
+					<div>{data.current && Math.round( windSpeed )}<sup>km/h</sup></div>
+				</div>
+				<div>
 					<div className="icon-raindrop"></div>
-				</li>
-				<li>
+					<div>{data.current && humidity}<sup>%</sup></div>
+
+				</div>
+				<div>
+
 					<div className="icon-raindrops"></div>
-				</li>
-				<li>
+					<div>{data.current && precip}<sup>mm</sup></div>
+
+				</div>
+				<div>
 					<div className="icon-cloud-download"></div>
-				</li>
-				<li>{data.current && Math.round( windSpeed )}<sup>km/h</sup></li>
-				<li>{data.current && humidity}<sup>%</sup></li>
-				<li>{data.current && precip}<sup>mm</sup></li>
-				<li>{data.current && pressure}<sup>hPa</sup></li>
-			</ul>
+					<div>{data.current && pressure}<sup>hPa</sup></div>
+
+				</div>
+				<div></div>
+			</div>
 		</Widget>
 	);
 };

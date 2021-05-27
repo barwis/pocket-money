@@ -28,7 +28,8 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['*', '.js', '.jsx'],
-		fallback: { 'os': require.resolve( 'os-browserify/browser' ) }
+		fallback: { 'os': require.resolve( 'os-browserify/browser' ) },
+		alias: { 'react-dom': '@hot-loader/react-dom' }
 	},
 	output: {
 		path: path.resolve( __dirname, 'dist/' ),
