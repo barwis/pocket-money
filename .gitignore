@@ -109,3 +109,4 @@ dist
 *.ini
 
 .vscode/
+.vscode/*
