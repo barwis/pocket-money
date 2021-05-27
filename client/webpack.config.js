@@ -50,7 +50,9 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
 			LOCAL_IP: JSON.stringify( dotenv.parsed.LOCAL_IP ),
-			PORT: JSON.stringify( dotenv.parsed.PORT )
+			PORT: JSON.stringify( dotenv.parsed.PORT ),
+			APP_GOOGLE_CLIENT_ID: JSON.stringify( dotenv.parsed.APP_GOOGLE_CLIENT_ID ),
+			API_PORT: JSON.stringify( dotenv.parsed.API_PORT )
 		})
 	],
 	devtool: 'eval-cheap-source-map'

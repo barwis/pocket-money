@@ -1,9 +1,9 @@
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
-const session = require( 'express-session' );
-const path = require( 'path' );
-const createError = require( 'http-errors' );
+// const session = require( 'express-session' );
+// const path = require( 'path' );
+// const createError = require( 'http-errors' );
 
 var cors = require( 'cors' );
 
@@ -16,6 +16,7 @@ const forecastApiRouter = require( './routes/forecastRouter' );
 const imgRouter = require( './routes/img' );
 const logRouter = require( './routes/logRouter' );
 const cronLog = require( './routes/cronLog' );
+const auth = require( './routes/auth' );
 
 module.exports = ( config ) => {
 	const app = express();
@@ -25,8 +26,6 @@ module.exports = ( config ) => {
 	const port = 5000;
 
 	app.use( bodyParser.urlencoded({ extended: true }) );
-	// app.use( bodyParser.json() );
-	// app.use( bodyParser() );
 	app.use( cookieParser() );
 	app.use( express.static( 'public' ) );
 
@@ -43,6 +42,7 @@ module.exports = ( config ) => {
 	app.use( '/calendar', googleRouter );
 	app.use( '/log', logRouter );
 	app.use( '/cronLog', cronLog );
+	app.use( '/auth', auth );
 	// app.use(['/img', '/img*'], imgRouter);
 	app.get( '/img*', imgRouter );
 	app.get( '/img', imgRouter );

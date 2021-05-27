@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import IconsList from './components/iconsList';
 
 import Homepage from './pages/home';
+import PocketMoneyManager from './pages/pocketMoneyManager';
 
 import './style.css';
 
@@ -16,6 +17,7 @@ const App = () => (
 	<>
 		<Switch>
 			<Route path="/" component={Homepage} exact />
+			<Route path="/pmm" component={PocketMoneyManager} exact />
 			<Route path="/iconsList" component={Icons} exact />
 		</Switch>
 
