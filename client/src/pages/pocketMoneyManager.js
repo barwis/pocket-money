@@ -3,13 +3,17 @@ import { GoogleLogin } from 'react-google-login';
 
 const PocketMoneyManager = () => {
 	const handleLogin = async googleData => {
+		console.log( 'token', JSON.stringify({ token: googleData.tokenId }) );
 		const res = await fetch( `http://${LOCAL_IP}:5000/auth`, {
 			method: 'POST',
-			body: JSON.stringify({ token: googleData.tokenId }),
-			headers: { 'Content-Type': 'application/json' }
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+			body: `token=${googleData.tokenId}`
 		});
 		const data = await res.json();
 		// store returned user somehow
+	};
+	const responseGoogle = ( response ) => {
+		console.log( 'res', response );
 	};
 
 	return (
@@ -17,7 +21,7 @@ const PocketMoneyManager = () => {
 			<span>log in please</span>
 
 			<GoogleLogin
-				clientId={APP_GOOGLE_CLIENT_ID}
+				clientId={CLIENT_ID}
 				buttonText="Log in with Google"
 				onSuccess={handleLogin}
 				onFailure={handleLogin}

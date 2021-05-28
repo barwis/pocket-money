@@ -44,6 +44,7 @@ module.exports = {
 		hotOnly: true,
 		writeToDisk: true,
 		historyApiFallback: true,
+		disableHostCheck: true,
 		open: true
 	},
 	plugins: [
@@ -51,7 +52,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 			LOCAL_IP: JSON.stringify( dotenv.parsed.LOCAL_IP ),
 			PORT: JSON.stringify( dotenv.parsed.PORT ),
-			APP_GOOGLE_CLIENT_ID: JSON.stringify( dotenv.parsed.APP_GOOGLE_CLIENT_ID ),
+			CLIENT_ID: JSON.stringify( dotenv.parsed.CLIENT_ID ),
 			API_PORT: JSON.stringify( dotenv.parsed.API_PORT )
 		})
 	],

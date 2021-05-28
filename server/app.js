@@ -25,15 +25,26 @@ module.exports = ( config ) => {
 
 	const port = 5000;
 
-	app.use( bodyParser.urlencoded({ extended: true }) );
+	// app.use( bodyParser.urlencoded({ extended: true }) );
+	// app.use( bodyParser.json() ); // support json encoded bodies
+
+	app.use( express.json() ); // for parsing application/json
+	app.use( express.urlencoded({ extended: true }) ); // for parsing application/x-www-form-urlencoded
+
 	app.use( cookieParser() );
 	app.use( express.static( 'public' ) );
+
+	console.log( process.env.CLIENT_ID );
 
 	if ( app.get( 'env' ) === 'development' ) {
 		app.locals.pretty = true;
 	}
 
-	// use routes
+	app.use( function ( req, res, next ) {
+		console.log( 'Time:', Date.now() );
+		next();
+	});
+
 	app.get( '/health', ( req, res ) => res.status( 200 ).send({ status: 'OK' }) );
 
 	app.use( '/recycle', recycleScheduleRouter );
