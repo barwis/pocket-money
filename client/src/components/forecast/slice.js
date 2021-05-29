@@ -16,7 +16,7 @@ export const initialState = {
 export const fetchForecast = createAsyncThunk(
 	'forecast/fetchForecast',
 	async () => {
-		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/forecast` );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:${API_PORT}/forecast` );
 		const data = await response.json();
 
 		data.forEach( item => {

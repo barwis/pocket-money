@@ -1,7 +1,12 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 
-const dotenv = require( 'dotenv' ).config({ path: '../.env' });
+let dotenv;
+try {
+	dotenv = require( 'dotenv' ).config({ path: '../.env' });
+} catch ( e ) {
+	throw new Error( e );
+}
 const localIPaddress = dotenv.parsed.LOCAL_IP;
 const port = dotenv.parsed.PORT;
 
@@ -38,9 +43,8 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: path.join( __dirname, 'public/' ),
-		host: localIPaddress,
 		port,
-		publicPath: `http://${localIPaddress}:${port}/dist/`,
+		publicPath: `http://localhost:${port}/dist/`,
 		hotOnly: true,
 		writeToDisk: true,
 		historyApiFallback: true,

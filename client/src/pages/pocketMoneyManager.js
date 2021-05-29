@@ -4,7 +4,7 @@ import { GoogleLogin } from 'react-google-login';
 const PocketMoneyManager = () => {
 	const handleLogin = async googleData => {
 		console.log( 'token', JSON.stringify({ token: googleData.tokenId }) );
-		const res = await fetch( `http://${LOCAL_IP}:5000/auth`, {
+		const res = await fetch( `http://${LOCAL_IP}:${API_PORT}/auth`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
 			body: `token=${googleData.tokenId}`

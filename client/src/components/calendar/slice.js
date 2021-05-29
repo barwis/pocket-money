@@ -11,7 +11,7 @@ export const initialState = {
 export const fetchCalendarEvents = createAsyncThunk(
 	'calendar/fetchCalendarEvents',
 	async () => {
-		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/calendar` );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:${API_PORT}/calendar` );
 		const events = await response.json();
 
 		const parsed = events.map( item => ({

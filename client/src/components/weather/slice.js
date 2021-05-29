@@ -23,7 +23,7 @@ export const getImage = state => state.data.current.condition.icon;
 export const logIconUsage = createAsyncThunk(
 	'weather/logIconUsage',
 	async ( icon ) => {
-		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/weather`, {
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:${API_PORT}/weather`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
 			body: `icon=${encodeURIComponent( icon )}`
@@ -42,8 +42,8 @@ export const logIconUsage = createAsyncThunk(
 export const loadWeatherIcon = createAsyncThunk(		// TODO: move this to backend
 	'weather/loadWeatherIcon',
 	async ( name ) => {
-		// http://192.168.50.229:5000/img/weather/64x64/day/113.svg.png
-		const url = `http://${LOCAL_IP}:5000/img/weather/64x64/day/${name}.svg.png`;
+		// http://192.168.50.229:${API_PORT}/img/weather/64x64/day/113.svg.png
+		const url = `http://${LOCAL_IP}:${API_PORT}/img/weather/64x64/day/${name}.svg.png`;
 		const response = await fetch( url );
 		const data = await response.json();
 		return data;
@@ -66,7 +66,7 @@ export const loadWeatherIconfetchFailed = logIconUsage.rejected;
 export const fetchWeather = createAsyncThunk(
 	'weather/fetchWeather',
 	async () => {
-		const response = await fetchWithTimeout( `http://${LOCAL_IP}:5000/weather` );
+		const response = await fetchWithTimeout( `http://${LOCAL_IP}:${API_PORT}/weather` );
 		const weatherData = await response.json();
 		return weatherData;
 	}

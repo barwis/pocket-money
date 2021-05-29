@@ -1,9 +1,5 @@
 const express = require( 'express' );
-const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
-// const session = require( 'express-session' );
-// const path = require( 'path' );
-// const createError = require( 'http-errors' );
 
 var cors = require( 'cors' );
 
@@ -23,23 +19,20 @@ module.exports = ( config ) => {
 	app.use( require( 'sanitize' ).middleware );
 	app.use( cors() );
 
-	const port = 5000;
+	// for parsing application/json
+	app.use( express.json() );
 
-	// app.use( bodyParser.urlencoded({ extended: true }) );
-	// app.use( bodyParser.json() ); // support json encoded bodies
-
-	app.use( express.json() ); // for parsing application/json
-	app.use( express.urlencoded({ extended: true }) ); // for parsing application/x-www-form-urlencoded
+	// for parsing application/x-www-form-urlencoded
+	app.use( express.urlencoded({ extended: true }) );
 
 	app.use( cookieParser() );
 	app.use( express.static( 'public' ) );
-
-	console.log( process.env.CLIENT_ID );
 
 	if ( app.get( 'env' ) === 'development' ) {
 		app.locals.pretty = true;
 	}
 
+	// middleware
 	app.use( function ( req, res, next ) {
 		console.log( 'Time:', Date.now() );
 		next();
@@ -54,11 +47,13 @@ module.exports = ( config ) => {
 	app.use( '/log', logRouter );
 	app.use( '/cronLog', cronLog );
 	app.use( '/auth', auth );
-	// app.use(['/img', '/img*'], imgRouter);
 	app.get( '/img*', imgRouter );
 	app.get( '/img', imgRouter );
 
-	app.listen( port, process.env.LOCAL_IP, () => console.log( `App listening at http://${process.env.LOCAL_IP}:${port}` ) );
+	app.listen(
+		process.env.API_PORT,
+		process.env.LOCAL_IP,
+		() => console.log( `App listening at http://${process.env.LOCAL_IP}:${process.env.API_PORT}` ) );
 
 	return app;
 };

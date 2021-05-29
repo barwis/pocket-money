@@ -12,15 +12,17 @@ router.post( '/', async ( req, res, next ) => {
 		idToken: token,
 		audience: process.env.CLIENT_ID
 	});
-	const { name, email, picture } = ticket.getPayload();
+	const p = ticket.getPayload();
+	const { name, given_name, email, picture } = p;
 
 	const user = {
 		name,
+		given_name,
 		email,
 		picture
 	};
 
-	console.log( 'user', user );
+	console.log( 'user', p );
 	// const user = await db.user.upsert({
 	// 	where: { email },
 	// 	update: {
