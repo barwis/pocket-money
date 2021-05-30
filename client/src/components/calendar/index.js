@@ -79,27 +79,16 @@ const Calendar = () => {
 		setFlatEvents( newFlat );
 	};
 
-	const detect = ( item, index ) => {
-		const c = {
-			item,
-			id: index,
-			width: item.clientWidth,
-			child: item.querySelector( '.wrap' ),
-			childWidth: item.className === 'event__name' && item.querySelector( '.wrap' ).clientWidth
-		};
+	const detect = ( node, index ) => {
+		const nodeWidth = node.clientWidth;
+		const nodeChildWidth = node.className === 'event__name' && node.querySelector( '.wrap' ).clientWidth;
+		const spans = node.querySelectorAll( ' .wrap span' );
+		const animatedClassName = 'animated';
 
-		if ( c.width < c.childWidth ) {
-			c.shouldBeAnimated = true;
-			const spans = c.child.querySelectorAll( 'span' );
-			if ( spans.length !== 1 ) { return; }
-			const span = spans[0]; // c.child.querySelector( 'span' );
-
-			span.classList.add( 'animated' );
-			const animationSpeed = `${Math.floor( c.childWidth / 100 ) * 5}s`;
-			span.style.animationDuration = animationSpeed;
-
-			const secondSpan = span.cloneNode( true );
-			c.child.appendChild( secondSpan );
+		if ( nodeWidth < nodeChildWidth ) {
+			spans.forEach( span => { span.classList.add( animatedClassName ); });
+		} else {
+			spans.forEach( span => { span.classList.remove( animatedClassName ); });
 		}
 	};
 
@@ -120,7 +109,7 @@ const Calendar = () => {
 					const className = `event__${item.id}`;
 					return (
 						<div ref={( element ) => pushmaybe( element, index )} key={index} className={className}>
-							{item.id === 'name' && <div className="wrap"><span>{item.value}</span></div>}
+							{item.id === 'name' && <div className="wrap"><span>{item.value}</span><span>{item.value}</span></div>}
 							{item.id === 'date' && item.value}
 						</div>
 					);

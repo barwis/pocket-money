@@ -4,11 +4,6 @@ const router = express.Router();
 const path = require( 'path' );
 const db = require( '../db/index' );
 
-// const API_KEY = '26efb221a2f9817478b432238d322e3d';
-// const API_ENDPOINT = `api.openweathermap.org/data/2.5/weather?id=${CITY_ID}&appid=${API_KEY}`;
-
-// const API_ENDPOINT = 'http://api.weatherapi.com/v1/current.json?key=69466ae5b9a04898bb3193451211902&q=Orpington';
-// const API_ENDPOINT2 = 'http://api.weatherapi.com/v1/current.json?key=69466ae5b9a04898bb3193451211902&q=Orpington&aqi=no';
 const API_ENDPOINT3 = 'http://api.weatherapi.com/v1/forecast.json?key=69466ae5b9a04898bb3193451211902&q=Orpington&days=1&aqi=no&alerts=no';
 
 router.get( '/health', ( req, res, next ) => {

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx webpack serve --mode development",
     "build": "npx webpack --mode development",
-    "test": "jest",
+    "test": "jest --watch --verbose",
     "jestrunner.jestCommand": "npm run test --",
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage",

@@ -7,10 +7,8 @@ try {
 } catch ( e ) {
 	throw new Error( e );
 }
-const localIPaddress = dotenv.parsed.LOCAL_IP;
-const port = dotenv.parsed.PORT;
 
-module.exports = {
+const webpackConfig = {
 	entry: './src/index.js',
 	mode: 'development',
 	module: {
@@ -43,8 +41,8 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: path.join( __dirname, 'public/' ),
-		port,
-		publicPath: `http://localhost:${port}/dist/`,
+		port: dotenv.parsed.PORT,
+		publicPath: `http://${dotenv.parsed.LOCAL_IP}:${port}/dist/`,
 		hotOnly: true,
 		writeToDisk: true,
 		historyApiFallback: true,
@@ -62,3 +60,5 @@ module.exports = {
 	],
 	devtool: 'eval-cheap-source-map'
 };
+
+module.exports = webpackConfig;

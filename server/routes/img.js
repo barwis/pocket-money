@@ -10,6 +10,7 @@ router.get( '/health', ( req, res, next ) => {
 router.get( ['/img/*/:image'], async ( req, res, next ) => {
 	const imgRoute = req.params[0];
 	const filename = req.params.image.split( '.' );
+
 	if ( filename.length !== 3 ) { return res.sendStatus( 400 ); }
 
 	if ( !process.env.LOCAL_IP || !process.env.PORT ) {
@@ -17,15 +18,17 @@ router.get( ['/img/*/:image'], async ( req, res, next ) => {
 	}
 
 	const imgUrl = `${req.protocol}://${process.env.LOCAL_IP}:${process.env.PORT}/${imgRoute}/${filename[1]}/${filename[0]}.${filename[1]}`;
-	const fallbacImagekUrl = `${req.protocol}://${process.env.LOCAL_IP}:${process.env.PORT}/${imgRoute}/${filename[2]}/${filename[0]}.${filename[2]}`;
+	const fallbackImageUrl = `${req.protocol}://${process.env.LOCAL_IP}:${process.env.PORT}/${imgRoute}/${filename[2]}/${filename[0]}.${filename[2]}`;
 
+	console.log( 'trycatch' );
 	try {
 		await axios.get( imgUrl, { method: 'HEAD' });
+
 		res.status( 200 ).json({ url: imgUrl });
 	} catch ( e ) {
 		try {
-			await axios.get( fallbacImagekUrl, { method: 'HEAD' });
-			res.status( 200 ).json({ url: fallbacImagekUrl });
+			await axios.get( fallbackImageUrl, { method: 'HEAD' });
+			res.status( 200 ).json({ url: fallbackImageUrl });
 		} catch ( e ) {
 			res.sendStatus( 404 );
 		}

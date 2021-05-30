@@ -27,6 +27,10 @@
   position: relative;
 }
 
+.event__name .wrap span + span:not(.animated) {
+  display: none;
+}
+
 .event__name .wrap span.animated {
   padding-right: 30px;
   animation: marquee 8s linear infinite;

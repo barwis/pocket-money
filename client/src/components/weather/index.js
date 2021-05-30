@@ -6,7 +6,7 @@ import Widget from '../_common/widget';
 import WidgetHeader from '../_common/widgetHeader';
 
 // actions
-import { fetchWeather, loadWeatherIcon, logIconUsage } from './slice';
+import { fetchWeather, logIconUsage } from './slice';
 
 // utils
 import code from '../../utils/countriesList';
@@ -42,14 +42,12 @@ const Weather = () => {
 
 	// helper functions
 	const updateWeather = () => dispatch( fetchWeather() );
-	const updateWeatherIcon = ( weatherIcon ) => dispatch( loadWeatherIcon( weatherIcon ) );
 
 	React.useEffect( () => {
 		return dataUpdate( dispatch, fetchWeather, 600000 );
 	}, [ dispatch ] );
 
 	React.useEffect( () => {
-		updateWeatherIcon( weatherIcon );
 		dispatch( logIconUsage( weatherIcon ) );
 	}, [ weatherIcon ] );
 
