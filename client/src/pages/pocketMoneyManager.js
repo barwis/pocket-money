@@ -1,6 +1,8 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 
+import Auth from '../components/_common/auth';
+
 const PocketMoneyManager = () => {
 	const handleLogin = async googleData => {
 		console.log( 'token', JSON.stringify({ token: googleData.tokenId }) );
@@ -17,16 +19,8 @@ const PocketMoneyManager = () => {
 	};
 
 	return (
-		<div>
-			<span>log in please</span>
-
-			<GoogleLogin
-				clientId={CLIENT_ID}
-				buttonText="Log in with Google"
-				onSuccess={handleLogin}
-				onFailure={handleLogin}
-				cookiePolicy={'single_host_origin'}
-			/>
+		<div className="pmm">
+			<Auth/>
 
 		</div>
 	);

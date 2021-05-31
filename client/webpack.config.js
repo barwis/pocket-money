@@ -41,6 +41,7 @@ const webpackConfig = {
 	},
 	devServer: {
 		contentBase: path.join( __dirname, 'public/' ),
+		host: dotenv.parsed.LOCAL_IP,
 		port: dotenv.parsed.PORT,
 		publicPath: `http://${dotenv.parsed.LOCAL_IP}:${dotenv.parsed.PORT}/dist/`,
 		hotOnly: true,

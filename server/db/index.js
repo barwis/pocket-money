@@ -10,6 +10,7 @@ try {
 	const mariadb = require( 'mariadb' );
 	dbmodule = mariadb;
 }
+
 const pool = dbmodule.createPool({
 	connectionLimit: 10,
 	host: process.env.DB_HOST,
@@ -31,7 +32,7 @@ let db = {};
 
 const poolQuery = ( q, v = [] ) => {
 	return new Promise( ( resolve, reject ) => {
-		pool.query( q, v, ( err, results ) => {
+		const p = pool.query( q, v, ( err, results ) => {
 			if ( err ) {
 				return reject( err );
 			}
@@ -42,6 +43,58 @@ const poolQuery = ( q, v = [] ) => {
 };
 
 db.getLogs = () => poolQuery( 'select * from logMessages' );
+
+db.getUserIdByEmail = ( email ) => {
+	return new Promise( ( resolve, reject ) => {
+		const query = 'SELECT id FROM users WHERE email=?';
+
+		poolQuery( query, [email], ( err, results ) => {
+			if ( err ) {
+				console.log( 'error' );
+				return reject( err );
+			}
+			console.log( 'results', results );
+
+			return resolve( results );
+		});
+	});
+};
+
+// const user = {
+// 	name,
+// 	givenName: given_name,
+// 	familyName: family_name,
+// 	email,
+// 	picture,
+// 	token
+// };
+
+db.addUser = ( user ) => {
+	let d = new Date();
+	let mySqlTimestamp = new Date(
+		d.getFullYear(),
+		d.getMonth(),
+		d.getDate(),
+		d.getHours(),
+		( d.getMinutes() + 30 ), // add 30 minutes
+		d.getSeconds(),
+		d.getMilliseconds()
+	).toISOString()
+		.slice( 0, 19 )
+		.replace( 'T', ' ' );
+
+	// const { name, givenName, familyName, email, picture, token } = user;
+	const query = 'INSERT INTO users (name, givenName, familyName, email, picture, token, lastLoggedIn) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	const values = [...Object.values( user ), mySqlTimestamp];
+	return poolQuery( query, values );
+};
+
+// db.upsertUser = ( user ) => {
+// 	const query = 'INSERT INTO users (name, givenName, familyName, email, picture, token) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=?, givenName=?, familyName=?, picture=?, token=?';
+// 	const valuesToUpdate = [user.name, user.givenName, user.familyName, user.picture, user.token];
+// 	const values = [...Object.values( user ), ...valuesToUpdate];
+// 	return poolQuery( query, values );
+// };
 
 db.addLog = ( msg, level = 'DEBUG', time = false ) => {
 	const d = new Date();
@@ -66,7 +119,7 @@ db.addLog = ( msg, level = 'DEBUG', time = false ) => {
 	return poolQuery( q, v );
 };
 
-db.all = () => {
+db.getRecycleSchedules = () => {
 	return new Promise( ( resolve, reject ) => {
 		pool.query( `
 		select s.serviceName, r.lastUpdated, r.nextService, r.lastService

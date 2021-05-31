@@ -12,6 +12,7 @@ import forecast from './components/forecast/slice';
 import weather from './components/weather/slice';
 import recycle from './components/recycle/slice';
 import icons from './components/iconsList/slice';
+import auth from './components/_common/auth/slice';
 
 const reducers = {
 	settings,
@@ -19,7 +20,8 @@ const reducers = {
 	forecast,
 	weather,
 	recycle,
-	icons
+	icons,
+	auth
 };
 
 const persistConfig = {

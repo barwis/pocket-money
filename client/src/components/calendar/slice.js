@@ -54,5 +54,5 @@ export const slice = createSlice({
 		});
 	}
 });
-export const { setFetchState, loadEvents } = slice.actions;
+export const { setFetchState } = slice.actions;
 export default slice.reducer;

@@ -60,6 +60,10 @@ const Calendar = () => {
 		itemEls.current
 			.filter( item => item?.className === 'event__name' )
 			.forEach( ( item, index ) => detect( item, index ) );
+		console.log({
+			itemEls,
+			flatEvents
+		});
 	}, [flatEvents] );
 
 	const flattenEvents = ( arr ) => {

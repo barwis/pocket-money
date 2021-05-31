@@ -9,7 +9,7 @@ router.get( '/health', ( req, res, next ) => {
 
 router.get( '/', async ( req, res, next ) => {
 	try {
-		let results = await db.all();
+		let results = await db.getRecycleSchedules();
 		res.status( 200 ).json( results );
 	} catch ( e ) {
 		res.sendStatus( 500 );

@@ -18,7 +18,9 @@
     },
 	"globals": {
 		"LOCAL_IP": true,
-		"PORT": true
+		"PORT": true,
+		"CLIENT_ID": true,
+		"API_PORT": true
 	},
     "rules": {
         "accessor-pairs": "error",
