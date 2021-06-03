@@ -1,0 +1,134 @@
+<?xml version="1.0" standalone="yes"?>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 36 36">
+	<style type="text/css">
+
+		#weather_icon * {
+			stroke-miterlimit:10;
+		}
+
+		.sun_orb  {
+			stroke:#F1C413;
+			stroke-linecap:round;
+			fill:none;
+		}
+
+		.ray {
+			stroke-linecap:round;
+			stroke:#F1C413;
+			fill:#F1C413;
+            stroke-dasharray: 5;
+            stroke-dashoffset: 0;
+            animation-direction: alternate;
+		}
+
+		.ray--long {
+            stroke-dashoffset: 0;
+
+			animation:  shine 2s cubic-bezier(0.37, 0, 0.63, 1) 0s infinite
+		}
+
+		.ray--short {
+            stroke-dashoffset: 3;
+			animation: shine2 2s cubic-bezier(0.37, 0, 0.63, 1) -1s infinite
+		}
+
+		#ray_1 { transform: rotate(0deg); }
+		#ray_2 { transform: rotate(30deg); }
+		#ray_3 { transform: rotate(60deg); }
+		#ray_4 { transform: rotate(90deg); }
+		#ray_5 { transform: rotate(120deg); }
+		#ray_6 { transform: rotate(150deg); }
+		#ray_7 { transform: rotate(180deg); }
+		#ray_8 { transform: rotate(210deg); }
+		#ray_9 { transform: rotate(240deg); }
+		#ray_10 { transform: rotate(270deg); }
+		#ray_11 { transform: rotate(300deg); }
+		#ray_12 { transform: rotate(330deg); }
+		<!-- animations: -->
+
+        #rays {
+            transform-origin: 18px;
+            animation: spin 30s linear 0s infinite;
+
+        }
+
+        .ray {
+            transform: translate(30px, 18px);
+        }
+
+        .cont {
+            transform-origin: 18px 18px;
+        }
+<!-- 
+        @keyframes spin { 
+			0% {  -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg);}; 
+		}
+
+        @keyframes shine {
+            0% { stroke-dashoffset: 0; }
+			50% { stroke-dashoffset: 2; }
+			100% { stroke-dashoffset: 0; }
+        }
+        @keyframes shine2 {
+            0% { stroke-dashoffset: 2; }
+			50% { stroke-dashoffset: 4; }
+			100% { stroke-dashoffset: 2; }
+        } -->
+
+        #asd {
+            outline: 1px solid red;
+        }
+	</style>
+		<defs>
+			<line class="ray ray--long"  id="ray_long"  x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
+			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
+		</defs>
+
+        <symbol id="asd" viewBox="0 0 36 36" width="36px" height="36px">
+                <circle class="sun_orb" id="sun_orb" cx="18" cy="18" r="9"/>
+                <g id="rays" style="background: red;" fill="red" >
+                    <g class="cont" id="ray_1">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_2">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_3">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_4">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_5">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_6">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_7">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_8">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_9">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_10">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_11">
+                        <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                    <g class="cont" id="ray_12">
+                        <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+                    </g>
+                </g>
+            </symbol>
+		<g>
+            <use id="actual_sun" href="#asd"  width="50" />
+        </g>
+</svg>

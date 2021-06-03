@@ -26,13 +26,20 @@ const webpackConfig = {
 			{
 				test: /\.scss$/,
 				use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
+			},
+			{
+				test: require.resolve( 'snapsvg/dist/snap.svg.js' ),
+				use: 'imports-loader?wrapper=window&additionalCode=module.exports=0;'
 			}
 		]
 	},
 	resolve: {
 		extensions: ['*', '.js', '.jsx'],
 		fallback: { 'os': require.resolve( 'os-browserify/browser' ) },
-		alias: { 'react-dom': '@hot-loader/react-dom' }
+		alias: {
+			'react-dom': '@hot-loader/react-dom',
+			'snapsvg': 'snapsvg/dist/snap.svg.js'
+		}
 	},
 	output: {
 		path: path.resolve( __dirname, 'dist/' ),

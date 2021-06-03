@@ -6,6 +6,7 @@ import IconsList from './components/iconsList';
 
 import Homepage from './pages/home';
 import PocketMoneyManager from './pages/pocketMoneyManager';
+import SvgIcon from './pages/svgIcon';
 
 import './style.css';
 
@@ -19,6 +20,7 @@ const App = () => (
 			<Route path="/" component={Homepage} exact />
 			<Route path="/pmm" component={PocketMoneyManager} exact />
 			<Route path="/iconsList" component={Icons} exact />
+			<Route path="/svgIcon" component={SvgIcon} exact />
 		</Switch>
 
 	</>

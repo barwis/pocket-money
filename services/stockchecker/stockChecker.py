@@ -61,6 +61,8 @@ class LOGGER:
 
         if context != "__init__":
             preparedMessage += "[" + context + "]:"
+        else:
+            preparedMessage += "[" + 'constructor' + "]:"
 
         preparedMessage += " " + message
 
@@ -98,6 +100,7 @@ class Scrapper:
 	
 
 	def parse(self):
+		print('parse', __class__.__name__)
 		soup = BeautifulSoup(self.content, "html.parser")
 		isAvailable = soup.select(self.addToCartButton)
 		isOutOfStock = soup.select(self.outOfStockTag)
@@ -120,7 +123,6 @@ class Scrapper:
 			
 		except Exception as e:
 			LOGGER.log("error", e, True)
-
 	def sendMail(self):
 		if not self.isItemAvailable:
 			sys.exit('not available. sending mail aborted')
