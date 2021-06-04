@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="yes"?>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 36 36">
+		<defs>
+			<line class="ray ray--long"  id="ray_long"  x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
+			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
+		</defs>
+
+        <circle class="sun_orb" id="sun_orb" cx="18" cy="18" r="9"/>
+        <g id="rays" >
+            <g class="cont" id="ray_1">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_2">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_3">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_4">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_5">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_6">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_7">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_8">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_9">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_10">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_11">
+                <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+            <g class="cont" id="ray_12">
+                <line class="ray ray--short" x1="0" y1="0" x2="5" y2="0" />
+            </g>
+        </g>
+</svg>
