@@ -78,18 +78,15 @@
 			100% { stroke-dashoffset: 2; }
         } -->
 
-        #asd {
-            outline: 1px solid red;
-        }
 	</style>
 		<defs>
 			<line class="ray ray--long"  id="ray_long"  x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
 			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
 		</defs>
 
-        <symbol id="asd" viewBox="0 0 36 36" width="36px" height="36px">
+        <symbol id="sunSymbol" viewBox="0 0 36 36" width="36px" height="36px">
                 <circle class="sun_orb" id="sun_orb" cx="18" cy="18" r="9"/>
-                <g id="rays" style="background: red;" fill="red" >
+                <g id="rays" >
                     <g class="cont" id="ray_1">
                         <line class="ray ray--long" x1="0" y1="0" x2="5" y2="0" />
                     </g>
@@ -129,6 +126,6 @@
                 </g>
             </symbol>
 		<g>
-            <use id="actual_sun" href="#asd"  width="50" />
+            <use href="#sunSymbol"  width="50" />
         </g>
 </svg>

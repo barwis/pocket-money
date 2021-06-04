@@ -1,0 +1,88 @@
+
+#weather_icon * {
+    stroke-miterlimit:10;
+}
+
+.sun_orb  {
+    stroke:#F1C413;
+    stroke-linecap:round;
+    fill:none;
+}
+
+.ray {
+    stroke-linecap:round;
+    stroke:#F1C413;
+    fill:#F1C413;
+    stroke-dasharray: 5;
+    stroke-dashoffset: 0;
+    animation-direction: alternate;
+}
+
+.ray--long {
+    stroke-dashoffset: 0;
+
+    animation:  shine 2s cubic-bezier(0.37, 0, 0.63, 1) 0s infinite
+}
+
+.ray--short {
+    stroke-dashoffset: 3;
+    animation: shine2 2s cubic-bezier(0.37, 0, 0.63, 1) -1s infinite
+}
+
+#ray_1 { transform: rotate(0deg); }
+#ray_2 { transform: rotate(30deg); }
+#ray_3 { transform: rotate(60deg); }
+#ray_4 { transform: rotate(90deg); }
+#ray_5 { transform: rotate(120deg); }
+#ray_6 { transform: rotate(150deg); }
+#ray_7 { transform: rotate(180deg); }
+#ray_8 { transform: rotate(210deg); }
+#ray_9 { transform: rotate(240deg); }
+#ray_10 { transform: rotate(270deg); }
+#ray_11 { transform: rotate(300deg); }
+#ray_12 { transform: rotate(330deg); }
+
+#rays {
+    transform-origin: 18px;
+    animation: spin 30s linear 0s infinite;
+}
+
+.ray {
+    transform: translate(30px, 18px);
+}
+
+.cont {
+    transform-origin: 18px 18px;
+}
+
+@keyframes spin { 
+    0% {  -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg);}; 
+}
+
+@keyframes shine {
+    0% { stroke-dashoffset: 0; }
+    50% { stroke-dashoffset: 2; }
+    100% { stroke-dashoffset: 0; }
+}
+@keyframes shine2 {
+    0% { stroke-dashoffset: 2; }
+    50% { stroke-dashoffset: 4; }
+    100% { stroke-dashoffset: 2; }
+}
+
+
+.cloud{
+    fill: none;
+    stroke:#3A97D3;
+}
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeIn 1s normal forwards ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
+}

@@ -31,17 +31,17 @@
 		.ray--long {
 			stroke-dasharray: 5;
 
-			animation: 
+			<!-- animation: 
 				shine1 2s ease-in-out 0s infinite, 
-				spin 30s linear 0s infinite;
+				spin 30s linear 0s infinite; -->
 		}
 
 		.ray--short {
 			stroke-dasharray: 3;
 
-			animation: 
+			<!-- animation: 
 				shine2 2s ease-in-out 0s infinite, 
-				spin 30s linear 0s infinite;
+				spin 30s linear 0s infinite; -->
 		}
 
 		#ray_1 { transform: rotate(0deg); }
@@ -98,6 +98,8 @@
 				C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
 
  			<mask id="SVGMask">
+			 	<!-- white - shows -->
+				<!-- black - blocks -->
 				<rect id="rect" fill="white" width="64" height="64"/>
 				<use xlink:href="#clouds" stroke="black"/>
 			</mask>
@@ -144,7 +146,7 @@
 			</g>
 		</g>
 
-		<use xlink:href="#clouds" style="stroke:#3498db; fill: none;" />
+		<use href="#clouds" class="cloud"  />
 
 	</g>
 
