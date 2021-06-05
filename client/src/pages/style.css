@@ -1,5 +1,5 @@
 body {
-  background: white !important;
+  /* background: white !important; */
 }
 #weather_icon * {
   stroke-miterlimit: 10;
@@ -116,6 +116,9 @@ body {
 .cloud {
   fill: none;
   stroke: #3a97d3;
+}
+.hidden {
+  opacity: 0;
 }
 
 .fadeIn {

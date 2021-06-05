@@ -3,22 +3,19 @@ import Snap from 'snapsvg';
 import './style.css';
 
 const SvgIcon = () => {
-	const [ mySnap, setSnap] = useState( null );
+	const [ snap, setSnap] = useState( null );
 	const svgRef = useRef( null );
-	const [ symbolsArray, setSymbolsArray] = useState( [] );
 
 	useEffect( () => {
-		console.log( 'svgref updated!', svgRef.current.id );
 		const s = Snap( `#${svgRef.current.id}` );
 		setSnap( s );
 	}, [svgRef] );
 
 	useEffect( () => {
-		console.log( 'snap set!', mySnap );
-		if ( mySnap ) {
+		if ( snap ) {
 			loadSymbols();
 		}
-	}, [mySnap] );
+	}, [snap] );
 
 	const symbols = [
 		{
@@ -27,70 +24,119 @@ const SvgIcon = () => {
 			attributes: {
 				fill: 'none',
 				stroke: '#F1C413',
-				class: 'fadeIn',
 				width: 35,
 				height: 35
 			},
-			mask: '#cloudSymbol_mask',
-			transform: 't5, 10'
+			mask: 'cloudSymbolMask',
+			transform: [5, 10]
 		},
 		{
 			symbolId: 'cloudSymbol',
-			maskId: 'cloudSymbol_mask',
+			maskId: 'cloudSymbolMask',
 			symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
 			attributes: {
 				fill: 'none',
 				stroke: '#3996D2',
-				class: 'fadeIn',
 				width: 44,
 				height: 28
 			},
-			transform: 't12, 17'
+			transform: [12, 17]
+
 		}
 	];
 
-	// transform: 't4, 9',
-
 	const loadSymbols = () => {
+		snap.clear();
+
+		const promises = [];
+
 		symbols.forEach( symbol => {
 			const { symbolId, symbolUrl, attributes, transform, maskId, mask } = symbol;
 
-			snapLoadPromise( symbolUrl ).then( data => {
-				console.log( 'symbolId', `#${symbolId}` );
+			const p = snapLoadPromise( symbolUrl ).then( data => {
 				const symbol = data.select( `#${symbolId}` );
-				symbol.appendTo( mySnap ).toDefs();
-				const useTag = mySnap.use().attr({
+				symbol.appendTo( snap ).toDefs();
+				const useTag = snap.use().attr({
 					href: `#${symbolId}`,
 					...attributes
 				})
-					.transform( transform )
-					.appendTo( mySnap );
+					.transform( 't' + transform.join( ',' ) )
+					.appendTo( snap );
 
 				// create mask
-
 				if ( maskId ) {
-					const maskGroup = mySnap.symbol();
-					const black = mySnap.g().attr({
-						...attributes,
-						id: `#${maskId}`,
+					const maskSymbol = snap.symbol().attr({ id: `${maskId}` });
+					// const maskGroup = snap.g();
+					maskSymbol.append( snap.rect( 0, 0, 64, 64 ).attr({ fill: '#fafafa' }) );
+					const clone = useTag.clone();
+					clone.attr({
+						id: 'use',
 						fill: 'black',
 						stroke: 'black'
-					})
-						.transform( transform );
-					black.append( mySnap.rect( 0, 0, 64, 64 ).attr({ fill: 'white' }) );
-					black.appendTo( maskGroup );
-					maskGroup.appendTo( mySnap ).toDefs();
-				}
-				if ( mask ) {
-					// console.log( 'apply mask' );
-					// useTag.attr({ mask: mySnap.use( mask ) });
+					});
+					// .transform( 't5, 10' );
+
+					// console.log( 'clone', clone.toString() );
+
+					maskSymbol.append( clone );
+					maskSymbol.appendTo( snap ).toDefs();
+				} else {
+					// console.log( 'useTag', useTag );
+					// useTag.attr({ class: 'fadeIn' });
 				}
 
-				// create mask of it
+				if ( !mask ) {
+					useTag.attr({ class: 'fadeIn' });
+				} else {
+					// useTag.attr({ class: 'hidden' });
+				}
+
+				return {
+					symbolId,
+					mask,
+					maskId,
+					transform
+				};
 			});
+
+			promises.push( p );
+			return p;
 		});
 
-		console.log( 'symbolsArray', symbolsArray );
+		// apply masks
+		Promise.all( promises ).then( ( values ) => {
+			applyMasks( values );
+		});
+	};
+
+	const applyMasks = ( items ) => {
+		items.forEach( item => {
+			if ( !item.mask ) {
+				return;
+			}
+
+			console.log({ item });
+
+			const element = snap.select( `#${item.symbolId}` );
+			const mask = snap.select( `#${item.mask}` );
+
+			// console.log( item, mask.toString() );
+			console.log( mask.toString() );
+			mask.transform( 't5, 5' );
+			console.log( mask.toString() );
+
+			// item:
+			// mask: "cloudSymbolMask"
+			// symbolId: "sunSymbol"
+			// transform: (2) [5, 10]
+
+			mask.transform( 't' + item.transform.join( ', ' ) );
+
+			element.attr({
+				mask: snap.use( `#${item.mask}` ),
+				class: 'fadeIn'
+			});
+		});
 	};
 
 	const snapLoadPromise = ( url ) => {
@@ -105,19 +151,8 @@ const SvgIcon = () => {
 		});
 	};
 
-	// laod each symbol
-	// add it to symbols
-	// add element to scene
-	// create its mask
-
 	return (
 		<div>
-			{/* <img src="/weather/64x64/day/svg/116.svg" style={{
-				position: 'absolute',
-				left: '50%',
-				transform: 'translateX(-50%)',
-				width: 64
-			}}/> */}
 			<svg
 				ref={svgRef}
 				id="svg"
