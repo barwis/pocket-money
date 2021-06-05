@@ -28,6 +28,7 @@ const SvgIcon = () => {
 				height: 35
 			},
 			mask: 'cloudSymbolMask',
+			masks: ['cloudSymbol'],
 			transform: [5, 10]
 		},
 		{
@@ -73,10 +74,7 @@ const SvgIcon = () => {
 						id: 'use',
 						fill: 'black',
 						stroke: 'black'
-					});
-					// .transform( 't5, 10' );
-
-					// console.log( 'clone', clone.toString() );
+					}).transform( 't5, 10' );
 
 					maskSymbol.append( clone );
 					maskSymbol.appendTo( snap ).toDefs();
@@ -114,8 +112,6 @@ const SvgIcon = () => {
 			if ( !item.mask ) {
 				return;
 			}
-
-			console.log({ item });
 
 			const element = snap.select( `#${item.symbolId}` );
 			const mask = snap.select( `#${item.mask}` );
