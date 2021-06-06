@@ -1,6 +1,9 @@
 body {
-  /* background: white !important; */
+  background-color: #ff3cac !important;
+  background-image: linear-gradient( 225deg, #ff3cac 0%, #784ba0 50%, #2b86c5 100% ) !important;
+  background-attachment: fixed; 
 }
+
 #weather_icon * {
   stroke-miterlimit: 10;
 }

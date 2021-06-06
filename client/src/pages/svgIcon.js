@@ -19,7 +19,21 @@ const SvgIcon = () => {
 
 	const symbols = [
 		{
-			symbolId: 'sunSymbol',
+			id: 'cloud3',
+			symbolRef: 'cloudSymbol',
+			symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
+			attributes: {
+				fill: 'none',
+				stroke: '#3996D2',
+				width: 20,
+				height: 15
+			},
+			masks: ['sun', 'cloud2'],
+			transform: [5, 25]
+		},
+		{
+			id: 'sun',
+			symbolRef: 'sunSymbol',
 			symbolUrl: '/weather/64x64/day/svg/defs/sun.svg',
 			attributes: {
 				fill: 'none',
@@ -27,13 +41,12 @@ const SvgIcon = () => {
 				width: 35,
 				height: 35
 			},
-			mask: 'cloudSymbolMask',
-			masks: ['cloudSymbol'],
+			masks: ['cloud2'],
 			transform: [5, 10]
 		},
 		{
-			symbolId: 'cloudSymbol',
-			maskId: 'cloudSymbolMask',
+			id: 'cloud2',
+			symbolRef: 'cloudSymbol',
 			symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
 			attributes: {
 				fill: 'none',
@@ -42,7 +55,6 @@ const SvgIcon = () => {
 				height: 28
 			},
 			transform: [12, 17]
-
 		}
 	];
 
@@ -52,53 +64,28 @@ const SvgIcon = () => {
 		const promises = [];
 
 		symbols.forEach( symbol => {
-			const { symbolId, symbolUrl, attributes, transform, maskId, mask } = symbol;
+			const { id, symbolRef, symbolUrl, attributes, transform, masks } = symbol;
 
 			const p = snapLoadPromise( symbolUrl ).then( data => {
-				const symbol = data.select( `#${symbolId}` );
+				const symbol = data.select( `#${symbolRef}` );
+				symbol.attr({ id: `${id}Symbol` });
 				symbol.appendTo( snap ).toDefs();
-				const useTag = snap.use().attr({
-					href: `#${symbolId}`,
+
+				snap.use().attr({
+					id: `${id}`,
+					href: `#${id}Symbol`,
 					...attributes
 				})
 					.transform( 't' + transform.join( ',' ) )
 					.appendTo( snap );
 
-				// create mask
-				if ( maskId ) {
-					const maskSymbol = snap.symbol().attr({ id: `${maskId}` });
-					// const maskGroup = snap.g();
-					maskSymbol.append( snap.rect( 0, 0, 64, 64 ).attr({ fill: '#fafafa' }) );
-					const clone = useTag.clone();
-					clone.attr({
-						id: 'use',
-						fill: 'black',
-						stroke: 'black'
-					}).transform( 't5, 10' );
-
-					maskSymbol.append( clone );
-					maskSymbol.appendTo( snap ).toDefs();
-				} else {
-					// console.log( 'useTag', useTag );
-					// useTag.attr({ class: 'fadeIn' });
-				}
-
-				if ( !mask ) {
-					useTag.attr({ class: 'fadeIn' });
-				} else {
-					// useTag.attr({ class: 'hidden' });
-				}
-
 				return {
-					symbolId,
-					mask,
-					maskId,
-					transform
+					id,
+					masks
 				};
 			});
 
 			promises.push( p );
-			return p;
 		});
 
 		// apply masks
@@ -109,29 +96,38 @@ const SvgIcon = () => {
 
 	const applyMasks = ( items ) => {
 		items.forEach( item => {
-			if ( !item.mask ) {
+			if ( !item.masks || item.masks.length === 0 ) {
 				return;
 			}
 
-			const element = snap.select( `#${item.symbolId}` );
-			const mask = snap.select( `#${item.mask}` );
+			// if has masks ..
+			const itemToApplyMask = snap.select( `#${item.id}` );
 
-			// console.log( item, mask.toString() );
-			console.log( mask.toString() );
-			mask.transform( 't5, 5' );
-			console.log( mask.toString() );
+			// create mask group with white background and black copies of each element that needs to be used as mask
+			const maskGroup = snap.g().attr({ id: `${item.id}SymbolMask` });
 
-			// item:
-			// mask: "cloudSymbolMask"
-			// symbolId: "sunSymbol"
-			// transform: (2) [5, 10]
+			maskGroup.append( snap.rect( 0, 0, 64, 64 ).attr({ fill: '#fafafa' }) );
+			// maskGroup.toDefs();
 
-			mask.transform( 't' + item.transform.join( ', ' ) );
-
-			element.attr({
-				mask: snap.use( `#${item.mask}` ),
-				class: 'fadeIn'
+			item.masks.forEach( mask => {
+				const maskProperties = symbols.find( item => item.id === mask );
+				const maskItem = snap.use( `#${mask}Symbol` );
+				maskItem.attr({
+					...maskProperties.attributes,
+					fill: 'black',
+					stroke: 'black'
+				});
+				maskItem.transform( 't' + maskProperties.transform.join( ',' ) );
+				maskItem.appendTo( maskGroup );
 			});
+
+			// apply transform
+
+			const current = symbols.find( s => s.id === item.id );
+			const maskGroupTransform = current.transform.map( item => -item ).join( ', ' );
+			maskGroup.transform( `t${maskGroupTransform}` );
+
+			itemToApplyMask.attr({ mask: maskGroup });
 		});
 	};
 
@@ -152,15 +148,15 @@ const SvgIcon = () => {
 			<svg
 				ref={svgRef}
 				id="svg"
-				width="64px"
-				height="64px"
+				width="256px"
+				height="256px"
 				version="1.1"
 				viewBox="0 0 64 64"
 				xmlns="http://www.w3.org/2000/svg"
 				style={{
 					margin: '0 auto',
 					display: 'block',
-					outline: '1px solid white'
+					strokeWidth: '2px'
 				}}
 			/>
 		</div>

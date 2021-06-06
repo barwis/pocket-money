@@ -9,66 +9,66 @@
         <g  transform-origin="center center">
             <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"/>
 
-            <circle stroke-linecap="round" id="sun_orb" cx="18" cy="18" r="9"/>
+            <circle vector-effect="non-scaling-stroke" stroke-linecap="round" id="sun_orb" cx="18" cy="18" r="9"/>
             <g transform-origin="center" >
                 <g  transform-origin="center" transform="rotate(0)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(30)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(60)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(90)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(120)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(150)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(180)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g  transform-origin="center" transform="rotate(210)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0">
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(240)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0">
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g  transform-origin="center" transform="rotate(270)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0" >
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(300)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0">
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
                     </line>
                 </g>
                 <g transform-origin="center" transform="rotate(330)">
-                    <line transform="translate(30 18)" stroke-linecap="round" stroke-dashoffset="0" stroke-dasharray="5" x1="0" y1="0" x2="5" y2="0">
-                        <animate attributeName="stroke-dashoffset" values="0;3;0" dur="2s"  begin="-1s" repeatCount="indefinite" />
+                    <line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+                        <animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s"  repeatCount="indefinite" />
                     </line>
                 </g>
             </g>
