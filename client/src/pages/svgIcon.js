@@ -20,16 +20,16 @@ const SvgIcon = () => {
 	const symbols = [
 		{
 			id: 'cloud3',
-			symbolRef: 'cloudSymbol',
+			symbolRef: 'cloudFlippedSymbol',
 			symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
 			attributes: {
 				fill: 'none',
 				stroke: '#3996D2',
-				width: 20,
-				height: 15
+				width: 25,
+				height: 20
 			},
 			masks: ['sun', 'cloud2'],
-			transform: [5, 25]
+			transform: [8, 20]
 		},
 		{
 			id: 'sun',
@@ -38,11 +38,11 @@ const SvgIcon = () => {
 			attributes: {
 				fill: 'none',
 				stroke: '#F1C413',
-				width: 35,
-				height: 35
+				width: 29,
+				height: 29
 			},
 			masks: ['cloud2'],
-			transform: [5, 10]
+			transform: [11, 12]
 		},
 		{
 			id: 'cloud2',
@@ -115,7 +115,8 @@ const SvgIcon = () => {
 				maskItem.attr({
 					...maskProperties.attributes,
 					fill: 'black',
-					stroke: 'black'
+					stroke: 'black',
+					strokeWidth: 6
 				});
 				maskItem.transform( 't' + maskProperties.transform.join( ',' ) );
 				maskItem.appendTo( maskGroup );
@@ -156,7 +157,8 @@ const SvgIcon = () => {
 				style={{
 					margin: '0 auto',
 					display: 'block',
-					strokeWidth: '2px'
+					strokeWidth: '2px',
+					outline: '1px solid white'
 				}}
 			/>
 		</div>
