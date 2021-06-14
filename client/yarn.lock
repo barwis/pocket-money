@@ -1001,6 +1001,24 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cycjimmy/awesome-js-funcs@^2.3.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@cycjimmy/awesome-js-funcs/-/awesome-js-funcs-2.5.0.tgz#e45c0839f367c0035375a9c0273e303247790af6"
+  integrity sha512-xy4MkuL8FcmRfWm0FwdHUCWB+EQ/ljCuTAf6d3SdaXPDgD4celrq0/vJT9ekLF0E6Au4fLbvRh1G8sXnGwDUkg==
+
+"@cycjimmy/jsmpeg-player@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@cycjimmy/jsmpeg-player/-/jsmpeg-player-5.0.1.tgz#f29ca77641af518498df1fca91bfacb1101032d8"
+  integrity sha512-x2kCCEfmXinebXC3d8XBJmOeFP+Jw0f4peT2rAmNvhggP1hYPvACP2ioobxeZvp255rPQTt/RPNi9y2SJ5ATMQ==
+  dependencies:
+    "@cycjimmy/awesome-js-funcs" "^2.3.0"
+    "@cycjimmy/sass-lib" "^1.0.3"
+
+"@cycjimmy/sass-lib@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@cycjimmy/sass-lib/-/sass-lib-1.0.3.tgz#df5fbd7edc3dcbb6531bf186713e2e052391c3dc"
+  integrity sha512-OTr8uMjeRapr0bWTKs782Jj84/xQt1XvVl5ZyYW1yi4sEbqY1FfW1FYLeflBp4gSU99o4c/nPi2Fx5aRxna5dw==
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
@@ -5223,6 +5241,11 @@ jsesc@~0.5.0:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
+jsmpeg@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/jsmpeg/-/jsmpeg-1.0.0.tgz#7e41516d748720e06336392eeb951709ae532442"
+  integrity sha1-fkFRbXSHIOBjNjku65UXCa5TJEI=
+
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -5461,6 +5484,11 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
 lodash.truncate@^4.4.2:
   version "4.4.2"
@@ -6651,6 +6679,14 @@ react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-lazy-load-image-component@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-lazy-load-image-component/-/react-lazy-load-image-component-1.5.1.tgz#59cc92326ba5604e9c4a86805a2cf1667fafbc71"
+  integrity sha512-grTEZzURLHPkq7JoipcBBQU44ijdF4fH3Cb+eSD5eSAaMsjugbXqTaVWm5ruPUNLduoNR9KKQF6bOR9h2WphEg==
+  dependencies:
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
 
 react-lazyload@^3.2.0:
   version "3.2.0"

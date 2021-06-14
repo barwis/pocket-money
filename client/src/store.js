@@ -13,6 +13,7 @@ import weather from './components/weather/slice';
 import recycle from './components/recycle/slice';
 import icons from './components/iconsList/slice';
 import auth from './components/_common/auth/slice';
+import arlo from './components/stream/slice';
 
 const reducers = {
 	settings,
@@ -21,7 +22,8 @@ const reducers = {
 	weather,
 	recycle,
 	icons,
-	auth
+	auth,
+	arlo
 };
 
 const persistConfig = {

@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import IconsList from './components/iconsList';
 
 import Homepage from './pages/home';
+import Arlo from './pages/arlo';
 import PocketMoneyManager from './pages/pocketMoneyManager';
 
 import './style.css';
@@ -16,6 +17,7 @@ const Icons = () =>
 const App = () => (
 	<>
 		<Switch>
+			<Route path="/arlo" component={Arlo} exact />
 			<Route path="/" component={Homepage} exact />
 			<Route path="/pmm" component={PocketMoneyManager} exact />
 			<Route path="/iconsList" component={Icons} exact />

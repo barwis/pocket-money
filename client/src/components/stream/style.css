@@ -1,0 +1,139 @@
+canvas {
+	outline: 1px solid white;
+	display: block;
+	margin: 0 auto;
+}
+
+.videoWrapper {
+	display: block;
+	width: 640px;
+	height: 480px;
+	margin: 0 auto;
+	outline: 1px solid pink;
+}
+
+.streamCover {
+	width: 640px;
+	height: 480px;
+	object-fit: cover;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: -480px;
+}
+
+.canvasWrapper {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+ul {
+	outline: 1px solid blue;
+	display: block;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+ul li {
+	margin: 20px;
+	position: relative;
+	width: 320px;
+	height: 180px;
+	overflow: hidden;
+	display: block;
+	cursor: pointer;
+}
+/* 
+.thumbnail.playing:before {
+	content: "";
+	display: block;
+	width: 50px;
+	height: 50px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 25px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.thumbnail.playing:after {
+	content: "\23F8";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+} */
+
+ul li:not(.selected):hover {
+	opacity: 0.5;
+}
+
+li.selected {
+	outline: 5px solid red;
+	cursor: default;
+}
+
+ul li span.name {
+	position: absolute;
+	display: block;
+	float: right;
+	right: 0;
+	bottom: 0;
+	padding: 5px 10px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+ul li span.status {
+	position: absolute;
+	display: block;
+	float: right;
+	left: 0;
+	bottom: 0;
+	padding: 5px 10px;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+ul li img {
+	width: 320px;
+	height: 180px;
+	object-fit: cover;
+	display: block;
+}
+
+.arlo {
+	height: 100%;
+}
+
+.streamWrapper {
+	display: flex;
+	height: 100%;
+}
+
+h2 {
+	text-align: center;
+}
+
+.controls {
+	display: block;
+	margin: 20px auto;
+}
+
+.controls button {
+	border: none;
+	-webkit-appearance: none;
+	padding: 20px 40px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.controls button:hover {
+	background: rgba(255, 255, 255, 0.6);
+	border-left: 2px solid white;
+	border-top: 2px solid white;
+}
