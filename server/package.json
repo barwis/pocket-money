@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node" : "12.14.1"
+  },
   "scripts": {
-    "start": "nodemon bin/www",
+    "start": "nodemon bin/www --inspect=0.0.0.0 bin/www",
     "test": "mocha ./{,!(node_modules)/**/}*.test.js",
     "lint": "eslint"
   },

@@ -14,6 +14,7 @@ const logRouter = require( './routes/logRouter' );
 const cronLog = require( './routes/cronLog' );
 const auth = require( './routes/auth' );
 const arlo = require( './routes/arloCamera' );
+const arloNode = require( './routes/arloNode' );
 
 module.exports = ( config ) => {
 	const app = express();
@@ -48,10 +49,11 @@ module.exports = ( config ) => {
 	app.use( '/log', logRouter );
 	app.use( '/cronLog', cronLog );
 	app.use( '/auth', auth );
-	app.use( '/arlo', arlo );
+	// app.use( '/arlo', arlo );
+	app.use( '/arlo', arloNode );
 
-	app.get( '/img*', imgRouter );
-	app.get( '/img', imgRouter );
+	// app.get( '/img*', imgRouter );
+	// app.get( '/img', imgRouter );
 
 	app.listen(
 		process.env.API_PORT,

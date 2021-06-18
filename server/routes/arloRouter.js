@@ -34,10 +34,15 @@ const getDevicesData = () => {
 	return devices;
 };
 
+router.get( '*', ( req, res, next ) => {
+	console.log( 'arlooo' );
+	next();
+});
+
 router.get( '/', async ( req, res, next ) => {
 	const user = 'lordzix@gmail.com';
 	const password = 'VenCeym3';
-	// arlo.subscribe( dupa );
+
 	console.log( 'logging in' );
 
 	arlo.login( user, password, () => {
