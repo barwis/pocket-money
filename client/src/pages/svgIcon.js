@@ -1,13 +1,19 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Snap from 'snapsvg';
+import AnimateStroke from '../utils/strokeAnimate';
 import './style.css';
 
 const SvgIcon = () => {
 	const [ snap, setSnap] = useState( null );
 	const svgRef = useRef( null );
+	const [scale, setScale ] = useState( 1 );
 
 	useEffect( () => {
 		const s = Snap( `#${svgRef.current.id}` );
+		// const scale = s.node.clientHeight / s.attr( 'viewBox' ).width;
+		setScale( s.node.clientHeight / s.attr( 'viewBox' ).width );
+		console.log( s.node.clientHeight );
+		console.log( s.attr( 'viewBox' ).width );
 		setSnap( s );
 	}, [svgRef] );
 
@@ -29,7 +35,7 @@ const SvgIcon = () => {
 				height: 20
 			},
 			masks: ['sun', 'cloud2'],
-			transform: [8, 20]
+			translate: [8, 20]
 		},
 		{
 			id: 'sun',
@@ -42,7 +48,7 @@ const SvgIcon = () => {
 				height: 29
 			},
 			masks: ['cloud2'],
-			transform: [11, 12]
+			translate: [11, 12]
 		},
 		{
 			id: 'cloud2',
@@ -54,30 +60,99 @@ const SvgIcon = () => {
 				width: 44,
 				height: 28
 			},
-			transform: [12, 17]
+			translate: [12, 17]
+		},
+		{
+			id: 'rain',
+			symbolRef: 'rainSymbol',
+			symbolUrl: '/weather/64x64/day/svg/defs/rain.svg',
+			attributes: {
+				fill: 'none',
+				stroke: 'black',
+				width: 27,
+				height: 22
+			},
+			transformOrigin: [11, 0],
+			translate: [25, 35],
+			rotate: 20
+		},
+		{
+			id: 'rain2asd',
+			symbolRef: 'rainSymbol2',
+			symbolUrl: '/weather/64x64/day/svg/defs/rain.svg',
+			attributes: {
+				fill: 'none',
+				stroke: 'black',
+				width: 27,
+				height: 22
+			},
+			transformOrigin: [11, 0],
+			translate: [35, 35],
+			rotate: 20
 		}
+
 	];
 
 	const loadSymbols = () => {
 		snap.clear();
+		// const css = window.document.styleSheets[0];
 
 		const promises = [];
 
 		symbols.forEach( symbol => {
-			const { id, symbolRef, symbolUrl, attributes, transform, masks } = symbol;
+			const { id, symbolRef, symbolUrl, attributes, transformOrigin, translate, rotate, masks } = symbol;
 
 			const p = snapLoadPromise( symbolUrl ).then( data => {
 				const symbol = data.select( `#${symbolRef}` );
 				symbol.attr({ id: `${id}Symbol` });
 				symbol.appendTo( snap ).toDefs();
 
-				snap.use().attr({
+				const use = snap.use().attr({
 					id: `${id}`,
 					href: `#${id}Symbol`,
+					transformOrigin: [0, 5],
 					...attributes
 				})
-					.transform( 't' + transform.join( ',' ) )
+					// .transform( 't' + transform.join( ',' ) )
 					.appendTo( snap );
+
+				// m.applyToContext( use );
+				var myMatrix = new Snap.Matrix();
+				if ( transformOrigin ) {
+					use.attr( 'transform-origin', transformOrigin.join( ' ' ) );
+				}
+				if ( translate ) {
+					myMatrix.translate( translate[0], translate[1] );
+				}
+				if ( rotate ) {
+					myMatrix.rotate( rotate );
+				}
+
+				use.transform( myMatrix );
+
+				const p = snap.select( `#${id}Symbol .animate` );
+				if ( p ) {
+					// console.log( p );
+					// animateStroke( p, scale, 3 );
+					// p.attr({ 'style': 'stroke: red' });
+					const anim = new AnimateStroke( p, scale, 3 );
+					console.log( 'scaled?', anim.isScaled );
+					console.log( 'strokeDashOffset', anim.strokeDashOffset );
+					console.log( 'strokeDashArray', anim.strokeDashArray );
+					console.log( anim.calculate() );
+					anim.apply();
+				}
+				// if ( p ) {
+				// 	console.log( p );
+				// 	p.animate({ x: 50 }, 500 );
+				// }
+
+				// rain animation
+				// var offset = 0;
+				// var animation = function () {
+				// 	offset -= 20;
+				// 	path.animate({ x: 20 }, 500, mina.linear );
+				// };
 
 				return {
 					id,
@@ -115,17 +190,17 @@ const SvgIcon = () => {
 				maskItem.attr({
 					...maskProperties.attributes,
 					fill: 'black',
-					stroke: 'black',
-					strokeWidth: 6
+					stroke: 'black'
+					// strokeWidth: 6
 				});
-				maskItem.transform( 't' + maskProperties.transform.join( ',' ) );
+				maskItem.transform( 't' + maskProperties.translate.join( ',' ) );
 				maskItem.appendTo( maskGroup );
 			});
 
 			// apply transform
 
 			const current = symbols.find( s => s.id === item.id );
-			const maskGroupTransform = current.transform.map( item => -item ).join( ', ' );
+			const maskGroupTransform = current.translate.map( item => -item ).join( ', ' );
 			maskGroup.transform( `t${maskGroupTransform}` );
 
 			itemToApplyMask.attr({ mask: maskGroup });
@@ -149,17 +224,11 @@ const SvgIcon = () => {
 			<svg
 				ref={svgRef}
 				id="svg"
-				width="256px"
+				width="256"
 				height="256px"
 				version="1.1"
 				viewBox="0 0 64 64"
 				xmlns="http://www.w3.org/2000/svg"
-				style={{
-					margin: '0 auto',
-					display: 'block',
-					strokeWidth: '2px',
-					outline: '1px solid white'
-				}}
 			/>
 		</div>
 	);
