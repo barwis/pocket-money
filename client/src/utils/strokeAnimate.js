@@ -141,4 +141,57 @@ const loadSymbols = async ( snap, symbols, scale ) => {
 	return Promise.all( promises );
 };
 
-export { AnimateStroke, loadSymbols };
+const applyMasks = ( snap, items ) => {
+	// / just to test something out
+
+	items.forEach( item => {
+		if ( !item.masks || item.masks.length === 0 ) {
+			return;
+		}
+
+		// if has masks ..
+		const itemToApplyMask = snap.select( `#${item.id}` );
+
+		// create mask group with white background and black copies of each element that needs to be used as mask
+		const maskGroup = snap.g().attr({ id: `${item.id}SymbolMask` });
+
+		const rectSize = snap.attr( 'viewBox' ).width; // need the size, to cover it all witgh white rectangle
+
+		maskGroup.append( snap.rect( 0, 0, rectSize, rectSize ).attr({ fill: '#ffffff' }) );
+
+		item.masks.forEach( mask => {
+			const maskProperties2 = snap.select( `#${mask}` ).attr();
+
+			const disallowedProps = ['href', 'id'];
+
+			const maskProperties3 = Object.keys( maskProperties2 )
+				.filter( key => !disallowedProps.includes( key ) )
+				.reduce( ( obj, key ) => {
+					obj[key] = maskProperties2[key];
+					return obj;
+				}, {});
+
+			const maskItem = snap.use( `#${mask}Symbol` );
+
+			maskItem.attr({
+				...maskProperties3,
+				fill: 'black',
+				stroke: 'black',
+				strokeWidth: 10
+			});
+			// DO I NEED THIS?
+			// maskItem.transform( 't' + maskProperties.translate.join( ',' ) );
+
+			maskItem.appendTo( maskGroup );
+		});
+
+		// apply transform
+		const m = snap.select( `#${item.id}` ).transform().localMatrix.split();
+		const newTranslate = `-${m.dx}, -${m.dy}`;
+
+		maskGroup.transform( `t${newTranslate}` );
+		itemToApplyMask.attr({ mask: maskGroup });
+	});
+};
+
+export { AnimateStroke, loadSymbols, applyMasks };
