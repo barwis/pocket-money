@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Snap from 'snapsvg';
 import symbols from './symbols';
-import { loadSymbols, applyMasks } from '../utils/strokeAnimate';
+import { Icon } from '../utils/strokeAnimate';
 import './style.css';
 
 // const mytest = [
@@ -45,16 +45,16 @@ const SvgIcon = () => {
 
 	useEffect( () => {
 		const s = Snap( `#${svgRef.current.id}` );
-		// const scale = s.node.clientHeight / s.attr( 'viewBox' ).width;
 		setScale( s.node.clientHeight / s.attr( 'viewBox' ).width );
 		setSnap( s );
 	}, [svgRef] );
 
 	useEffect( () => {
 		if ( snap ) {
-			// loadSymbols();
-			loadSymbols( snap, symbols, scale ).then( values => {
-				applyMasks( snap, values );
+			const icon = new Icon( snap );
+			icon.loadSymbols( symbols, scale ).then( values => {
+				// console.log( icon.masks );
+				icon.applyMasks( values );
 			});
 		}
 	}, [snap] );

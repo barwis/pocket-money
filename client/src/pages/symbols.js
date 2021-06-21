@@ -1,4 +1,8 @@
 // TODO: allow nesting symbols
+const TYPES = {
+	SYMBOL: 'symbol',
+	GROUP: 'group'
+};
 
 const groups = [
 	{
@@ -21,121 +25,168 @@ const groups = [
 
 export { groups };
 
+const baseAttributes = {
+	strokeWidth: 3,
+	fill: 'none'
+};
+
 export default [
 	{
 		id: 'cloud-small',
-		symbolRef: 'cloudFlippedSymbol',
-		symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'cloudFlippedSymbol',
+			url: '/weather/64x64/day/svg/defs/cloud.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#3996D2',
 			width: 25,
-			height: 20,
-			strokeWidth: 3
+			height: 20
 		},
 		masks: ['sun', 'cloud-big'],
 		translate: [8, 20]
 	},
 	{
 		id: 'sun',
-		symbolRef: 'sunSymbol',
-		symbolUrl: '/weather/64x64/day/svg/defs/sun.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'sunSymbol',
+			url: '/weather/64x64/day/svg/defs/sun.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#F1C413',
 			width: 29,
-			height: 29,
-			strokeWidth: 3
+			height: 29
 		},
 		masks: ['cloud-big'],
 		translate: [11, 12]
 	},
 	{
 		id: 'cloud-big',
-		symbolRef: 'cloudSymbol',
-		symbolUrl: '/weather/64x64/day/svg/defs/cloud.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'cloudSymbol',
+			url: '/weather/64x64/day/svg/defs/cloud.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#3996D2',
 			width: 44,
-			height: 28,
-			strokeWidth: 3
+			height: 28
 		},
-		masks: ['rain-5'],
+		masks: ['rain-straight'],
 		translate: [12, 17]
 	},
 	{
 		id: 'rain-1',
-		symbolRef: 'rainSymbol-1',
-		symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'rainSymbol-1',
+			url: '/weather/64x64/day/svg/defs/rain2.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#2980b9',
 			width: 27,
-			height: 22,
-			strokeWidth: 3
+			height: 22
 		},
-		foo: 'bar',
-		transformOrigin: [11, 0],
-		translate: [25, 35]
+		// transformOrigin: [11, 0],
+		translate: [25, 35],
+		animation: { timing: { delay: 400 } }
+
 	},
 	{
 		id: 'rain-2',
-		symbolRef: 'rainSymbol-2',
-		symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'rainSymbol-2',
+			url: '/weather/64x64/day/svg/defs/rain2.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#2980b9',
 			width: 27,
-			height: 22,
-			strokeWidth: 3
+			height: 22
 		},
-		foo: 'bar',
-		transformOrigin: [11, 0],
-		translate: [25, 35]
+		// transformOrigin: [11, 0],
+		translate: [25, 35],
+		animation: { timing: { delay: 400 } }
+
 	},
 	{
 		id: 'rain-3',
-		symbolRef: 'rainSymbol-3',
-		symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'rainSymbol-3',
+			url: '/weather/64x64/day/svg/defs/rain2.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#2980b9',
 			width: 27,
-			height: 22,
-			strokeWidth: 3
+			height: 22
 		},
-		foo: 'bar',
-		transformOrigin: [11, 0],
-		translate: [25, 35]
+		// transformOrigin: [11, 0],
+		translate: [25, 35],
+		animation: { timing: { delay: 400 } }
 	},
 	{
 		id: 'rain-4',
-		symbolRef: 'rainSymbol-4',
-		symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'rainSymbol-4',
+			url: '/weather/64x64/day/svg/defs/rain2.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#2980b9',
 			width: 27,
-			height: 22,
-			strokeWidth: 3
+			height: 22
 		},
-		foo: 'bar',
-		transformOrigin: [11, 0],
-		translate: [25, 35]
+		// transformOrigin: [11, 0],
+		translate: [25, 35],
+		animation: { timing: { delay: 400 } }
+
 	},
 	{
-		id: 'rain-5',
-		symbolRef: 'rainSymbol-5',
-		symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+		id: 'rain-straight',
+		type: TYPES.SYMBOL,
+		symbol: {
+			ref: 'rainSymbol-5',
+			url: '/weather/64x64/day/svg/defs/rain2.svg'
+		},
 		attributes: {
-			fill: 'none',
+			...baseAttributes,
 			stroke: '#2980b9',
 			width: 27,
-			height: 22,
-			strokeWidth: 3
+			height: 22
 		},
-		transformOrigin: [11, 0],
+		// transformOrigin: [11, 0],
 		translate: [25, 35]
+
 	}
+	// {
+	// 	id: 'rain-group',
+	// 	type: TYPES.GROUP,
+	// 	children: [
+	// 		{
+	// 			id: 'rain-5',
+	// 			type: TYPES.SYMBOL,
+	// 			symbolRef: 'rainSymbol-5',
+	// 			symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+	// 			attributes: {
+	// 				fill: 'none',
+	// 				stroke: '#2980b9',
+	// 				width: 27,
+	// 				height: 22,
+	// 				strokeWidth: 3
+	// 			},
+	// 			transformOrigin: [11, 0],
+	// 			translate: [25, 35]
+	// 		}
+	// 	]
+
+	// }
 ];

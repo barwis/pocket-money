@@ -30,9 +30,5 @@ path {
 </symbol>
 
 
-<symbol id="rainSymbol2" viewBox="0 0 27.47 22.19" >
-    <path  vector-effect="non-scaling-stroke" stroke-linecap="round" class="st0 testpath animate testpath-2" d="M11,0c0,6.33,0,12.67,0,19"/>
-</symbol>
-
 <use href="#rainSymbol" width="27.47px" />
 </svg>
