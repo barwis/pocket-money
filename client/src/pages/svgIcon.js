@@ -53,12 +53,13 @@ const SvgIcon = () => {
 		if ( snap ) {
 			const icon = new Icon( snap );
 			icon.setScale( scale );
-			icon.loadSymbols( symbols, scale ).then( () => {
+			icon.loadSymbols( symbols ).then( () => {
 				// icon.defsToItems();
 
 				icon.loadlements( items );
 
-				icon.applyMasks();
+				// icon.applyMasks();
+				icon.applyMasks2( items );
 				icon.animateAnimated();
 			});
 		}

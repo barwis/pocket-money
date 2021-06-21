@@ -5,18 +5,21 @@ const TYPES = {
 };
 
 const items = [
+	// {
+	// 	name: 'cloud-small',
+	// 	type: 'symbol',
+	// 	masks: ['sun', 'cloud-big']
+	// },
+	{
+		name: 'sun',
+		type: 'symbol',
+		masks: ['cloud-big']
+	},
 	{
 		name: 'cloud-big',
 		type: 'symbol'
 	},
-	{
-		name: 'cloud-small',
-		type: 'symbol'
-	},
-	{
-		name: 'sun',
-		type: 'symbol'
-	},
+
 	{
 		name: 'rain-group-1',
 		type: 'group',
@@ -24,12 +27,7 @@ const items = [
 		translate: [0, 0]
 
 	}
-	// {
-	// 	name: 'rain-group-2',
-	// 	type: 'group',
-	// 	elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
-	// 	translate: [5, 5]
-	// }
+
 ];
 
 export { items };
@@ -53,7 +51,7 @@ export default [
 			width: 25,
 			height: 20
 		},
-		masks: ['sun', 'cloud-big'],
+		// masks: ['sun', 'cloud-big'],
 		translate: [8, 20]
 	},
 	{
@@ -69,7 +67,7 @@ export default [
 			width: 29,
 			height: 29
 		},
-		masks: ['cloud-big'],
+		// masks: ['cloud-big'],
 		translate: [11, 12]
 	},
 	{
@@ -85,7 +83,7 @@ export default [
 			width: 44,
 			height: 28
 		},
-		masks: ['rain-straight'],
+		// masks: ['rain-straight'],
 		translate: [12, 17]
 	},
 	{

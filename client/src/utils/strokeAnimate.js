@@ -168,6 +168,7 @@ class Icon {
 
 	createSymbol ( s ) {
 		const { id, symbol, attributes, translate, animation, masks } = s;
+
 		return snapLoadPromise( symbol.url ).then( data => {
 			// load <symbol>
 			const myDef = this.loadSymbol( data, id, symbol.ref );
@@ -189,8 +190,8 @@ class Icon {
 		this.snap.clear();
 		const promises = [];
 
-		symbols.forEach( s => {
-			const p = this.createSymbol( s );
+		symbols.forEach( symbol => {
+			const p = this.createSymbol( symbol );
 			promises.push( p );
 		});
 
@@ -255,7 +256,7 @@ class Icon {
 	animateAnimated () {
 		Object.values( this.symbols ).forEach( symbol => {
 			const itemToAnimate = this.snap.select( `#${symbol.symbolId} .animate` );
-			console.log( symbol.symbolId );
+			// console.log( symbol.symbolId );
 
 			if ( itemToAnimate ) {
 				const anim = new AnimateStroke( itemToAnimate, this.scale, 6, symbol?.animation?.timing );
@@ -307,6 +308,16 @@ class Icon {
 				useToUse.attr({ mask: maskGroup });
 			}
 		});
+	}
+
+	applyMasks2 ( items ) {
+		items.forEach( item => {
+			console.log( 'mask', item.name, item.masks );
+		});
+	}
+
+	createMask2 ( itemId, maskId ) {
+
 	}
 }
 
