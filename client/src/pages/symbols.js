@@ -4,26 +4,35 @@ const TYPES = {
 	GROUP: 'group'
 };
 
-const groups = [
+const items = [
 	{
 		name: 'cloud-big',
-		elements: ['cloud-big']
+		type: 'symbol'
 	},
 	{
 		name: 'cloud-small',
-		elements: ['cloud-small']
+		type: 'symbol'
 	},
 	{
 		name: 'sun',
-		elements: ['sun']
+		type: 'symbol'
 	},
 	{
-		name: 'raindrop-1',
-		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-5']
+		name: 'rain-group-1',
+		type: 'group',
+		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
+		translate: [0, 0]
+
 	}
+	// {
+	// 	name: 'rain-group-2',
+	// 	type: 'group',
+	// 	elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
+	// 	translate: [5, 5]
+	// }
 ];
 
-export { groups };
+export { items };
 
 const baseAttributes = {
 	strokeWidth: 3,
@@ -145,7 +154,6 @@ export default [
 			width: 27,
 			height: 22
 		},
-		// transformOrigin: [11, 0],
 		translate: [25, 35],
 		animation: { timing: { delay: 400 } }
 
@@ -172,19 +180,22 @@ export default [
 	// 	type: TYPES.GROUP,
 	// 	children: [
 	// 		{
-	// 			id: 'rain-5',
+	// 			id: 'rain-4',
 	// 			type: TYPES.SYMBOL,
-	// 			symbolRef: 'rainSymbol-5',
-	// 			symbolUrl: '/weather/64x64/day/svg/defs/rain2.svg',
+	// 			symbol: {
+	// 				ref: 'rainSymbol-4',
+	// 				url: '/weather/64x64/day/svg/defs/rain2.svg'
+	// 			},
 	// 			attributes: {
-	// 				fill: 'none',
+	// 				...baseAttributes,
 	// 				stroke: '#2980b9',
 	// 				width: 27,
-	// 				height: 22,
-	// 				strokeWidth: 3
+	// 				height: 22
 	// 			},
-	// 			transformOrigin: [11, 0],
-	// 			translate: [25, 35]
+	// 			// transformOrigin: [11, 0],
+	// 			translate: [25, 35],
+	// 			animation: { timing: { delay: 400 } }
+
 	// 		}
 	// 	]
 

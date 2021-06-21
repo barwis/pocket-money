@@ -15,7 +15,6 @@ class AnimateStroke {
 			...t,
 			...timing
 		};
-
 		// console.log( this.timing );
 
 		const vectorEffect = path.attr( 'vector-effect' );
@@ -88,9 +87,10 @@ class Icon {
 	constructor ( snap ) {
 		this.name = 'Icon';
 		this.snap = snap;
-		this.defs = [];
-		this.masks = {};
-		this.items = [];
+		this.symbols = {};
+		this.elements = {};
+		// this.items = [];
+		this.scale = 1;
 	}
 
 	static snapLoadPromise ( url ) {
@@ -107,13 +107,10 @@ class Icon {
 
 	// get item from svg data and puts it into defs for future use
 
-	applyBasicAttributes ( item, def, attributes ) {
-		return item.attr({
-			id: def.id,
-			href: `#${def.symbolId}`,
-			...attributes
-		});
+	setScale ( s ) {
+		this.scale = s;
 	}
+
 	// TODO: fix transform-origin for rotations
 	generateTransforms ( item, symbol ) {
 		const { transformOrigin, translate, rotate } = symbol;
@@ -155,118 +152,162 @@ class Icon {
 			const symbol = svgData.select( `#${symbolRef}` );
 			symbol.attr({ id: symbolId });
 			symbol.attr( 'data-id', id );
+			symbol.attr( 'data-symbolId', symbolId );
+
+			this.symbols[id] = {
+				symbolId,
+				id,
+				useId: id
+			};
+
 			return symbol;
 		} catch ( e ) {
 			return false;
 		}
 	}
 
-	async loadSymbols ( symbols, scale ) {
+	createSymbol ( s ) {
+		const { id, symbol, attributes, translate, animation, masks } = s;
+		return snapLoadPromise( symbol.url ).then( data => {
+			// load <symbol>
+			const myDef = this.loadSymbol( data, id, symbol.ref );
+			if ( !myDef ) {
+				return;
+			}
+			this.symbols[id].attributes = attributes;
+			this.symbols[id].translate = translate;
+			this.symbols[id].animation = animation;
+			this.symbols[id].masks = masks;
+
+			// add <symbol> to svg <defs>
+
+			myDef.appendTo( this.snap ).toDefs();
+		});
+	}
+
+	async loadSymbols ( symbols ) {
 		this.snap.clear();
 		const promises = [];
 
 		symbols.forEach( s => {
-			const { id, symbol, attributes, animation, masks, type } = s;
-			const p = snapLoadPromise( symbol.url ).then( data => {
-				const def = this.svgSymbolToDefs( data, id, symbol.ref );
-				if ( !def ) {
-					return;
-				}
-
-				// const def = this.loadSymbol( data, id, symbol.ref );
-				// if ( !def ) {
-				// 	return;
-				// }
-
-				this.defs.push( def );
-
-				const use = this.snap.use();
-
-				this.applyBasicAttributes( use, def, attributes );
-
-				this.generateTransforms( use, s );
-
-				use.appendTo( this.snap );
-
-				// add animation
-				const p = this.snap.select( `#${id}Symbol .animate` );
-
-				// const timing = animation?.timing;
-
-				if ( p ) {
-					const anim = new AnimateStroke( p, scale, 6, animation?.timing );
-					anim.apply();
-				}
-
-				return {
-					id,
-					masks
-				};
-			});
-
+			const p = this.createSymbol( s );
 			promises.push( p );
 		});
 
 		return Promise.all( promises );
 	};
 
-	applyMasks ( items ) {
-		items.forEach( item => {
-			if ( !item.masks ) {
+	loadlements ( elements ) {
+		elements.forEach( element => {
+			const { name, type: elementType, elements, translate } = element;
+			// console.log( element );
+			if ( elementType === 'symbol' ) {
+				const symbol = this.symbols[element.name];
+				this.symbolToElement( symbol );
+			} else {
+				const group = this.snap.g().appendTo( this.snap );
+				group.attr({ id: name });
+				// 		generateTransforms ( item, symbol ) {
+				// const { transformOrigin, translate, rotate } = symbol;
+				if ( translate ) {
+					this.generateTransforms( group, { translate });
+				}
+				elements?.forEach( element => {
+					const symbol = this.symbols[element];
+
+					this.symbolToElement( symbol, group );
+				});
+			}
+		});
+	}
+
+	symbolToElement ( symbol, group = null ) {
+		const { id, attributes, symbolId } = symbol;
+		const use = this.snap.use();
+		if ( group === null ) {
+			use.appendTo( this.snap );
+		} else {
+			use.appendTo( group );
+		}
+
+		use.attr({
+			id,
+			href: `#${symbolId}`,
+			...attributes
+		});
+
+		// generateTransforms
+
+		// // TODO: fix transform-origin for rotations
+		// generateTransforms ( item, symbol ) {
+		const { transformOrigin, translate, rotate } = symbol;
+		this.generateTransforms( use, {
+			transformOrigin,
+			translate,
+			rotate
+		});
+	}
+
+	defsToItems () {
+		Object.values( this.symbols ).forEach( symbol => this.symbolToElement( symbol ) );
+	}
+
+	animateAnimated () {
+		Object.values( this.symbols ).forEach( symbol => {
+			const itemToAnimate = this.snap.select( `#${symbol.symbolId} .animate` );
+			console.log( symbol.symbolId );
+
+			if ( itemToAnimate ) {
+				const anim = new AnimateStroke( itemToAnimate, this.scale, 6, symbol?.animation?.timing );
+				anim.apply();
+			}
+		});
+	}
+
+	createMask ( symbol ) {
+		const maskGroup = this.snap.g().attr({ id: `${symbol.id}SymbolMask` })
+			.toDefs();
+
+		const rectSize = this.snap.attr( 'viewBox' ).width;
+		const negativeTransform = symbol.translate.map( item => -item );
+
+		maskGroup.append( this.snap.rect( 0, 0, rectSize, rectSize ).attr({ fill: '#ffffff' }) );
+
+		symbol.masks.forEach( mask => {
+			if ( !this.symbols[mask] ) {
+				console.warn( "can't find def with following id: ", mask, '(', symbol.masks, ')' );
 				return;
 			}
+			const { attributes } = this.symbols[mask];
+			const maskSymbolId = this.symbols[mask].symbolId;
 
-			// if has masks ..
-			const itemToApplyMask = this.snap.select( `#${item.id}` );
-
-			// create mask group with white background and black copies of each element that needs to be used as mask
-			// don't need to append this group to defs
-			// when it's used as mask
-			// itemToApplyMask.attr({ mask: maskGroup });
-			// it's being moved to defs automatically
-			const maskGroup = this.snap.g().attr({ id: `${item.id}SymbolMask` })
-				.toDefs();
-
-			const rectSize = this.snap.attr( 'viewBox' ).width; // need the size, to cover it all witgh white rectangle
-
-			maskGroup.append( this.snap.rect( 0, 0, rectSize, rectSize ).attr({ fill: '#ffffff' }) );
-
-			item.masks.forEach( mask => {
-				const maskProperties2 = this.snap.select( `#${mask}` ).attr();
-
-				const disallowedProps = ['href', 'id'];
-
-				const maskProperties3 = Object.keys( maskProperties2 )
-					.filter( key => !disallowedProps.includes( key ) )
-					.reduce( ( obj, key ) => {
-						obj[key] = maskProperties2[key];
-						return obj;
-					}, {});
-
-				const maskItem = this.snap.use( `#${mask}Symbol` );
-
-				maskItem.attr({
-					...maskProperties3,
-					fill: 'black',
-					stroke: 'black',
-					strokeWidth: 10
-				});
-				// DO I NEED THIS?
-				// maskItem.transform( 't' + maskProperties.translate.join( ',' ) );
-
-				maskItem.appendTo( maskGroup );
+			const maskItem = this.snap.use( `#${maskSymbolId}` );
+			maskItem.attr({
+				...attributes,
+				fill: 'black',
+				stroke: 'black',
+				strokeWidth: 10
 			});
+			this.generateTransforms( maskItem, this.symbols[mask] );
 
-			// apply transform
-			const m = this.snap.select( `#${item.id}` ).transform().localMatrix.split();
-			const newTranslate = `-${m.dx}, -${m.dy}`;
-
-			maskGroup.transform( `t${newTranslate}` );
-			itemToApplyMask.attr({ mask: maskGroup });
-
-			this.masks[item.id] = maskGroup.node.id;
+			maskItem.appendTo( maskGroup );
 		});
-	};
+
+		maskGroup.transform( `t${negativeTransform.join( ',' )}` );
+
+		return maskGroup;
+	}
+
+	applyMasks () {
+		Object.values( this.symbols ).forEach( symbol => {
+			if ( symbol.masks ) {
+				const maskGroup = this.createMask( symbol );
+
+				const useToUse = this.snap.select( `#${symbol.useId}` );
+				useToUse.attr({ mask: maskGroup });
+			}
+		});
+	}
 }
 
 const snapLoadPromise = ( url ) => {

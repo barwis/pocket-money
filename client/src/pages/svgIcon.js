@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Snap from 'snapsvg';
-import symbols from './symbols';
+import symbols, { items } from './symbols';
 import { Icon } from '../utils/strokeAnimate';
 import './style.css';
 
@@ -52,9 +52,14 @@ const SvgIcon = () => {
 	useEffect( () => {
 		if ( snap ) {
 			const icon = new Icon( snap );
-			icon.loadSymbols( symbols, scale ).then( values => {
-				// console.log( icon.masks );
-				icon.applyMasks( values );
+			icon.setScale( scale );
+			icon.loadSymbols( symbols, scale ).then( () => {
+				// icon.defsToItems();
+
+				icon.loadlements( items );
+
+				icon.applyMasks();
+				icon.animateAnimated();
 			});
 		}
 	}, [snap] );
