@@ -9,19 +9,29 @@ path {
 </style>
 
 <symbol id="rainSymbol" viewBox="0 0 27.47 22.19" >
-    <!-- <path class="st0" d="M11,19c0,0,7.94-9.06,16-1"/> -->
     <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-width="1" class="st0 animate testpath testpath-1" d="M11,0c0,6.33,0,12.67,0,19"/>
-    <!-- <path class="st0" d="M11,19c0,0-5-3-9,2"/> -->
-    <!-- <path class="st0" d="M11,19c0,0,5-2,7,3"/> -->
-    <!-- <path class="st0" d="M0.49,15.17C8.49,13.17,11,19,11,19"/> -->
 </symbol>
 
+<symbol id="rainSymbol-1" viewBox="0 0 27.47 22.19" >
+    <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-width="1" class="st0 animate testpath testpath-1" d="M11,19c0,0,7.94-9.06,16-1"/>
+</symbol>
+
+
+<symbol id="rainSymbol-2" viewBox="0 0 27.47 22.19" >
+    <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-width="1" class="st0 animate testpath testpath-1" d="M11,19c0,0-5-3-9,2"/>
+</symbol>
+
+<symbol id="rainSymbol-3" viewBox="0 0 27.47 22.19" >
+    <path  vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-width="1" class="st0 animate testpath testpath-1"   d="M11,19c0,0,5-2,7,3"/>
+</symbol>
+
+<symbol id="rainSymbol-4" viewBox="0 0 27.47 22.19" >
+    <path  vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-width="1" class="st0 animate testpath testpath-1"  d="M0.49,15.17C8.49,13.17,11,19,11,19"/>
+</symbol>
+
+
 <symbol id="rainSymbol2" viewBox="0 0 27.47 22.19" >
-    <!-- <path class="st0" d="M11,19c0,0,7.94-9.06,16-1"/> -->
-    <path stroke-linecap="round" class="st0 testpath animate testpath-2" d="M11,0c0,6.33,0,12.67,0,19"/>
-    <!-- <path class="st0" d="M11,19c0,0-5-3-9,2"/> -->
-    <!-- <path class="st0" d="M11,19c0,0,5-2,7,3"/> -->
-    <!-- <path class="st0" d="M0.49,15.17C8.49,13.17,11,19,11,19"/> -->
+    <path  vector-effect="non-scaling-stroke" stroke-linecap="round" class="st0 testpath animate testpath-2" d="M11,0c0,6.33,0,12.67,0,19"/>
 </symbol>
 
 <use href="#rainSymbol" width="27.47px" />

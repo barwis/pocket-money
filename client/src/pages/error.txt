@@ -1,0 +1,30 @@
+ /home/pi/Workspace/smart-home/server/node_modules/node-fetch/lib/index.js:1461
+[1]                     reject(new FetchError(`request to ${request.url} failed, reason: ${err.message}`, 'system', err));
+[1]                            ^
+[1] FetchError: request to https://oauth2.googleapis.com/token failed, reason: getaddrinfo EAI_AGAIN oauth2.googleapis.com
+[1]     at ClientRequest.<anonymous> (/home/pi/Workspace/smart-home/server/node_modules/node-fetch/lib/index.js:1461:11)
+[1]     at ClientRequest.emit (node:events:378:20)
+[1]     at TLSSocket.socketErrorListener (node:_http_client:462:9)
+[1]     at TLSSocket.emit (node:events:378:20)
+[1]     at emitErrorNT (node:internal/streams/destroy:188:8)
+[1]     at emitErrorCloseNT (node:internal/streams/destroy:153:3)
+[1]     at processTicksAndRejections (node:internal/process/task_queues:81:21) {
+[1]   type: 'system',
+[1]   errno: 'EAI_AGAIN',
+[1]   code: 'EAI_AGAIN',
+[1]   config: {
+[1]     method: 'POST',
+[1]     url: 'https://oauth2.googleapis.com/token',
+[1]     data: 'refresh_token=1%2F%2F04XccBK0LTkIiCgYIARAAGAQSNwF-L9IrGMHosKPmaMyqsLWs_rEbGslp2UDEXuz5S_K6nKua4ys9rtikPaDxY0NFCJhvK6TkHoc&client_id=734285547942-7mbqh7ioqf8gnpk7k7b6br9hb7c0ul5p.apps.googleusercontent.com&client_secret=Py7Bg49Dw3R8dTwE_V28bW10&grant_type=refresh_token',
+[1]     headers: {
+[1]       'Content-Type': 'application/x-www-form-urlencoded',
+[1]       'User-Agent': 'google-api-nodejs-client/3.1.2',
+[1]       Accept: 'application/json'
+[1]     },
+[1]     params: [Object: null prototype] {},
+[1]     paramsSerializer: [Function: paramsSerializer],
+[1]     body: 'refresh_token=1%2F%2F04XccBK0LTkIiCgYIARAAGAQSNwF-L9IrGMHosKPmaMyqsLWs_rEbGslp2UDEXuz5S_K6nKua4ys9rtikPaDxY0NFCJhvK6TkHoc&client_id=734285547942-7mbqh7ioqf8gnpk7k7b6br9hb7c0ul5p.apps.googleusercontent.com&client_secret=Py7Bg49Dw3R8dTwE_V28bW10&grant_type=refresh_token',
+[1]     validateStatus: [Function: validateStatus],
+[1]     responseType: 'json'
+[1]   }
+[1] }
