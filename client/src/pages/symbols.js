@@ -5,27 +5,42 @@ const TYPES = {
 };
 
 const items = [
-	// {
-	// 	name: 'cloud-small',
-	// 	type: 'symbol',
-	// 	masks: ['sun', 'cloud-big']
-	// },
 	{
-		name: 'sun',
+		id: 'cloud-small',
+		type: 'symbol',
+		masks: ['sun', 'cloud-big']
+	},
+	{
+		id: 'sun',
 		type: 'symbol',
 		masks: ['cloud-big']
 	},
-	{
-		name: 'cloud-big',
-		type: 'symbol'
-	},
 
 	{
-		name: 'rain-group-1',
+		id: 'rain-group-1',
 		type: 'group',
 		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
-		translate: [0, 0]
-
+		translate: [-2, 0]
+	},
+	{
+		id: 'rain-group-2',
+		type: 'group',
+		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
+		translate: [15, 12],
+		scale: 0.3
+	},
+	{
+		id: 'rain-group-3',
+		type: 'group',
+		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
+		translate: [-15, 0],
+		scale: 0.8,
+		timing: { delay: 200 }
+	},
+	{
+		id: 'cloud-big',
+		type: 'symbol',
+		masks: ['rain-group-1', 'rain-group-2']
 	}
 
 ];

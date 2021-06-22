@@ -57,9 +57,11 @@ const SvgIcon = () => {
 				// icon.defsToItems();
 
 				icon.loadlements( items );
+				console.log( 'symbols', icon.symbols );
+				icon.loadMasks( items );
 
 				// icon.applyMasks();
-				icon.applyMasks2( items );
+				// icon.applyMasks2( items );
 				icon.animateAnimated();
 			});
 		}
