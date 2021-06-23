@@ -1,9 +1,36 @@
 import Snap from 'snapsvg';
 
+const mergeProps = ( obj1, obj2 ) => {
+	const finalObj = {};
+	// console.log( 'merging', obj1, obj2 );
+	if ( obj1 ) {
+		Object.entries( obj1 ).forEach( ( [key, val] ) => {
+			if ( typeof val === 'number' ) {
+				finalObj[key] = finalObj[key] ? finalObj[key] + val : val;
+			} else {
+				finalObj[key] = finalObj[key] ? mergeProps( val, finalObj[key] ) : val;
+			}
+		});
+	}
+	if ( obj2 ) {
+		Object.entries( obj2 ).forEach( ( [key, val] ) => {
+			if ( typeof val === 'number' ) {
+				finalObj[key] = finalObj[key] ? finalObj[key] + val : val;
+			} else {
+				finalObj[key] = finalObj[key] ? mergeProps( val, finalObj[key] ) : val;
+			}
+		});
+	}
+	return finalObj;
+};
+
 class AnimateStroke {
 	constructor ( path, scale, strokeWidth, timing ) {
 		this.path = path;
-		this.strokeWidth = strokeWidth;
+
+		this.scale = path.attr( 'vector-effect' ) === null ? 1 : scale;
+		this.strokeWidth = strokeWidth * this.scale;
+		// console.log( this.strokeWidth );
 
 		const t = {
 			duration: 500,
@@ -13,15 +40,10 @@ class AnimateStroke {
 
 		this.timing = {
 			...t,
-			...timing
+			...timing.timing
 		};
-		// console.log( this.timing );
 
-		const vectorEffect = path.attr( 'vector-effect' );
-
-		this.scale = vectorEffect === null ? 1 : scale;
-		this.isScaled = this.scale !== 1;
-		this.pathLength = Math.ceil( this.path.getTotalLength() );
+		this.pathLength = Math.ceil( this.path.getTotalLength() ) * this.scale;
 
 		if ( this.delay ) {
 			this.timing.delay += this.timing.duration * 0.8;
@@ -37,18 +59,18 @@ class AnimateStroke {
 		return this.defaultStyles;
 	}
 
-	get length () {
-		return this.isScaled ? this.pathLength * this.scale : this.pathLength;
-	}
+	// get length () {
+	// 	return this.isScaled ? this.pathLength * this.scale : this.pathLength;
+	// }
 
 	get strokeDashOffset () {
 		const defaultStrokeDashOffset = this.defaultStyles.strokeDashoffset;
-		return this.isScaled ? defaultStrokeDashOffset * this.scale : defaultStrokeDashOffset;
+		return defaultStrokeDashOffset * this.scale;
 	}
 
 	get strokeDashArray () {
 		const defaultStrokeDashArray = this.defaultStyles.strokeDasharray;
-		return this.isScaled ? defaultStrokeDashArray.map( item => item * this.scale ).join( ', ' ) : defaultStrokeDashArray.join( ', ' );
+		return defaultStrokeDashArray.map( item => item * this.scale ).join( ', ' );
 	}
 
 	calculate () {
@@ -59,37 +81,72 @@ class AnimateStroke {
 	}
 
 	apply () {
-		this.path.attr({
-			'stroke-dashoffset': this.strokeDashOffset,
-			'stroke-dasharray': this.strokeDashArray
-		});
 		const animKeyframes = [
-			{
-				strokeDashoffset: this.strokeDashOffset + this.strokeDashOffset + this.length
-				// opacity: 1
-			},
-			{
-				strokeDashoffset: this.strokeDashOffset
-				// opacity: 0
-			}
+			{ strokeDashoffset: this.strokeDashOffset + this.strokeDashOffset + this.length },
+			{ strokeDashoffset: this.strokeDashOffset }
 		];
 
 		const timing = this.timing;
 
-		this.path.node.animate(
-			animKeyframes,
-			timing
-		);
+		const props = {
+			pathAttributes: {
+				'stroke-dashoffset': this.strokeWidth + this.strokeWidth + this.pathLength,
+				'stroke-dasharray': `${this.strokeWidth}, ${this.pathLength}`
+			},
+			animateAttributes: {
+				attributeName: 'stroke-dashoffset',
+				from: this.strokeWidth + this.strokeWidth + this.pathLength,
+				to: this.strokeWidth
+			}
+		};
+
+		const pathTag = this.path.node;
+		const pathSelector = '.' + pathTag.className.baseVal.split( ' ' ).join( '.' );
+		const pathElems = document.querySelectorAll( pathSelector );
+
+		pathElems.forEach( elem => {
+			Object.entries( props.pathAttributes ).forEach( ( [key, value] ) => {
+				elem.setAttribute( key, value );
+			});
+		});
+
+		// const animateTag = this.path.node.children[0];
+		const animateSelector = [pathSelector, 'animate'].join( ' ' );
+		const animateElems = document.querySelectorAll( animateSelector );
+
+		animateElems.forEach( elem => {
+			Object.entries( props.animateAttributes ).forEach( ( [key, value] ) => {
+				elem.setAttribute( key, value );
+			});
+			// elem.setAttribute( 'stroke', 'blue' );
+			// console.log( 'elem' );
+		});
+
+		// pathTag.setAttribute( 'stroke-width', 50 );
+		// console.log( 'selector', animateSelector );
+		// console.log( 'elems', animateElems );
+		// const length = this.pathLength;
+		// console.log({
+		// 	length,
+		// 	animKeyframes,
+		// 	'stroke-dashoffset': this.strokeDashOffset,
+		// 	'stroke-dasharray': this.strokeDashArray,
+		// 	pathTag,
+		// 	animateTag
+		// });
+
+		// this.path.node.animate(
+		// 	animKeyframes,
+		// 	timing
+		// );
 	}
 };
 
 class Icon {
 	constructor ( snap ) {
-		this.name = 'Icon';
 		this.snap = snap;
 		this.symbols = {};
 		this.elements = {};
-		// this.items = [];
 		this.scale = 1;
 	}
 
@@ -104,28 +161,12 @@ class Icon {
 			}
 		});
 	}
-
-	// get item from svg data and puts it into defs for future use
-
 	setScale ( s ) {
 		this.scale = s;
 	}
 
 	getById ( id ) {
 		return this.snap.select( id );
-	}
-
-	getSymbolById ( id ) {
-		const selectString = `symbol#${id}`;
-		// console.log( 'selectString', selectString );
-		return this.getById( selectString );
-	}
-
-	getUseById ( id ) {
-		const selectString = `#${id}`;
-		const use = this.getById( selectString );
-		console.log( 'useString', selectString, use );
-		return use;
 	}
 
 	// TODO: fix transform-origin for rotations
@@ -232,9 +273,6 @@ class Icon {
 			} else {
 				const group = this.snap.g().appendTo( this.snap );
 				group.attr({ id });
-				// 		generateTransforms ( item, symbol ) {
-				// const { transformOrigin, translate, rotate } = symbol;
-				// if ( translate ) {
 
 				this.generateTransforms( group, {
 					translate,
@@ -265,12 +303,17 @@ class Icon {
 			element.masks.forEach( maskId => {
 				const maskPart = this.getById( `#${maskId}` ).clone();
 				maskPart.children().forEach( child => {
-					child.attr({
-						stroke: 'black',
-						fill: 'black',
-						strokeWidth: '10px'
+					if ( child.type === 'path' ) {
+						let c = new AnimateStroke( child, this.scale, 6, {});
+						c.apply();
 
-					});
+						child.attr({
+							stroke: 'black',
+							fill: 'black',
+							strokeWidth: '10px'
+
+						});
+					}
 				});
 
 				maskPart.attr({
@@ -283,13 +326,13 @@ class Icon {
 
 			// this.snap.use( maskGroup );
 
-			const translate = this.symbols[element.id].translate.map( t => -t );
+			const translate = this.symbols[element.id]?.translate?.map( t => -t );
 			// maskGroup.transform( `t${transform.map( t => -t ).join( ', ' )}` );
 
 			this.generateTransforms( maskGroup, { translate });
 
 			itemToMask.attr({ mask: maskGroup });
-			// this.snap.use( maskGroup );
+			// this.snap.use( maskGroup ).attr({ opacity: 0.4 });
 
 			// masks.forEach( mask => {
 
@@ -298,23 +341,40 @@ class Icon {
 	}
 
 	symbolToElement ( symbol, group = null ) {
-		const { id, attributes, symbolId } = symbol;
-		const use = this.snap.use();
-		if ( group === null ) {
-			use.appendTo( this.snap );
-		} else {
-			use.appendTo( group );
-		}
+		let use;
+		const { id, attributes } = symbol;
 
+		if ( symbol.element.type === 'g' ) {
+			use = symbol.element.clone();
+			use.appendTo( this.snap );
+
+			use.attr({
+				id,
+				// href: `${symbol.href}Symbol`,
+				...attributes
+			});
+		} else {
+			use = this.snap.use();
+
+			use.attr({
+				id,
+				href: `${symbol.href}Symbol`,
+				...attributes
+			});
+
+			use.appendTo( this.snap );
+		}
+		// const use = symbol.element.clone();
+		// console.log( 'symbol', use );
 		this.symbols[id].useId = id;
 
 		use.attr({
 			id,
-			href: `#${symbolId}`,
+			// href: `${symbol.href}Symbol`,
 			...attributes
 		});
 
-		this.symbols[id].use = use;
+		// this.symbols[id].use = use;
 
 		// generateTransforms
 
@@ -326,52 +386,48 @@ class Icon {
 			translate,
 			rotate
 		});
+		return use;
 	}
 
 	defsToItems () {
 		Object.values( this.symbols ).forEach( symbol => this.symbolToElement( symbol ) );
 	}
 
+	getParentGroup ( id ) {
+		return this.elements.find( element => element?.elements?.includes( id ) );
+	}
+
 	animateAnimated () {
-		console.log( this.elements );
 		this.elements.forEach( element => {
 			if ( element.type === 'symbol' ) {
 				const symbolReference = this.symbols[element.id];
 				const elementToAnimate = symbolReference.element.select( '.animate' );
-				console.log( element.id, symbolReference, elementToAnimate );
-				// const anim = new AnimateStroke( itemToAnimate, this.scale, 6, symbol?.animation?.timing );
-				// anim.apply();
+				if ( !elementToAnimate ) {
+					return;
+				}
+
+				const selfAnimationOverrride = symbolReference?.animation;
+				const groupAnimationOverride = element?.animation;
+				const finalAnimationOverride = mergeProps( selfAnimationOverrride, groupAnimationOverride );
+
+				const anim = new AnimateStroke( elementToAnimate, this.scale, 6, finalAnimationOverride );
 			} else {
 				element.elements.forEach( elElement => {
 					const symbolReference = this.symbols[elElement];
-					const animationOverrride = symbolReference.animation;
 					const elementToAnimate = symbolReference.element.select( '.animate' );
-					if ( elementToAnimate ) {
-						console.log( elElement, symbolReference, elementToAnimate );
+					if ( !elementToAnimate ) {
+						return;
 					}
+					const selfAnimationOverrride = symbolReference?.animation;
+					const groupAnimationOverride = element?.animation;
+					const finalAnimationOverride = mergeProps( selfAnimationOverrride, groupAnimationOverride );
+
+					const anim = new AnimateStroke( elementToAnimate, this.scale, 6, finalAnimationOverride );
+					// anim.apply();
 				});
 			}
 		});
-		// this.items.forEach( item => {
-		// 	if ( item.type === 'symbol' ) {
-		// 		const ownAnimationProps = Object.values( this.symbols ).find( symbol => symbol.id === item.id )?.animation;
-		// 		console.log( 'ownAnimationProps', item.id, ownAnimationProps );
-		// 	}
-		// });
-
-		// Object.values( this.symbols ).forEach( symbol => {
-		// 	const itemToAnimate = this.snap.select( `#${symbol.symbolId} .animate` );
-		// 	const timing1 = symbol?.animation?.timing;
-		// 	const timing2 = this.elements.find( element => element.id === symbol.id )?.timing;
-		// 	const timing3 = this.elements.find( element => element.elements?.includes( symbol.id ) )?.timing;
-		// 	const symbolId = symbol.id;
-		// 	console.log({ symbolId });
-
-		// 	if ( itemToAnimate ) {
-		// 		const anim = new AnimateStroke( itemToAnimate, this.scale, 6, symbol?.animation?.timing );
-		// 		anim.apply();
-		// 	}
-		// });
+		console.log( '---' );
 	}
 
 	createMask ( symbol ) {
@@ -406,71 +462,6 @@ class Icon {
 		maskGroup.transform( `t${negativeTransform.join( ',' )}` );
 
 		return maskGroup;
-	}
-
-	applyMasks () {
-		Object.values( this.symbols ).forEach( symbol => {
-			if ( symbol.masks ) {
-				const maskGroup = this.createMask( symbol );
-
-				const useToUse = this.snap.select( `#${symbol.useId}` );
-				useToUse.attr({ mask: maskGroup });
-			}
-		});
-	}
-
-	applyMasks2 ( items ) {
-		items.forEach( item => {
-			if ( item.masks ) {
-				console.log( 'masks for', item.id, ':', item.masks );
-
-				const symbol = this.symbols[item.id];
-				const use = this.snap.select;
-				const masks = item.masks.map( mask => this.symbols[mask] );
-
-				// console.log( 'symbols', this.symbols );
-				// symbol.element
-				// masks[0].element
-
-				console.log({
-					symbol,
-					masks
-				});
-
-				const maskGroup = this.snap.g().attr({ id: `${item.id}SymbolMask` })
-					.toDefs();
-
-				maskGroup.append( this.snap.rect( 0, 0, 64, 64 ).attr({ fill: '#ffffff' }) );
-
-				masks.forEach( mask => {
-					const defRef = this.symbols[mask.id];
-					const use = this.snap.use().attr({ href: `#${defRef.id}Symbol` });
-					use.attr({
-						...mask.attributes,
-						fill: 'black',
-						stroke: 'black'
-					});
-					use.transform( `t${mask.translate.join( ', ' )}` );
-					use.appendTo( maskGroup );
-				});
-
-				const translate = symbol.translate;
-				// const translate = [8, 8.5];
-				const u = this.snap.use( maskGroup );
-				u.transform( `t${translate.map( val => -val ).join( ',' )}` );
-				u.attr({ opacity: 0.7 });
-				// u.transform( `t${translate.map( val => -val ).join( ',' )}` );
-
-				// const rectSize = this.snap.attr( 'viewBox' ).width;
-				// // const negativeTransform = symbol.translate.map( item => -item );
-
-				// maskGroup.append( this.snap.rect( 0, 0, rectSize, rectSize ).attr({ fill: '#ffffff' }) );
-			}
-		});
-	}
-
-	createMask2 ( itemId, maskId ) {
-
 	}
 }
 

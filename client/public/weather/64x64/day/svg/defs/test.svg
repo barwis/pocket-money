@@ -1,20 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 27.5 22.2" style="enable-background:new 0 0 27.5 22.2;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:none;stroke:#94FFDF;stroke-linecap:round;}
-	.st1{fill:none;stroke:#00C927;}
-	.st2{fill:none;stroke:#384C45;stroke-linecap:round;}
-</style>
-<g id="Layer_1">
-	<path vector-effect="non-scaling-stroke" class="st0" d="M11,19c0,0,4.8-5.7,10.5-2"/>
-	<path vector-effect="non-scaling-stroke" class="st0" d="M11,19c0,0-5-3-9,2"/>
-	<path vector-effect="non-scaling-stroke" class="st0" d="M11,19c0,0,4.9-3.3,7.7,1.7"/>
-	<path vector-effect="non-scaling-stroke" class="st1" d="M11,19"/>
-	<path vector-effect="non-scaling-stroke" class="st2" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9"/>
-</g>
-<g id="pion">
-	<path vector-effect="non-scaling-stroke" class="st0" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6"/>
-</g>
+	<svg id="svg"
+		width="256"
+		height="256"
+		version="1.1"
+		viewBox="0 0 64 64"
+		xmlns="http://www.w3.org/2000/svg">
+
+		<style type="text/css">
+			svg {
+				margin: 0 auto;
+				display: block;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%)
+			}
+
+			.cloud {
+				fill: none;
+				stroke: #3996D2;
+				stroke-width: 1px;
+			}
+
+			.sun {
+				fill: none;
+				stroke: #F1C413;
+			}
+
+			.mask {
+				fill: black;
+				stroke: black;
+				stroke-width: 5px;
+			}
+
+		</style>
+
+		<defs id="defs">
+			<symbol id="cloud-big" viewBox="0 0 43 27.73" >
+        		<path vector-effect="non-scaling-stroke" d=" M 37.678 13.447 C 40.495 14.468 42.511 17.065 42.5 20.101 C 42.5 24.044 39.158 27.233 35.034 27.233 L 7.031 27.233 C 3.422 27.233 0.5 24.445 0.5 20.999 C 0.5 17.848 2.944 15.261 6.124 14.831 C 6.334 10.821 9.79 7.632 14.039 7.632 C 14.459 7.632 14.86 7.67 15.261 7.728 C 16.922 3.508 21.171 0.5 26.174 0.5 C 32.618 0.5 37.841 5.493 37.841 11.642 C 37.841 12.263 37.783 12.855 37.678 13.447 L 37.678 13.447 Z "/>
+			</symbol>
+
+			<symbol id="cloud-small" viewBox="0 0 43 27.73">
+				<path vector-effect="non-scaling-stroke" d="M5.3,13.4c-0.1-0.6-0.2-1.2-0.2-1.8c0-6.1,5.2-11.1,11.7-11.1 c5,0,9.3,3,10.9,7.2c0.4-0.1,0.8-0.1,1.2-0.1c4.2,0,7.7,3.2,7.9,7.2c3.2,0.4,5.6,3,5.6,6.2c0,3.4-2.9,6.2-6.5,6.2H8 c-4.1,0-7.5-3.2-7.5-7.1C0.5,17.1,2.5,14.5,5.3,13.4L5.3,13.4z"/>
+			</symbol>
+
+			<symbol id="sun" viewBox="0 0 36 36" >
+				<g transform-origin="center center" id="sunUse" >
+					<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"/>
+
+					<circle vector-effect="non-scaling-stroke" stroke-linecap="round" id="sun_orb" cx="18" cy="18" r="9"/>
+					<g transform-origin="center" >
+						<g  transform-origin="center" transform="rotate(0)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(30)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(60)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(90)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(120)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(150)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(180)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g  transform-origin="center" transform="rotate(210)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(240)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g  transform-origin="center" transform="rotate(270)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0" >
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(300)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite" />
+							</line>
+						</g>
+						<g transform-origin="center" transform="rotate(330)">
+							<line vector-effect="non-scaling-stroke" transform="translate(30 18)" stroke-linecap="round" x1="0" y1="0" x2="5" y2="0">
+								<animateTransform attributeName="transform" type="scale" additive="sum"  values="1 1; .2 1; 1 1" begin="-1s" dur="2s"  repeatCount="indefinite" />
+							</line>
+						</g>
+					</g>
+				</g>
+			</symbol>
+
+			<mask id="sun-mask">
+				<rect x="0" y="0" width="64" height="64" fill="white"/>
+				<!-- position of use in mask is position of <use> as object minus position of the item you want to mask -->
+				<use href="#cloud-big" class="cloud mask" width="44" height="28" x="1" y="5" /> 
+			</mask>
+
+			<mask id="small-cloud-mask">
+				<rect x="0" y="0" width="64" height="64" fill="white"/>
+				<use href="#cloud-big" class="cloud mask" width="44" height="28" x="4" y="-3" />
+				<use href="#sun" class="sun mask" width="29" height="29" x="3" y="-8" />
+			</mask>
+		</defs>
+		
+		
+			<rect width="64" height="64" fill="#fafafa" />
+			<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" class="cloud" mask="url(#small-cloud-mask)"/>
+			<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" class="sun" data-masks="['cloud-big']"  mask="url(#sun-mask)"/>
+
+			<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" class="cloud" />
+
+		
+		<script>
+			// utils
+			const useIdPrefix = 'use_'
+			const getUseId = (id) => `${useIdPrefix}${id}`
+
+			const _diff = ( a, b ) => {
+				const r = {};
+				Object.keys(a).forEach(key => {
+					r[key] = a[key] - b[key]
+				})
+				return r;
+			}
+
+			const processParam = (p) => {
+				let arr;
+				try {
+					arr = eval(p)
+				} catch {
+					arr = [];
+				}
+				return arr;
+			}
+
+
+			const defs = document.getElementById('defs');
+
+			const svg =  document.getElementById('svg');
+
+			<!-- const viewBoxAttrs = ['x', 'y', 'width', 'height'] -->
+			<!-- const viewBox = svg.getAttribute('viewBox').split(' ').map(item => eval(item)) -->
+
+			const viewBox = (p) => {
+				try {
+					const arr = p.split(' ').map(item => eval(item));
+					return {
+						x: arr[0],
+						y: arr[1],
+						width: arr[2],
+						height: arr[3]
+					}
+				} catch {
+					return {}
+				}
+			}
+
+			const svgProps = {
+				width: eval(svg.getAttribute('width')),
+				height: eval(svg.getAttribute('height')),
+				viewBox: viewBox(svg.getAttribute('viewBox'))
+			}
+
+			console.log(svgProps)
+
+		</script>
+
+
+
+		<script>
+	
+			(() => {
+				const itemsWithMasks = document.querySelectorAll('[data-masks]')
+				itemsWithMasks.forEach(item => {
+					// get masks elements list from attribute
+
+					// yes, I know eval() is dangerous
+					const maskElements = item.dataset.masks;
+					const pos = {
+						x: parseFloat(item.getAttribute('x')),
+						y: parseFloat(item.getAttribute('y'))
+					}
+					const masks = processParam(maskElements);
+
+					masks.forEach((mask, index) => {
+
+						/* get use element that will be used in mask */
+						const useId = getUseId(mask)
+
+						const use = document.getElementById(useId)
+						const maskPos = {
+							x: parseFloat(use.getAttribute('x')),
+							y: parseFloat(use.getAttribute('y'))
+						}
+						console.log({mask, index, pos, maskPos})
+
+						const diff = _diff(maskPos, pos)
+
+						console.log('diff', diff)
+
+						// create mask
+						const maskTag = document.createElement('mask');
+						maskTag.setAttribute('id', `mask_${mask}`)
+
+						// add white rectangle to mask
+						const whiteRect = document.createElement('rect');
+
+
+						// copy use element to mask
+						// override use element in mask: fill to black, stroke to black, position (x, y)
+						// add mask to defs
+						// use mask
+
+						console.log(maskTag)
+						
+					})
+
+				})
+			})();
+
+		</script>
 </svg>

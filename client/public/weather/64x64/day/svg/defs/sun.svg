@@ -1,12 +1,10 @@
 <?xml version="1.0" standalone="yes"?>
 
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 36 36">
-    <style>
-
-    </style>
+    
     
     <symbol id="sunSymbol" viewBox="0 0 36 36" >
-        <g  transform-origin="center center">
+        <g transform-origin="center center" id="sunUse">
             <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"/>
 
             <circle vector-effect="non-scaling-stroke" stroke-linecap="round" id="sun_orb" cx="18" cy="18" r="9"/>
@@ -75,6 +73,6 @@
         </g>
     </symbol>
 
-    <use href="#sunSymbol" />
+    <use id="sunUse" href="#sunSymbol" stroke="#F1C413" fill="none"/>
 
 </svg>

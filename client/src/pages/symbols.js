@@ -7,41 +7,32 @@ const TYPES = {
 const items = [
 	{
 		id: 'cloud-small',
-		type: 'symbol',
-		masks: ['sun', 'cloud-big']
+		type: 'symbol'
+		// masks: ['sun', 'cloud-big']
 	},
 	{
 		id: 'sun',
-		type: 'symbol',
-		masks: ['cloud-big']
-	},
-
-	{
-		id: 'rain-group-1',
-		type: 'group',
-		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
-		translate: [-2, 0]
-	},
-	{
-		id: 'rain-group-2',
-		type: 'group',
-		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
-		translate: [15, 12],
-		scale: 0.3
-	},
-	{
-		id: 'rain-group-3',
-		type: 'group',
-		elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
-		translate: [-15, 0],
-		scale: 0.8,
-		timing: { delay: 200 }
+		type: 'symbol'
+		// masks: ['cloud-big']
 	},
 	{
 		id: 'cloud-big',
+		type: 'symbol'
+		// masks: ['rain-straight']
+
+	},
+	{
+		id: 'rain-straight',
 		type: 'symbol',
-		masks: ['rain-group-1', 'rain-group-2']
+		translate: [15, 5]
 	}
+
+	// {
+	// 	id: 'rain-group2',
+	// 	type: 'group',
+	// 	elements: ['rain-1', 'rain-2', 'rain-3', 'rain-4', 'rain-straight'],
+	// 	translate: [5, 5]
+	// }
 
 ];
 
@@ -101,81 +92,81 @@ export default [
 		// masks: ['rain-straight'],
 		translate: [12, 17]
 	},
-	{
-		id: 'rain-1',
-		type: TYPES.SYMBOL,
-		symbol: {
-			ref: 'rainSymbol-1',
-			url: '/weather/64x64/day/svg/defs/rain2.svg'
-		},
-		attributes: {
-			...baseAttributes,
-			stroke: '#2980b9',
-			width: 27,
-			height: 22
-		},
-		// transformOrigin: [11, 0],
-		translate: [25, 35],
-		animation: { timing: { delay: 400 } }
+	// {
+	// 	id: 'rain-1',
+	// 	type: TYPES.SYMBOL,
+	// 	symbol: {
+	// 		ref: 'rainSymbol-1',
+	// 		url: '/weather/64x64/day/svg/defs/rain2.svg'
+	// 	},
+	// 	attributes: {
+	// 		...baseAttributes,
+	// 		stroke: '#2980b9',
+	// 		width: 27,
+	// 		height: 22
+	// 	},
+	// 	// transformOrigin: [11, 0],
+	// 	translate: [25, 35],
+	// 	animation: { timing: { delay: 400 } }
 
-	},
-	{
-		id: 'rain-2',
-		type: TYPES.SYMBOL,
-		symbol: {
-			ref: 'rainSymbol-2',
-			url: '/weather/64x64/day/svg/defs/rain2.svg'
-		},
-		attributes: {
-			...baseAttributes,
-			stroke: '#2980b9',
-			width: 27,
-			height: 22
-		},
-		// transformOrigin: [11, 0],
-		translate: [25, 35],
-		animation: { timing: { delay: 400 } }
+	// },
+	// {
+	// 	id: 'rain-2',
+	// 	type: TYPES.SYMBOL,
+	// 	symbol: {
+	// 		ref: 'rainSymbol-2',
+	// 		url: '/weather/64x64/day/svg/defs/rain2.svg'
+	// 	},
+	// 	attributes: {
+	// 		...baseAttributes,
+	// 		stroke: '#2980b9',
+	// 		width: 27,
+	// 		height: 22
+	// 	},
+	// 	// transformOrigin: [11, 0],
+	// 	translate: [25, 35],
+	// 	animation: { timing: { delay: 400 } }
 
-	},
-	{
-		id: 'rain-3',
-		type: TYPES.SYMBOL,
-		symbol: {
-			ref: 'rainSymbol-3',
-			url: '/weather/64x64/day/svg/defs/rain2.svg'
-		},
-		attributes: {
-			...baseAttributes,
-			stroke: '#2980b9',
-			width: 27,
-			height: 22
-		},
-		// transformOrigin: [11, 0],
-		translate: [25, 35],
-		animation: { timing: { delay: 400 } }
-	},
-	{
-		id: 'rain-4',
-		type: TYPES.SYMBOL,
-		symbol: {
-			ref: 'rainSymbol-4',
-			url: '/weather/64x64/day/svg/defs/rain2.svg'
-		},
-		attributes: {
-			...baseAttributes,
-			stroke: '#2980b9',
-			width: 27,
-			height: 22
-		},
-		translate: [25, 35],
-		animation: { timing: { delay: 400 } }
+	// },
+	// {
+	// 	id: 'rain-3',
+	// 	type: TYPES.SYMBOL,
+	// 	symbol: {
+	// 		ref: 'rainSymbol-3',
+	// 		url: '/weather/64x64/day/svg/defs/rain2.svg'
+	// 	},
+	// 	attributes: {
+	// 		...baseAttributes,
+	// 		stroke: '#2980b9',
+	// 		width: 27,
+	// 		height: 22
+	// 	},
+	// 	// transformOrigin: [11, 0],
+	// 	translate: [25, 35],
+	// 	animation: { timing: { delay: 400 } }
+	// },
+	// {
+	// 	id: 'rain-4',
+	// 	type: TYPES.SYMBOL,
+	// 	symbol: {
+	// 		ref: 'rainSymbol-4',
+	// 		url: '/weather/64x64/day/svg/defs/rain2.svg'
+	// 	},
+	// 	attributes: {
+	// 		...baseAttributes,
+	// 		stroke: '#2980b9',
+	// 		width: 27,
+	// 		height: 22
+	// 	},
+	// 	translate: [25, 35],
+	// 	animation: { timing: { delay: 400 } }
 
-	},
+	// },
 	{
 		id: 'rain-straight',
 		type: TYPES.SYMBOL,
 		symbol: {
-			ref: 'rainSymbol-5',
+			ref: 'rainFragment',
 			url: '/weather/64x64/day/svg/defs/rain2.svg'
 		},
 		attributes: {
@@ -184,10 +175,9 @@ export default [
 			width: 27,
 			height: 22
 		},
-		// transformOrigin: [11, 0],
 		translate: [25, 35]
-
 	}
+
 	// {
 	// 	id: 'rain-group',
 	// 	type: TYPES.GROUP,

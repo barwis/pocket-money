@@ -4,40 +4,6 @@ import symbols, { items } from './symbols';
 import { Icon } from '../utils/strokeAnimate';
 import './style.css';
 
-// const mytest = [
-// 	{ foo: 1 },
-// 	{
-// 		foo: 2,
-// 		children: [
-// 			{ foo: 2.1 },
-// 			{
-// 				foo: 2.2,
-// 				children: [
-// 					{ foo: 2.21 },
-// 					{ foo: 2.22 }
-// 				]
-// 			}, { foo: 2.3 }
-// 		]
-// 	},
-
-// 	{ foo: 3 }
-// ];
-
-// const traverse = ( arr, parent = null ) => {
-// 	arr.forEach( item => {
-// 		console.log({
-// 			'item!': item.foo,
-// 			parent
-// 		});
-// 		if ( item.children ) {
-// 			traverse( item.children, item.foo );
-// 		}
-// 		return item;
-// 	});
-// };
-
-// traverse( mytest );
-
 const SvgIcon = () => {
 	const [ snap, setSnap] = useState( null );
 	const svgRef = useRef( null );
@@ -60,9 +26,7 @@ const SvgIcon = () => {
 				console.log( 'symbols', icon.symbols );
 				icon.loadMasks( items );
 
-				// icon.applyMasks();
-				// icon.applyMasks2( items );
-				icon.animateAnimated();
+				// icon.animateAnimated();
 			});
 		}
 	}, [snap] );
