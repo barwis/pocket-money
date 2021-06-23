@@ -149,11 +149,7 @@
 				</g>
 			</symbol>
 		
-			<mask id="sun-mask">
-				<rect x="0" y="0" width="64" height="64" fill="white" />
-				<!-- position of use in mask is position of <use> as object minus position of the item you want to mask -->
-				<use href="#cloud-big" class="cloud mask" width="44" height="28" x="1" y="5" />
-			</mask>
+
 
 
 			<rect id="whiteRect" x="0" y="0" width="64" height="64" fill="white" />
@@ -161,12 +157,16 @@
 		</defs>
 
 
-		<rect width="64" height="64" fill="#fafafa" />
-		<!-- <use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" class="cloud"
-			mask="url(#small-cloud-mask)" /> -->
-		<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" class="sun" data-id="sun" data-masks="['cloud-big']"
-			mask="" />
+		<!-- <rect width="64" height="64" fill="#fafafa" /> -->
+
+
+		<mask id="sun-mask">
+			<rect x="0" y="0" width="64" height="64" fill="white" />
+			<!-- position of use in mask is position of <use> as object minus position of the item you want to mask -->
+			<use href="#cloud-big" class="cloud mask" width="44" height="28" x="1" y="5" />
+		</mask>
 		
+		<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" class="sun" data-id="sun" data-masks="['cloud-big']" mask="url(#sun-mask)" />
 		<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" class="cloud" />
 
 	</svg>
