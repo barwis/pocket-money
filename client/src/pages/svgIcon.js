@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import Snap from 'snapsvg';
+import Snap, { animate } from 'snapsvg';
 // import symbols, { items } from './symbols';
 // import { Icon } from '../utils/strokeAnimate';
 import './style.css';
@@ -23,10 +23,89 @@ const SvgIcon = () => {
 		window.snap = s;
 	}, [svgRef] );
 
+	// <path stroke-dasharray="2, 19" stroke-dashoffset="23" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
+	// 	<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0s" dur="1.2s" repeatCount="indefinite"></animate>
+	// </path>
+	//
+	// const from = dashLength + dashLength + pathLength;
+	// const to = dashLength;
+	//
+	// path stroke-dasharray={`${dashLength}, ${pathLength}`} stroke-dashoffset={from}
+	// animate from={from} to={to}
+
 	useEffect( () => {
 		if ( snap ) {
+			adjustAnimations2();
+			// createMasks();
+		}
+	}, [snap] );
+	// myPath.getTotalLength();
+
+	const adjustAnimations2 = () => {
+		const usesArrayThatUsesAnimatedSymbol = document.querySelectorAll( '[data-animate]' );
+		console.log( usesArrayThatUsesAnimatedSymbol );
+		usesArrayThatUsesAnimatedSymbol.forEach( useTag => {
+			const id = useTag.getAttribute( 'id' ).replace( useIdPrefix, '' );
+			const symbol = snap.select( `svg defs #${id}` );
+			// const g = snap.g().append( symbol.inenrSVG() );
+			console.log({
+				useTag,
+				id,
+				symbol,
+				inner: symbol.children()
+			});
+		});
+	};
+	const adjustAnimations = () => {
+		// animate
+
+		const animatedPath = document.querySelectorAll( 'animate' );
+
+		animatedPath.forEach( node => {
+			const pathNode = node.parentNode;
+			const animateNode = node;
+			const scale = getScale();
+
+			const baseValues = {
+				pathLength: Math.ceil( pathNode.getTotalLength() ),
+				dashLength: parseInt( pathNode.getAttribute( 'stroke-dash-width' ) ) || 2
+			};
+
+			const scaledValues = {};
+
+			Object.entries( baseValues ).map( ( [key, value] ) => {
+				scaledValues[key] = value * scale;
+			});
+
+			const { pathLength, dashLength } = scaledValues;
+
+			const from = dashLength + dashLength + pathLength;
+			const to = dashLength;
+			const path = {
+				strokeDasharray: `${dashLength}, ${pathLength}`,
+				strokeDashoffset: from
+			};
+			const animate = {
+				from,
+				to
+			};
+
+			pathNode.setAttribute( 'stroke-dasharray', path.strokeDasharray );
+			pathNode.setAttribute( 'stroke-dashoffset', path.strokeDashoffset );
+
+			animateNode.setAttribute( 'from', animate.from );
+			animateNode.setAttribute( 'to', animate.to );
+
+			console.log({
+				path,
+				animate
+			});
+		});
+	};
+
+	const createMasks = () => {
+		if ( snap ) {
 			const itemsWithMasks = document.querySelectorAll( '[data-masks]' );
-			console.log( 'scale', getScale() );
 
 			itemsWithMasks.forEach( item => {
 				const masks = processParam( item.dataset.masks );
@@ -34,7 +113,7 @@ const SvgIcon = () => {
 				createMask( item, masks );
 			});
 		}
-	}, [snap] );
+	};
 
 	const getScale = () => {
 		if ( snap ) {
@@ -225,28 +304,29 @@ const SvgIcon = () => {
 						</g>
 					</symbol>
 					<symbol id="rain" viewBox="0 0 27.5 22.2" >
-						<path strokeDasharray="2, 19" strokeDashoffset="21" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
-							<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="6" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
+							<animate attributeName="stroke-dashoffset" begin="0s" dur="1.2s" repeatCount="indefinite" />
 						</path>
-						<path d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9">
-							<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0.9s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9">
+							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
 						</path>
-						<path d="M11,19c0,0,4.9-3.3,7.7,1.7">
-							<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0.9s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="4" d="M11,19c0,0,4.9-3.3,7.7,1.7">
+							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
 						</path>
-						<path d="M11,19c0,0-5-3-9,2">
-							<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0.9s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="2" d="M11,19c0,0-5-3-9,2">
+							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
 						</path>
-						<path d="M11,19c0,0,4.8-5.7,10.5-2">
-							<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0.9s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2">
+							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
 						</path>
 					</symbol>
 				</defs>
 
 				<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" className="sun" data-masks="['cloud-big']" />
-				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain']"/>
-				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun']"/>
-				<use id="use_rain" href="#rain" className="rain outline" x="25" y="35" width="27" height="22"/>
+				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain', 'rain2']"/>
+				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun', 'rain2']"/>
+				<use id="use_rain" href="#rain" className="rain outline" data-animate x="25" y="35" width="27" height="22"/>
+				{/* <use id="use_rain2" href="#rain" className="rain outline" data-animate x="15" y="35" width="20" height="15" /> */}
 			</svg>
 		</div>
 	);
