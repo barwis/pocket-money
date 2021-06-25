@@ -8,7 +8,7 @@ import {
 	getPosition,
 	getScale,
 	processParam,
-	// setAttributes,
+	setAttributes,
 	// stringToArray,
 	stringToMiliseconds
 } from '../utils/svgUtils';
@@ -33,7 +33,7 @@ const SvgIcon = () => {
 			adjustAnimationsDelays();
 			adjustAnimations();
 			createMasks();
-			cleanup();
+			// cleanup();
 			// setTimeout( () => { console.log( snap.toString() ); }, 1000 );
 		}
 	}, [snap] );
@@ -112,6 +112,7 @@ const SvgIcon = () => {
 
 			const scaledValues = {};
 
+			// TODO: adjust animations based on <use> transform scale
 			Object.entries( baseValues ).map( ( [key, value] ) => {
 				scaledValues[key] = value * scale;
 			});
@@ -120,20 +121,18 @@ const SvgIcon = () => {
 
 			const from = dashLength + dashLength + pathLength;
 			const to = dashLength;
-			const path = {
+
+			const pathTagAttributes = {
 				strokeDasharray: `${dashLength}, ${pathLength}`,
 				strokeDashoffset: from
 			};
-			const animate = {
+			const animateTagAttributes = {
 				from,
 				to
 			};
 
-			pathNode.setAttribute( 'stroke-dasharray', path.strokeDasharray );
-			pathNode.setAttribute( 'stroke-dashoffset', path.strokeDashoffset );
-
-			animateNode.setAttribute( 'from', animate.from );
-			animateNode.setAttribute( 'to', animate.to );
+			setAttributes( pathNode, pathTagAttributes );
+			setAttributes( animateNode, animateTagAttributes );
 		});
 	};
 
@@ -348,7 +347,7 @@ const SvgIcon = () => {
 					</symbol>
 
 				</defs>
-				{/* <rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/> */}
+				<rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/>
 				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun']"/>
 				<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" className="sun" data-masks="['cloud-big']" />
 				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>

@@ -1,3 +1,5 @@
+import Snap from 'snapsvg';
+
 export const _diff = ( a, b ) => {
 	const r = {};
 	Object.keys( a ).forEach( key => {
@@ -17,7 +19,10 @@ export const processParam = ( p ) => {
 	return arr;
 };
 
-export const setAttributes = ( el, attrs ) => Object.entries( attrs ).forEach( ( [key, value] ) => el.setAttribute( key, value ) );
+export const setAttributes = ( el, attrs ) => Object.entries( attrs ).forEach( ( [key, value] ) => {
+	const _key = key.replace( /[A-Z&]/g, m => '-' + m.toLowerCase() );
+	el.setAttribute( _key, value );
+});
 
 export const stringToArray = ( p, delimiter = ' ' ) => {
 	try {
@@ -64,3 +69,50 @@ export const stringToMiliseconds = string => {
 		return 0;
 	}
 };
+
+export const mergeProps = ( obj1, obj2 ) => {
+	const finalObj = {};
+	// console.log( 'merging', obj1, obj2 );
+	if ( obj1 ) {
+		Object.entries( obj1 ).forEach( ( [key, val] ) => {
+			if ( typeof val === 'number' ) {
+				finalObj[key] = finalObj[key] ? finalObj[key] + val : val;
+			} else {
+				finalObj[key] = finalObj[key] ? mergeProps( val, finalObj[key] ) : val;
+			}
+		});
+	}
+	if ( obj2 ) {
+		Object.entries( obj2 ).forEach( ( [key, val] ) => {
+			if ( typeof val === 'number' ) {
+				finalObj[key] = finalObj[key] ? finalObj[key] + val : val;
+			} else {
+				finalObj[key] = finalObj[key] ? mergeProps( val, finalObj[key] ) : val;
+			}
+		});
+	}
+	return finalObj;
+};
+
+export class SnapLoader {
+	constructor ( snap ) {
+		this.snap = snap;
+		this.symbols = [];
+	}
+
+	static snapLoadPromise ( url ) {
+		return new Promise( ( resolve, reject ) => {
+			try {
+				Snap.load( url, function ( data ) {
+					resolve( data );
+				});
+			} catch ( e ) {
+				reject( new Error( e ) );
+			}
+		});
+	}
+
+	loadSymbols ( symbols ) {
+
+	}
+}
