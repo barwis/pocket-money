@@ -12,16 +12,18 @@ body {
 .cloud {
 	fill: none;
 	stroke: #3996d2;
-	stroke-width: 1px;
+	stroke-width: 2px;
 }
 
 .sun {
 	fill: none;
 	stroke: #f1c413;
+	stroke-width: 2px;
 }
 
 .rain {
-	stroke: #2980b9;
+	stroke: #74b9ff;
+	stroke-width: 2px;
 }
 
 .outline {
@@ -29,9 +31,9 @@ body {
 }
 
 .mask {
-	fill: black;
-	stroke: black;
-	stroke-width: 10px;
+	fill: black !important;
+	stroke: black !important;
+	stroke-width: 10px !important;
 }
 
 .noscale * {

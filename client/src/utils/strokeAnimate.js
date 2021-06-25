@@ -121,24 +121,6 @@ class AnimateStroke {
 			// elem.setAttribute( 'stroke', 'blue' );
 			// console.log( 'elem' );
 		});
-
-		// pathTag.setAttribute( 'stroke-width', 50 );
-		// console.log( 'selector', animateSelector );
-		// console.log( 'elems', animateElems );
-		// const length = this.pathLength;
-		// console.log({
-		// 	length,
-		// 	animKeyframes,
-		// 	'stroke-dashoffset': this.strokeDashOffset,
-		// 	'stroke-dasharray': this.strokeDashArray,
-		// 	pathTag,
-		// 	animateTag
-		// });
-
-		// this.path.node.animate(
-		// 	animKeyframes,
-		// 	timing
-		// );
 	}
 };
 

@@ -5,13 +5,18 @@ import Snap, { animate } from 'snapsvg';
 import './style.css';
 import {
 	_diff,
-	processParam
+	getPosition,
+	getScale,
+	processParam,
+	// setAttributes,
+	// stringToArray,
+	stringToMiliseconds
 } from '../utils/svgUtils';
 
 const SvgIcon = () => {
 	const [ snap, setSnap] = useState( null );
 	const svgRef = useRef( null );
-	const svgProps = {};
+	// const svgProps = {};
 	const useIdPrefix = 'use_';
 	const maskIdPrefix = 'mask_';
 	const generatedMasks = [];
@@ -23,48 +28,82 @@ const SvgIcon = () => {
 		window.snap = s;
 	}, [svgRef] );
 
-	// <path stroke-dasharray="2, 19" stroke-dashoffset="23" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
-	// 	<animate attributeName="stroke-dashoffset" from="23" to="2" begin="0s" dur="1.2s" repeatCount="indefinite"></animate>
-	// </path>
-	//
-	// const from = dashLength + dashLength + pathLength;
-	// const to = dashLength;
-	//
-	// path stroke-dasharray={`${dashLength}, ${pathLength}`} stroke-dashoffset={from}
-	// animate from={from} to={to}
-
 	useEffect( () => {
 		if ( snap ) {
-			adjustAnimations2();
-			// createMasks();
+			adjustAnimationsDelays();
+			adjustAnimations();
+			createMasks();
+			cleanup();
+			// setTimeout( () => { console.log( snap.toString() ); }, 1000 );
 		}
 	}, [snap] );
-	// myPath.getTotalLength();
 
-	const adjustAnimations2 = () => {
-		const usesArrayThatUsesAnimatedSymbol = document.querySelectorAll( '[data-animate]' );
-		console.log( usesArrayThatUsesAnimatedSymbol );
-		usesArrayThatUsesAnimatedSymbol.forEach( useTag => {
-			const id = useTag.getAttribute( 'id' ).replace( useIdPrefix, '' );
-			const symbol = snap.select( `svg defs #${id}` );
-			// const g = snap.g().append( symbol.inenrSVG() );
-			console.log({
-				useTag,
-				id,
-				symbol,
-				inner: symbol.children()
-			});
+	const cleanup = () => {
+		const defSymbols = snap.selectAll( 'defs symbol' );
+		console.log( defSymbols );
+
+		defSymbols.forEach( symbol => {
+			const symbolId = symbol.attr( 'id' );
+
+			const uses = snap.select( `[href="#${symbolId}"]` );
+
+			// eslint-disable-next-line
+			if ( !uses ) {
+				symbol.remove();
+				console.log( symbol );
+			}
 		});
 	};
+	const adjustAnimationsDelays = () => {
+		const elems = document.querySelectorAll( '[animation-delay]' );
+
+		// 1. foreach <use> with animation-delay property...
+		elems.forEach( elem => {
+			const delay = stringToMiliseconds( elem.getAttribute( 'animation-delay' ) );
+			const duration = stringToMiliseconds( elem.getAttribute( 'animation-duration' ) );
+
+			// 2.0 get its symbol
+			const useId = elem.getAttribute( 'id' );
+			const usedSymbolId = elem.getAttribute( 'href' );
+			const usedSymbol = snap.select( `defs ${usedSymbolId}` );
+
+			// 2.1 clone its symbol
+			const clonedUsedSymbol = usedSymbol.clone();
+
+			// 2.5 generate symbol new id
+			const newId = useId + '--' + usedSymbol.attr( 'id' );
+			clonedUsedSymbol.attr({ id: newId });
+
+			// 3. adjust cloned symbol animation delays
+			const animateTags = Array.from( clonedUsedSymbol.selectAll( 'animate' ) ) || false;
+			if ( animateTags ) {
+				animateTags.forEach( tag => {
+					const ownDelay = stringToMiliseconds( tag.attr( 'begin' ) || '0' );
+					const ownDuration = stringToMiliseconds( tag.attr( 'dur' ) || '0' );
+					const finalDelay = ( ownDelay + delay ) / 1000 + 's';
+					const finalDuration = ( ownDuration + duration ) / 1000 + 's';
+
+					if ( tag.attr( 'begin' ) ) {
+						tag.attr({ 'begin': finalDelay });
+					}
+					if ( tag.attr( 'dur' ) ) {
+						tag.attr({ 'dur': finalDuration });
+					}
+				});
+			}
+			elem.setAttribute( 'href', `#${newId}` );
+		});
+	};
+
 	const adjustAnimations = () => {
 		// animate
 
-		const animatedPath = document.querySelectorAll( 'animate' );
+		const animatedPath = document.querySelectorAll( 'animate[attributeName="stroke-dashoffset"]' );
 
 		animatedPath.forEach( node => {
 			const pathNode = node.parentNode;
 			const animateNode = node;
-			const scale = getScale();
+			const scale = getScale( snap );
 
 			const baseValues = {
 				pathLength: Math.ceil( pathNode.getTotalLength() ),
@@ -95,11 +134,6 @@ const SvgIcon = () => {
 
 			animateNode.setAttribute( 'from', animate.from );
 			animateNode.setAttribute( 'to', animate.to );
-
-			console.log({
-				path,
-				animate
-			});
 		});
 	};
 
@@ -109,73 +143,61 @@ const SvgIcon = () => {
 
 			itemsWithMasks.forEach( item => {
 				const masks = processParam( item.dataset.masks );
-
 				createMask( item, masks );
 			});
 		}
 	};
 
-	const getScale = () => {
-		if ( snap ) {
-			const viewBoxWidth = snap.node.viewBox.baseVal.width;
-			const width = snap.node.width.baseVal.value;
-			return width / viewBoxWidth;
-		} else {
-			return undefined;
-		}
-	};
-
-	const getPosition = ( item ) => {
-		const i = item.node || item;
-		return {
-			x: parseFloat( i.getAttribute( 'x' ) ),
-			y: parseFloat( i.getAttribute( 'y' ) )
-		};
-	};
-
 	const createMask = ( item, masks ) => {
 		if ( snap ) {
-			// console.log( 'item', item );
-			// console.log( 'snapItem', Snap.parse( item ) );
-
 			const itemId = item.getAttribute( 'id' );
 			const snapItem = snap.select( `#${itemId}` );
 
 			const maskGroupId = itemId.replace( useIdPrefix, maskIdPrefix );
-			const maskGroup = snap.mask().appendTo( snap )
+			const maskGroup = snap
+				.mask()
+				.appendTo( snap )
 				.toDefs();
 
 			maskGroup.attr({ id: maskGroupId });
+
 			const itemXY = getPosition( item );
+			if ( !itemXY ) {
+				console.log( 'couldn\'t get item position' );
+				return;
+			}
 
-			snap.rect( 0, 0, 64, 64 ).attr({ fill: 'white' })
+			snap
+				.rect( 0, 0, 64, 64 )
+				.attr({ fill: 'white' })
 				.appendTo( maskGroup );
-
-			// for each mask copy use element that uses it and move it to mask group
 
 			// for each mask copy...
 			masks.forEach( mask => {
-				// / copy use element that uses it
 				const selector = `#${useIdPrefix}${mask}`;
+				let useCopy;
 
-				const use = snap.select( selector );
-				const maskXY = getPosition( use );
-				const diff = _diff( maskXY, itemXY );
+				try {
+					useCopy = snap.select( selector ).clone();
+				} catch {
+					console.warn( 'can\'t locate mask', selector );
+					return;
+				}
 
-				const useCopy = use.clone();
+				const maskXY = getPosition( useCopy );
+				const diffXY = _diff( maskXY, itemXY );
 
-				useCopy.addClass( 'mask' );
-				useCopy.attr({
-					'mask': 'nothing',
-					...diff
-				});
-
-				useCopy.appendTo( maskGroup );
+				useCopy
+					.addClass( 'mask' )
+					.attr({
+						'data-masks': null,
+						'mask': 'nothing',
+						...diffXY
+					})
+					.appendTo( maskGroup );
 			});
 
 			snapItem.attr({ mask: Snap.url( maskGroupId ) });
-
-			generatedMasks[itemId] = maskGroupId;
 		}
 	};
 
@@ -199,7 +221,6 @@ const SvgIcon = () => {
 				}}
 			>
 				<defs>
-
 					<symbol id="cloud-big" viewBox="0 0 43 27.73">
 						<path vectorEffect="non-scaling-stroke"
 							d=" M 37.678 13.447 C 40.495 14.468 42.511 17.065 42.5 20.101 C 42.5 24.044 39.158 27.233 35.034 27.233 L 7.031 27.233 C 3.422 27.233 0.5 24.445 0.5 20.999 C 0.5 17.848 2.944 15.261 6.124 14.831 C 6.334 10.821 9.79 7.632 14.039 7.632 C 14.459 7.632 14.86 7.67 15.261 7.728 C 16.922 3.508 21.171 0.5 26.174 0.5 C 32.618 0.5 37.841 5.493 37.841 11.642 C 37.841 12.263 37.783 12.855 37.678 13.447 L 37.678 13.447 Z " />
@@ -303,30 +324,40 @@ const SvgIcon = () => {
 							</g>
 						</g>
 					</symbol>
-					<symbol id="rain" viewBox="0 0 27.5 22.2" >
-						<path stroke-dash-width="6" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
-							<animate attributeName="stroke-dashoffset" begin="0s" dur="1.2s" repeatCount="indefinite" />
+					<symbol id="rain" viewBox="0 0 27 22" >
+						<path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
+							<animate attributeName="stroke-dashoffset" begin="0s" dur="0.7s" repeatCount="indefinite" />
 						</path>
 						<path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9">
-							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
+							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
+							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
+
 						</path>
-						<path stroke-dash-width="4" d="M11,19c0,0,4.9-3.3,7.7,1.7">
-							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7">
+							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
+							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
-						<path stroke-dash-width="2" d="M11,19c0,0-5-3-9,2">
-							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
+						<path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2">
+							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
+							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
 						<path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2">
-							<animate attributeName="stroke-dashoffset" begin="1s" dur="1.2s" repeatCount="indefinite" />
+							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
+							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
 					</symbol>
-				</defs>
 
+				</defs>
+				{/* <rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/> */}
+				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun']"/>
 				<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" className="sun" data-masks="['cloud-big']" />
-				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain', 'rain2']"/>
-				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun', 'rain2']"/>
-				<use id="use_rain" href="#rain" className="rain outline" data-animate x="25" y="35" width="27" height="22"/>
-				{/* <use id="use_rain2" href="#rain" className="rain outline" data-animate x="15" y="35" width="20" height="15" /> */}
+				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>
+
+				<use id="use_rain-1" href="#rain" className="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
+				<use id="use_rain-2" href="#rain" className="rain rain-2 outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"/>
+				<use id="use_rain-3" href="#rain" className="rain rain-3 outline" x="22" y="38" width="27" height="22" animation-delay="0.17s" />
+				<use id="use_rain-4" href="#rain" className="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" />
+
 			</svg>
 		</div>
 	);

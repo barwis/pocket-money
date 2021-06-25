@@ -17,6 +17,8 @@ export const processParam = ( p ) => {
 	return arr;
 };
 
+export const setAttributes = ( el, attrs ) => Object.entries( attrs ).forEach( ( [key, value] ) => el.setAttribute( key, value ) );
+
 export const stringToArray = ( p, delimiter = ' ' ) => {
 	try {
 		const arr = p.split( delimiter ).map( item => parseInt( item, 10 ) );
@@ -28,5 +30,37 @@ export const stringToArray = ( p, delimiter = ' ' ) => {
 		};
 	} catch {
 		return {};
+	}
+};
+
+export 	const getPosition = ( item ) => {
+	if ( !item ) {
+		return false;
+	}
+	const i = item.node || item;
+	return {
+		x: parseFloat( i.getAttribute( 'x' ) ),
+		y: parseFloat( i.getAttribute( 'y' ) )
+	};
+};
+
+export const getScale = ( snap, customWidth ) => {
+	if ( snap ) {
+		const viewBoxWidth = snap.node.viewBox.baseVal.width;
+		const width = snap.node.width.baseVal.value;
+		const scale = width / viewBoxWidth; ;
+		// const customMultiplier =
+		return scale;
+	} else {
+		return undefined;
+	}
+};
+
+export const stringToMiliseconds = string => {
+	try {
+		const multiplier = string.search( 's' ) !== -1 ? 1000 : 1;
+		return parseFloat( string ) * multiplier;
+	} catch {
+		return 0;
 	}
 };
