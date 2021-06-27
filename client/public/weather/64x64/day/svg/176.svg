@@ -1,68 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 25.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
-<style type="text/css">
-	.st0{display:none;}
-	.st1{display:inline;fill:#B2B2B2;}
-	.st2{display:inline;fill:none;stroke:#878787;stroke-miterlimit:10;}
-	.st3{display:inline;}
-	.st4{fill:none;stroke:#3A97D3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-	.st5{fill:none;stroke:#3A97D3;stroke-miterlimit:10;}
-	.sun{fill:none;stroke:#F49C13;stroke-linecap:round;stroke-miterlimit:10;}
-	.cloud{fill:none;stroke:#2980BA;stroke-miterlimit:10;}
+
+<svg id="svg" width="112" height="112" version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" class="noscale">
+<style>
+
+.cloud {
+	fill: none;
+	stroke: #3996d2;
+}
+
+.sun {
+	fill: none;
+	stroke: #f1c413;
+}
+
+.rain {
+	stroke: #74b9ff;
+}
+
+.fog {
+	stroke: #ffffff;
+}
+
+.outline {
+	fill: none;
+	stroke-width: 2px;
+
+}
+
+.mask {
+	fill: black !important;
+	stroke: black !important;
+	stroke-width: 5px !important;
+}
+
+.noscale * {
+	stroke-linecap: round;
+	vector-effect: non-scaling-stroke;
+}
+
 </style>
-
-<defs>
-	<path id="cloud_1" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
-		c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
-		C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
-
-	<g id="sun">
-		<circle cx="25.5" cy="27.5" r="8.03"/>
-		<line x1="25.5" y1="16.98" x2="25.5" y2="13"/>
-		<line x1="25.5" y1="42" x2="25.5" y2="38.02"/>
-		<line x1="36.02" y1="27.5" x2="40" y2="27.5"/>
-		<line x1="11" y1="27.5" x2="14.98" y2="27.5"/>
-		<line x1="16.39" y1="22.24" x2="14.42" y2="21.1"/>
-		<line x1="36.58" y1="33.9" x2="34.61" y2="32.76"/>
-		<line x1="30.76" y1="18.39" x2="31.9" y2="16.42"/>
-		<line x1="19.1" y1="38.58" x2="20.24" y2="36.61"/>
-		<line x1="20.24" y1="18.39" x2="19.1" y2="16.42"/>
-		<line x1="31.9" y1="38.58" x2="30.76" y2="36.61"/>
-		<line x1="34.61" y1="22.24" x2="36.58" y2="21.1"/>
-		<line x1="14.42" y1="33.9" x2="16.39" y2="32.76"/>
-	</g>
-
-	<path id="cloud_2" d="M11.37,27.44c-0.07-0.43-0.12-0.87-0.12-1.31c0-4.49,3.64-8.13,8.13-8.13c3.48,0,6.45,2.19,7.6,5.27
-		c0.28-0.04,0.56-0.07,0.85-0.07c2.96,0,5.37,2.33,5.51,5.25c2.21,0.31,3.91,2.2,3.91,4.5c0,2.51-2.04,4.55-4.55,4.55H13.2
-		c-2.87,0-5.2-2.33-5.2-5.2C8,30.08,9.4,28.18,11.37,27.44z"/>
-
-
-	<mask id="SVGMask">
-		<rect width="64" height="64" fill="white"/>
-		<use href="#cloud_1" fill="black" outline="black"  />
-	</mask>
-
-	<mask id="SVGMask2">
-		<rect width="64" height="64" fill="white"/>
-		<use href="#cloud_1" fill="black" outline="black" />
-		<use href="#sun" fill="black" outline="black"  stroke-width="20"/>
-	</mask>
-</defs>
-
-<g id="Layer_2">
-	<line class="st4" x1="35.83" y1="51.67" x2="35.83" y2="52.67"/>
-	<line class="st4" x1="30.33" y1="51.67" x2="30.33" y2="54.67"/>
-
-	<use href="#cloud_2" class="st5"  mask="url(#SVGMask2)" />
-
-	<use href="#sun"  class="sun" mask="url(#SVGMask)" />
-
-	<use href="#cloud_1" class="cloud"  />
-
-	<use href="#SVGMask2" stroke-width="20" />
-
-	
-</g>
+   <defs>
+      <symbol id="cloud-big" viewBox="0 0 43 27.73">
+         <path vector-effect="non-scaling-stroke" d=" M 37.678 13.447 C 40.495 14.468 42.511 17.065 42.5 20.101 C 42.5 24.044 39.158 27.233 35.034 27.233 L 7.031 27.233 C 3.422 27.233 0.5 24.445 0.5 20.999 C 0.5 17.848 2.944 15.261 6.124 14.831 C 6.334 10.821 9.79 7.632 14.039 7.632 C 14.459 7.632 14.86 7.67 15.261 7.728 C 16.922 3.508 21.171 0.5 26.174 0.5 C 32.618 0.5 37.841 5.493 37.841 11.642 C 37.841 12.263 37.783 12.855 37.678 13.447 L 37.678 13.447 Z "></path>
+      </symbol>
+      <symbol id="cloud-small" viewBox="0 0 43 27.73">
+         <path vector-effect="non-scaling-stroke" d="M5.3,13.4c-0.1-0.6-0.2-1.2-0.2-1.8c0-6.1,5.2-11.1,11.7-11.1 c5,0,9.3,3,10.9,7.2c0.4-0.1,0.8-0.1,1.2-0.1c4.2,0,7.7,3.2,7.9,7.2c3.2,0.4,5.6,3,5.6,6.2c0,3.4-2.9,6.2-6.5,6.2H8 c-4.1,0-7.5-3.2-7.5-7.1C0.5,17.1,2.5,14.5,5.3,13.4L5.3,13.4z"></path>
+      </symbol>
+      <symbol id="sun" viewBox="0 0 36 36">
+         <g transform-origin="center center" id="sunUse">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"></animateTransform>
+            <circle id="sun_orb" cx="18" cy="18" r="9"></circle>
+            <g transform-origin="center">
+               <g transform-origin="center" transform="rotate(0)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(30)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(60)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(90)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(120)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(150)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(180)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(210)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(240)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(270)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(300)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(330)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+            </g>
+         </g>
+      </symbol>
+      <symbol id="rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <symbol id="fog" viewBox="0 0 55 3">
+         <path stroke-dash-width="30" d="M0.5,0.99c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.9-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1 c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.46,0,2.46,1,4.91,1c2.46,0,2.46-1,4.91-1 s2.46,1,4.91,1"></path>
+      </symbol>
+      <symbol id="use_rain-1--rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <symbol id="use_rain-2--rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0.35s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin="0.95s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.95s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin="0.95s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.95s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin="0.95s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.95s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin="0.95s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.95s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <symbol id="use_rain-3--rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0.17s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin="0.77s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.77s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin="0.77s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.77s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin="0.77s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.77s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin="0.77s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.77s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <symbol id="use_rain-4--rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0.5s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin="1.1s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="1.1s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin="1.1s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="1.1s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin="1.1s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="1.1s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin="1.1s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="1.1s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <mask id="mask_cloud-smallasd">
+         <rect x="0" y="0" width="64" height="64" fill="#ffffff"></rect>
+         <use width="44" height="28" x="4" y="-3" href="#cloud-big" class="cloud outline mask"></use>
+         <use width="29" height="29" x="3" y="-10" href="#sun" class="sun outline mask"></use>
+      </mask>
+      <mask id="mask_sunasd">
+         <rect x="0" y="0" width="64" height="64" fill="#ffffff"></rect>
+         <use width="44" height="28" x="1" y="7" href="#cloud-big" class="cloud outline mask"></use>
+      </mask>
+      <mask id="mask_cloud-bigasd">
+         <rect x="0" y="0" width="64" height="64" fill="#ffffff"></rect>
+         <use href="#use_rain-1--rain" class="rain rain-1 outline mask" x="-7" y="20" width="27" height="22" animation-delay="0.0s"></use>
+         <use href="#use_rain-2--rain" class="rain rain-2 outline mask" x="1" y="18" width="27" height="22" animation-delay="0.35s"></use>
+         <use href="#use_rain-3--rain" class="rain rain-3 outline mask" x="10" y="21" width="27" height="22" animation-delay="0.17s"></use>
+         <use href="#use_rain-4--rain" class="rain rain-4 outline mask" x="21" y="19" width="27" height="22" animation-delay="0.5s"></use>
+      </mask>
+   </defs>
+   <use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" class="cloud outline" data-masks="['cloud-big', 'sun']" mask="url(#mask_cloud-smallasd)"></use>
+   <use id="use_sun" width="29" height="29" x="11" y="10" href="#sun" class="sun outline" data-masks="['cloud-big']" mask="url(#mask_sunasd)"></use>
+   <use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" class="cloud outline" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']" mask="url(#mask_cloud-bigasd)"></use>
+   <use id="use_rain-1" href="#use_rain-1--rain" class="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s"></use>
+   <use id="use_rain-2" href="#use_rain-2--rain" class="rain rain-2 outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"></use>
+   <use id="use_rain-3" href="#use_rain-3--rain" class="rain rain-3 outline" x="22" y="38" width="27" height="22" animation-delay="0.17s"></use>
+   <use id="use_rain-4" href="#use_rain-4--rain" class="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s"></use>
 </svg>

@@ -14,7 +14,7 @@ export const processParam = ( p ) => {
 		// eslint-disable-next-line no-eval
 		arr = eval( p );
 	} catch {
-		arr = [];
+		arr = false;
 	}
 	return arr;
 };
@@ -23,6 +23,22 @@ export const setAttributes = ( el, attrs ) => Object.entries( attrs ).forEach( (
 	const _key = key.replace( /[A-Z&]/g, m => '-' + m.toLowerCase() );
 	el.setAttribute( _key, value );
 });
+
+export function getAttributes ( item, attributes, callback = false ) {
+	return attributes.reduce( ( obj, propName ) => {
+		if ( !item.hasAttribute( propName ) ) {
+			return obj;
+		}
+		const propNameCamelCased = propName.replace( /(-.)/g, function ( x ) { return x[1].toUpperCase(); });
+		const value = callback ? callback( item.getAttribute( propName ) ) : item.getAttribute( propName );
+		const newObj = { [propName]: value };
+		if ( propName !== propNameCamelCased ) {
+			newObj[propNameCamelCased] = value;
+		}
+
+		return Object.assign( obj, newObj );
+	}, {});
+}
 
 export const stringToArray = ( p, delimiter = ' ' ) => {
 	try {
@@ -49,15 +65,50 @@ export 	const getPosition = ( item ) => {
 	};
 };
 
+// (accumulator, currentValue, index, array)
+export const getViewBox = ( viewBoxProp ) => {
+	const viewBoxArray = viewBoxProp.split( ' ' );
+	if ( viewBoxArray.length !== 4 ) {
+		return {};
+	}
+
+	return {
+		x: viewBoxArray[0],
+		y: viewBoxArray[1],
+		width: viewBoxArray[2],
+		height: viewBoxArray[3]
+	};
+	// const preppedViewBox = '[' + viewBoxProp.split( ' ' ).map( item => `'${item}'` )
+	// 	.join( ', ' ) + ']';
+	// const viewBox = processParam( preppedViewBox );
+	// if ( viewBox.length !== 4 ) {
+	// 	return null;
+	// }
+	// return ['x', 'y', 'width', 'height'].reduce( ( obj, propName, index, array ) => {
+	// 	return Object.assign( obj, { [propName]: viewBox[index] });
+	// }, {});
+};
+
 export const getScale = ( snap, customWidth ) => {
 	if ( snap ) {
 		const viewBoxWidth = snap.node.viewBox.baseVal.width;
 		const width = snap.node.width.baseVal.value;
-		const scale = width / viewBoxWidth; ;
+		const scale = width / viewBoxWidth;
 		// const customMultiplier =
 		return scale;
 	} else {
 		return undefined;
+	}
+};
+
+export const getSvgScale = ( svg ) => {
+	try {
+		const { viewBox, width } = getAttributes( svg, ['viewBox', 'width'] );
+		const vb = getViewBox( viewBox );
+		console.log( 'attrs', vb );
+		return width / vb.width;
+	} catch ( e ) {
+		console.warn( e );
 	}
 };
 
@@ -114,5 +165,68 @@ export class SnapLoader {
 
 	loadSymbols ( symbols ) {
 
+	}
+}
+
+export class SymbolLoader {
+	constructor () {
+		this.filesLoaded = [];
+		this.symbols = {};
+	}
+
+	checkIfFileLoaded ( path ) { return this.filesLoaded.find( entry => entry.path === path ); }
+
+	loadFile ( path, onLoad ) {
+		const fileAlreadyLoaded = this.checkIfFileLoaded( path );
+
+		const _self = this;
+		return new Promise( ( resolve, reject ) => {
+			if ( /(?:\.([^.]+))?$/.exec( path )[1] !== 'svg' ) {
+				reject( new Error( 'not a .svg file' ) );
+			}
+			try {
+				if ( fileAlreadyLoaded ) {
+					const data = fileAlreadyLoaded.data;
+
+					if ( onLoad ) {
+						resolve( onLoad( data ) );
+					} else {
+						resolve( data );
+					}
+				} else {
+					var oReq = new XMLHttpRequest();
+					oReq.onload = function ( e ) {
+						const xml = e.target.responseXML;
+						const fileData = {
+							path,
+							data: xml
+						};
+						_self.filesLoaded.push( fileData );
+
+						if ( onLoad ) {
+							resolve( onLoad( xml ) );
+						} else {
+							resolve( xml );
+						}
+					};
+					oReq.open( 'get', path, true );
+					oReq.send();
+				}
+			} catch ( e ) {
+				reject( new Error( e ) );
+			}
+		});
+	}
+
+	loadSymbolFromFile ( params ) {
+		const { url, symbol } = params;
+
+		const onLoad = ( xml ) => {
+			const s = xml.querySelector( symbol );
+			this.symbols[symbol] = s;
+			return s;
+		};
+
+		return this.loadFile( url, onLoad );
 	}
 }

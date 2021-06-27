@@ -1,115 +1,140 @@
 import React, { useRef, useEffect, useState } from 'react';
-import Snap, { animate } from 'snapsvg';
-// import symbols, { items } from './symbols';
-// import { Icon } from '../utils/strokeAnimate';
+
 import './style.css';
 import {
 	_diff,
+	getAttributes,
 	getPosition,
-	getScale,
+	getSvgScale,
 	processParam,
 	setAttributes,
-	// stringToArray,
 	stringToMiliseconds
+	// SymbolLoader
+
 } from '../utils/svgUtils';
 
 const SvgIcon = () => {
-	const [ snap, setSnap] = useState( null );
+	const [ svg, setSvg] = useState( null );
+	const [ scale, setScale ] = useState( 1 );
+	const [ defs, setDefs ] = useState( null );
 	const svgRef = useRef( null );
 	// const svgProps = {};
 	const useIdPrefix = 'use_';
 	const maskIdPrefix = 'mask_';
-	const generatedMasks = [];
+
+	// const loadSymbols = async ( symbols ) => {
+	// 	const sl = new SymbolLoader();
+
+	// 	for ( const symbol of symbols ) {
+	// 		const data = await sl.loadSymbolFromFile( symbol );
+	// 		console.log( 'symbol loaded', symbol.url );
+	// 		console.log( data );
+	// 	}
+
+	// 	console.log( sl.symbols );
+	// };
 
 	useEffect( () => {
-		const s = Snap( `#${svgRef.current.id}` );
+		const svg = document.getElementById( svgRef.current.id );
 
-		setSnap( s );
-		window.snap = s;
+		setSvg( svg );
+		// setViewBox( vb );
+		let d;
+
+		// defs
+		try {
+			d = Array.from( document.getElementsByTagName( 'defs' ) )[0];
+		} catch {
+			console.log( 'cant find defs' );
+			return false;
+		}
+		setDefs( d );
+
+		const myscale = getSvgScale( svg );
+		setScale( myscale );
+
+		const symbols = [
+			{
+				url: '/weather/64x64/day/svg/defs/symbols.svg',
+				symbol: '#cloud-small'
+			},
+			{
+				url: '/weather/64x64/day/svg/defs/symbols.svg',
+				symbol: '#cloud-big'
+			}
+
+		];
+
+		// loadSymbols( symbols );
 	}, [svgRef] );
 
 	useEffect( () => {
-		if ( snap ) {
+		if ( defs ) {
 			adjustAnimationsDelays();
 			adjustAnimations();
 			createMasks();
 			// cleanup();
-			// setTimeout( () => { console.log( snap.toString() ); }, 1000 );
 		}
-	}, [snap] );
+	}, [defs] );
 
-	const cleanup = () => {
-		const defSymbols = snap.selectAll( 'defs symbol' );
-		console.log( defSymbols );
-
-		defSymbols.forEach( symbol => {
-			const symbolId = symbol.attr( 'id' );
-
-			const uses = snap.select( `[href="#${symbolId}"]` );
-
-			// eslint-disable-next-line
-			if ( !uses ) {
-				symbol.remove();
-				console.log( symbol );
-			}
-		});
-	};
 	const adjustAnimationsDelays = () => {
 		const elems = document.querySelectorAll( '[animation-delay]' );
+		if ( elems.length === 0 ) {
+			return;
+		}
 
 		// 1. foreach <use> with animation-delay property...
 		elems.forEach( elem => {
-			const delay = stringToMiliseconds( elem.getAttribute( 'animation-delay' ) );
-			const duration = stringToMiliseconds( elem.getAttribute( 'animation-duration' ) );
+			const { animationDelay: delay, animationDuration: duration } = getAttributes( elem, ['animation-delay', 'animation-duration'], stringToMiliseconds );
 
-			// 2.0 get its symbol
-			const useId = elem.getAttribute( 'id' );
-			const usedSymbolId = elem.getAttribute( 'href' );
-			const usedSymbol = snap.select( `defs ${usedSymbolId}` );
+			// get its symbol
 
-			// 2.1 clone its symbol
-			const clonedUsedSymbol = usedSymbol.clone();
+			const { id: useId, href: usedSymbolId } = getAttributes( elem, ['id', 'href'] );
+
+			const usedSymbol = defs.querySelector( `${usedSymbolId}` );
+
+			// clone its symbol
+			const clonedUsedSymbol = usedSymbol.cloneNode( true );
+
+			defs.appendChild( clonedUsedSymbol );
 
 			// 2.5 generate symbol new id
-			const newId = useId + '--' + usedSymbol.attr( 'id' );
-			clonedUsedSymbol.attr({ id: newId });
+			const newId = useId + '--' + usedSymbol.getAttribute( 'id' );
+			clonedUsedSymbol.setAttribute( 'id', newId );
 
 			// 3. adjust cloned symbol animation delays
-			const animateTags = Array.from( clonedUsedSymbol.selectAll( 'animate' ) ) || false;
-			if ( animateTags ) {
-				animateTags.forEach( tag => {
-					const ownDelay = stringToMiliseconds( tag.attr( 'begin' ) || '0' );
-					const ownDuration = stringToMiliseconds( tag.attr( 'dur' ) || '0' );
-					const finalDelay = ( ownDelay + delay ) / 1000 + 's';
-					const finalDuration = ( ownDuration + duration ) / 1000 + 's';
+			const animateTags = Array.from( defs.querySelectorAll( `#${newId} animate` ) ) || [];
+			animateTags.forEach( tag => {
+				const { begin, dur } = getAttributes( tag, ['begin', 'dur'] );
 
-					if ( tag.attr( 'begin' ) ) {
-						tag.attr({ 'begin': finalDelay });
-					}
-					if ( tag.attr( 'dur' ) ) {
-						tag.attr({ 'dur': finalDuration });
-					}
-				});
-			}
+				if ( begin && delay ) {
+					const finalDelay = ( stringToMiliseconds( begin ) + delay ) / 1000 + 's';
+					tag.setAttribute( 'begin', finalDelay );
+				}
+				if ( dur && duration ) {
+					const finalDuration = ( stringToMiliseconds( dur ) + duration ) / 1000 + 's';
+					tag.setAttribute( 'dur', finalDuration );
+				}
+			});
+
 			elem.setAttribute( 'href', `#${newId}` );
 		});
 	};
 
 	const adjustAnimations = () => {
 		// animate
-
 		const animatedPath = document.querySelectorAll( 'animate[attributeName="stroke-dashoffset"]' );
 
 		animatedPath.forEach( node => {
 			const pathNode = node.parentNode;
 			const animateNode = node;
-			const scale = getScale( snap );
 
 			const baseValues = {
 				pathLength: Math.ceil( pathNode.getTotalLength() ),
 				dashLength: parseInt( pathNode.getAttribute( 'stroke-dash-width' ) ) || 2
 			};
 
+			// TODO: refactor this?
 			const scaledValues = {};
 
 			// TODO: adjust animations based on <use> transform scale
@@ -137,67 +162,68 @@ const SvgIcon = () => {
 	};
 
 	const createMasks = () => {
-		if ( snap ) {
-			const itemsWithMasks = document.querySelectorAll( '[data-masks]' );
+		const itemsWithMasks = document.querySelectorAll( '[data-masks]' );
 
-			itemsWithMasks.forEach( item => {
-				const masks = processParam( item.dataset.masks );
-				createMask( item, masks );
-			});
-		}
+		itemsWithMasks.forEach( item => {
+			const masks = processParam( item.dataset.masks );
+			createMask( item, masks );
+		});
 	};
 
 	const createMask = ( item, masks ) => {
-		if ( snap ) {
-			const itemId = item.getAttribute( 'id' );
-			const snapItem = snap.select( `#${itemId}` );
+		const itemId = item.getAttribute( 'id' );
+		const itemToMask = document.getElementById( itemId );
+		const svgns = 'http://www.w3.org/2000/svg';
 
-			const maskGroupId = itemId.replace( useIdPrefix, maskIdPrefix );
-			const maskGroup = snap
-				.mask()
-				.appendTo( snap )
-				.toDefs();
+		const maskGroupId = itemId.replace( useIdPrefix, maskIdPrefix );
 
-			maskGroup.attr({ id: maskGroupId });
+		const maskGroup2 = document.createElementNS( svgns, 'mask' );
+		maskGroup2.setAttribute( 'id', maskGroupId + 'asd' );
+		defs.appendChild( maskGroup2 );
 
-			const itemXY = getPosition( item );
-			if ( !itemXY ) {
-				console.log( 'couldn\'t get item position' );
+		const itemXY = getPosition( item );
+		if ( !itemXY ) {
+			console.log( 'couldn\'t get item position' );
+			return;
+		}
+
+		let whiteRect = document.createElementNS( svgns, 'rect' );
+
+		const attributes = {
+			x: 0,
+			y: 0,
+			width: 64,
+			height: 64,
+			fill: '#ffffff'
+		};
+		setAttributes( whiteRect, attributes );
+
+		maskGroup2.appendChild( whiteRect );
+
+		masks.forEach( mask => {
+			const selector = `${useIdPrefix}${mask}`;
+			let useCopy;
+			try {
+				useCopy = document.getElementById( selector ).cloneNode();
+			} catch ( e ) {
+				console.warn( e );
 				return;
 			}
 
-			snap
-				.rect( 0, 0, 64, 64 )
-				.attr({ fill: 'white' })
-				.appendTo( maskGroup );
+			const maskXY = getPosition( useCopy );
+			const diffXY = _diff( maskXY, itemXY );
 
-			// for each mask copy...
-			masks.forEach( mask => {
-				const selector = `#${useIdPrefix}${mask}`;
-				let useCopy;
+			useCopy.removeAttribute( 'data-masks' );
+			useCopy.removeAttribute( 'mask' );
+			useCopy.removeAttribute( 'id' );
+			useCopy.classList.add( 'mask' );
+			setAttributes( useCopy, diffXY );
+			maskGroup2.append( useCopy );
+		});
 
-				try {
-					useCopy = snap.select( selector ).clone();
-				} catch {
-					console.warn( 'can\'t locate mask', selector );
-					return;
-				}
+		itemToMask.setAttribute( 'mask', `url(#${maskGroupId}asd)` );
 
-				const maskXY = getPosition( useCopy );
-				const diffXY = _diff( maskXY, itemXY );
-
-				useCopy
-					.addClass( 'mask' )
-					.attr({
-						'data-masks': null,
-						'mask': 'nothing',
-						...diffXY
-					})
-					.appendTo( maskGroup );
-			});
-
-			snapItem.attr({ mask: Snap.url( maskGroupId ) });
-		}
+		// snapItem.attr({ mask: `url(#${maskGroupId})` });
 	};
 
 	return (
@@ -205,8 +231,8 @@ const SvgIcon = () => {
 			<svg
 				ref={svgRef}
 				id="svg"
-				width="256"
-				height="256"
+				width="112"
+				height="112"
 				version="1.1"
 				viewBox="0 0 64 64"
 				xmlns="http://www.w3.org/2000/svg"
@@ -229,6 +255,7 @@ const SvgIcon = () => {
 						<path vectorEffect="non-scaling-stroke"
 							d="M5.3,13.4c-0.1-0.6-0.2-1.2-0.2-1.8c0-6.1,5.2-11.1,11.7-11.1 c5,0,9.3,3,10.9,7.2c0.4-0.1,0.8-0.1,1.2-0.1c4.2,0,7.7,3.2,7.9,7.2c3.2,0.4,5.6,3,5.6,6.2c0,3.4-2.9,6.2-6.5,6.2H8 c-4.1,0-7.5-3.2-7.5-7.1C0.5,17.1,2.5,14.5,5.3,13.4L5.3,13.4z" />
 					</symbol>
+
 					<symbol id="sun" viewBox="0 0 36 36">
 						<g transform-origin="center center" id="sunUse">
 							<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s"
@@ -345,17 +372,20 @@ const SvgIcon = () => {
 							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
 					</symbol>
-
+					<symbol id="fog" viewBox="0 0 55 3">
+						<path stroke-dash-width="30" d="M0.5,0.99c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.9-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1 c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.46,0,2.46,1,4.91,1c2.46,0,2.46-1,4.91-1 s2.46,1,4.91,1">
+						</path>
+					</symbol>
 				</defs>
-				<rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/>
-				<use id="use_cloud-small" width="25" height="20" x="8" y="20" href="#cloud-small" className="cloud" data-masks="['cloud-big', 'sun']"/>
-				<use id="use_sun" width="29" height="29" x="11" y="12" href="#sun" className="sun" data-masks="['cloud-big']" />
-				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>
+				{/* <rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/> */}
+				<use id="use_cloud-small" width="25" height="20" x="8" y="18" href="#cloud-small" className="cloud outline" data-masks="['cloud-big', 'sun']"/>
+				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud outline" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>
 
 				<use id="use_rain-1" href="#rain" className="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
 				<use id="use_rain-2" href="#rain" className="rain rain-2 outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"/>
 				<use id="use_rain-3" href="#rain" className="rain rain-3 outline" x="22" y="38" width="27" height="22" animation-delay="0.17s" />
 				<use id="use_rain-4" href="#rain" className="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" />
+				{/* <use id="use_fog" href="#fog" className="fog outline" x="0" y="0" width="55" height="3" /> */}
 
 			</svg>
 		</div>

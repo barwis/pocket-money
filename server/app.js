@@ -41,14 +41,14 @@ module.exports = ( config ) => {
 	app.get( '/health', ( req, res ) => res.status( 200 ).send({ status: 'OK' }) );
 
 	app.use( '/recycle', recycleScheduleRouter );
+	app.use( '/img', imgRouter );
+
 	app.use( '/weather', weatherApiRouter );
 	app.use( '/forecast', forecastApiRouter );
 	app.use( '/calendar', googleRouter );
 	app.use( '/log', logRouter );
 	app.use( '/cronLog', cronLog );
 	app.use( '/auth', auth );
-	app.get( '/img*', imgRouter );
-	app.get( '/img', imgRouter );
 
 	app.listen(
 		process.env.API_PORT,

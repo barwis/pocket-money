@@ -13,6 +13,7 @@ const initialState = {
 export const loadRecycleSchedule = createAsyncThunk(
 	'recycle/loadRecycleSchedule',
 	async () => {
+		console.log( `http://${LOCAL_IP}:${API_PORT}/recycle` );
 		const response = await fetchWithTimeout( `http://${LOCAL_IP}:${API_PORT}/recycle` );
 		const schedule = await response.json();
 		return schedule;
