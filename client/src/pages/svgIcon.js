@@ -178,7 +178,7 @@ const SvgIcon = () => {
 		const maskGroupId = itemId.replace( useIdPrefix, maskIdPrefix );
 
 		const maskGroup2 = document.createElementNS( svgns, 'mask' );
-		maskGroup2.setAttribute( 'id', maskGroupId + 'asd' );
+		maskGroup2.setAttribute( 'id', maskGroupId );
 		defs.appendChild( maskGroup2 );
 
 		const itemXY = getPosition( item );
@@ -221,7 +221,7 @@ const SvgIcon = () => {
 			maskGroup2.append( useCopy );
 		});
 
-		itemToMask.setAttribute( 'mask', `url(#${maskGroupId}asd)` );
+		itemToMask.setAttribute( 'mask', `url(#${maskGroupId})` );
 
 		// snapItem.attr({ mask: `url(#${maskGroupId})` });
 	};
@@ -378,13 +378,14 @@ const SvgIcon = () => {
 					</symbol>
 				</defs>
 				{/* <rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/> */}
-				<use id="use_cloud-small" width="25" height="20" x="8" y="18" href="#cloud-small" className="cloud outline" data-masks="['cloud-big', 'sun']"/>
+				{/* <use id="use_cloud-small" width="25" height="20" x="8" y="18" href="#cloud-small" className="cloud outline" data-masks="['cloud-big', 'sun']"/> */}
 				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud outline" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>
+				<use id="use_sun" href="#sun" className="sun outline" width="35" height="35" x="4" y="6" data-masks="['cloud-big']"/>
 
-				<use id="use_rain-1" href="#rain" className="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
+				{/* <use id="use_rain-1" href="#rain" className="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
 				<use id="use_rain-2" href="#rain" className="rain rain-2 outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"/>
 				<use id="use_rain-3" href="#rain" className="rain rain-3 outline" x="22" y="38" width="27" height="22" animation-delay="0.17s" />
-				<use id="use_rain-4" href="#rain" className="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" />
+				<use id="use_rain-4" href="#rain" className="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" /> */}
 				{/* <use id="use_fog" href="#fog" className="fog outline" x="0" y="0" width="55" height="3" /> */}
 
 			</svg>

@@ -4,150 +4,150 @@
 	 viewBox="0 0 64 64" xml:space="preserve">
 	<style type="text/css">
 
-		#weather_icon * {
-			stroke-miterlimit:10;
-		}
-
-		.sun_orb  {
-			stroke:#F1C413;
-			stroke-linecap:round;
-			fill:none;
-		}
-
-		.ray_container {
-			transform-origin: 22.5px 27.5px;
-		}
-
-		.ray {
-			stroke-linecap:round;
-			stroke:#F1C413;
-			fill:#F1C413;
-			transform-origin: 10px 27.5px;
-			stroke-dashoffset: 0;
-			transform: translate(12.5px);
-			transform-origin: 22.5px 27.5px";
-		}
-
-		.ray--long {
-			stroke-dasharray: 5;
-
-			<!-- animation: 
-				shine1 2s ease-in-out 0s infinite, 
-				spin 30s linear 0s infinite; -->
-		}
-
-		.ray--short {
-			stroke-dasharray: 3;
-
-			<!-- animation: 
-				shine2 2s ease-in-out 0s infinite, 
-				spin 30s linear 0s infinite; -->
-		}
-
-		#ray_1 { transform: rotate(0deg); }
-		#ray_2 { transform: rotate(30deg); }
-		#ray_3 { transform: rotate(60deg); }
-		#ray_4 { transform: rotate(90deg); }
-		#ray_5 { transform: rotate(120deg); }
-		#ray_6 { transform: rotate(150deg); }
-		#ray_7 { transform: rotate(180deg); }
-		#ray_8 { transform: rotate(210deg); }
-		#ray_9 { transform: rotate(240deg); }
-		#ray_10 { transform: rotate(270deg); }
-		#ray_11 { transform: rotate(300deg); }
-		#ray_12 { transform: rotate(330deg); }
-
-		.cloud{
+		.cloud {
 			fill: none;
-			stroke:#3A97D3;
+			stroke: #3996d2;
 		}
 
-		.myray {
-			transform-origin:center left;
+		.sun {
+			fill: none;
+			stroke: #f1c413;
 		}
 
-		<!-- animations: -->
-
-		@keyframes shine1 {
-			50% { stroke-dashoffset: 1; }
-			100% { stroke-dashoffset: 0; }
+		.rain {
+			stroke: #74b9ff;
 		}
 
-		@keyframes shine2 {
-			0% { stroke-dashoffset: 1; }
-			50% { stroke-dashoffset: 0; }
-			100% { stroke-dashoffset: 1; }
+		.fog {
+			stroke: #ffffff;
 		}
 
-		@keyframes spin { 
-			0% {  -webkit-transform: translate(12.5px) rotate(0deg); }
-			100% { -webkit-transform: translate(12.5px) rotate(360deg);}; 
+		.outline {
+			fill: none;
+			stroke-width: 2px;
+
 		}
+
+		.mask {
+			fill: black !important;
+			stroke: black !important;
+			stroke-width: 5px !important;
+		}
+
+		.noscale * {
+			stroke-linecap: round;
+			vector-effect: non-scaling-stroke;
+		}
+
 	</style>
 
-	<g id="weather_icon" >
-
-		<defs>
-			<line class="ray ray--long" id="ray_long" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
-			<!-- <use xlink:href="#ray_long" id="ray_short"/>  -->
-			<line class="ray ray--short" id="ray_short" x1="22.5" y1="27.5" x2="27.5" y2="27.5" />
-
-
-			<path id="clouds" d="M50.94,31.55c0.11-0.62,0.17-1.24,0.17-1.89c0-6.44-5.47-11.67-12.22-11.67c-5.24,0-9.69,3.15-11.43,7.57
-				c-0.42-0.06-0.84-0.1-1.28-0.1c-4.45,0-8.07,3.34-8.29,7.54C14.56,33.45,12,36.17,12,39.47c0,3.61,3.06,6.53,6.84,6.53h29.33
-				C52.5,46,56,42.66,56,38.53C56,35.34,53.89,32.62,50.94,31.55z"/>
-
- 			<mask id="SVGMask">
-			 	<!-- white - shows -->
-				<!-- black - blocks -->
-				<rect id="rect" fill="white" width="64" height="64"/>
-				<use xlink:href="#clouds" stroke="black"/>
-			</mask>
-		</defs>
-		
-		<g id="whole_sun" mask="url(#SVGMask)">
-			<circle class="sun_orb" id="sun_orb" cx="22.5" cy="27.5" r="9.69"/>
-			
-			<g class="ray_container" id="ray_1">
-				<use xlink:href="#ray_long" />
-			</g>
-			<g class="ray_container" id="ray_2">
-				<use xlink:href="#ray_short" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_3">
-				<use xlink:href="#ray_long" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_4">
-				<use xlink:href="#ray_short" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_5">
-				<use xlink:href="#ray_long" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_6">
-				<use xlink:href="#ray_short" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_7">
-				<use xlink:href="#ray_long" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_8">
-				<use xlink:href="#ray_short" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_9">
-				<use xlink:href="#ray_long" stroke="red"/>
-			</g>
-			<g class="ray_container" id="ray_10">
-				<use xlink:href="#ray_short" stroke="yellow" />
-			</g>
-			<g class="ray_container" id="ray_11">
-				<use xlink:href="#ray_long"  stroke="blue"/>
-			</g>
-			<g class="ray_container" id="ray_12">
-				<use xlink:href="#ray_short" stroke="red"/>
-			</g>
-		</g>
-
-		<use href="#clouds" class="cloud"  />
-
-	</g>
-
+   <defs>
+      <symbol id="cloud-big" viewBox="0 0 43 27.73">
+         <path vector-effect="non-scaling-stroke" d=" M 37.678 13.447 C 40.495 14.468 42.511 17.065 42.5 20.101 C 42.5 24.044 39.158 27.233 35.034 27.233 L 7.031 27.233 C 3.422 27.233 0.5 24.445 0.5 20.999 C 0.5 17.848 2.944 15.261 6.124 14.831 C 6.334 10.821 9.79 7.632 14.039 7.632 C 14.459 7.632 14.86 7.67 15.261 7.728 C 16.922 3.508 21.171 0.5 26.174 0.5 C 32.618 0.5 37.841 5.493 37.841 11.642 C 37.841 12.263 37.783 12.855 37.678 13.447 L 37.678 13.447 Z "></path>
+      </symbol>
+      <symbol id="cloud-small" viewBox="0 0 43 27.73">
+         <path vector-effect="non-scaling-stroke" d="M5.3,13.4c-0.1-0.6-0.2-1.2-0.2-1.8c0-6.1,5.2-11.1,11.7-11.1 c5,0,9.3,3,10.9,7.2c0.4-0.1,0.8-0.1,1.2-0.1c4.2,0,7.7,3.2,7.9,7.2c3.2,0.4,5.6,3,5.6,6.2c0,3.4-2.9,6.2-6.5,6.2H8 c-4.1,0-7.5-3.2-7.5-7.1C0.5,17.1,2.5,14.5,5.3,13.4L5.3,13.4z"></path>
+      </symbol>
+      <symbol id="sun" viewBox="0 0 36 36">
+         <g transform-origin="center center" id="sunUse">
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"></animateTransform>
+            <circle id="sun_orb" cx="18" cy="18" r="9"></circle>
+            <g transform-origin="center">
+               <g transform-origin="center" transform="rotate(0)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(30)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(60)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(90)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(120)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(150)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(180)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(210)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(240)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(270)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(300)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+               <g transform-origin="center" transform="rotate(330)">
+                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                     <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
+                  </line>
+               </g>
+            </g>
+         </g>
+      </symbol>
+      <symbol id="rain" viewBox="0 0 27 22">
+         <path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6" stroke-dasharray="5.25, 33.25" stroke-dashoffset="43.75">
+            <animate attributeName="stroke-dashoffset" begin="0s" dur="0.7s" repeatCount="indefinite" from="43.75" to="5.25"></animate>
+         </path>
+         <path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9" stroke-dasharray="5.25, 19.25" stroke-dashoffset="29.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="29.75" to="5.25"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7" stroke-dasharray="1.75, 17.5" stroke-dashoffset="21">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="21" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2" stroke-dasharray="1.75, 19.25" stroke-dashoffset="22.75">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="22.75" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+         <path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2" stroke-dasharray="1.75, 21" stroke-dashoffset="24.5">
+            <animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" from="24.5" to="1.75"></animate>
+            <animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite"></animate>
+         </path>
+      </symbol>
+      <symbol id="fog" viewBox="0 0 55 3">
+         <path stroke-dash-width="30" d="M0.5,0.99c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.9-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1 c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.45,0,2.45,1,4.91,1c2.45,0,2.45-1,4.91-1c2.46,0,2.46,1,4.91,1c2.46,0,2.46-1,4.91-1 s2.46,1,4.91,1"></path>
+      </symbol>
+      <mask id="mask_cloud-big">
+         <rect x="0" y="0" width="64" height="64" fill="#ffffff"></rect>
+      </mask>
+      <mask id="mask_sun">
+         <rect x="0" y="0" width="64" height="64" fill="#ffffff"></rect>
+         <use width="44" height="28" x="8" y="11" href="#cloud-big" class="cloud outline mask"></use>
+      </mask>
+   </defs>
+   <use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" class="cloud outline" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']" mask="url(#mask_cloud-big)"></use>
+   <use id="use_sun" href="#sun" class="sun outline" width="35" height="35" x="4" y="6" data-masks="['cloud-big']" mask="url(#mask_sun)"></use>
 </svg>
