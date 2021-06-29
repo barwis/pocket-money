@@ -51,65 +51,65 @@
       <symbol id="sun" viewBox="0 0 36 36">
          <g transform-origin="center center" id="sunUse">
             <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"></animateTransform>
-            <circle id="sun_orb" cx="18" cy="18" r="9"></circle>
+            <circle vector-effect="non-scaling-stroke" id="sun_orb" cx="18" cy="18" r="9"></circle>
             <g transform-origin="center">
                <g transform-origin="center" transform="rotate(0)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(30)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(60)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(90)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(120)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(150)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(180)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(210)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(240)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(270)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(300)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="0s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
                <g transform-origin="center" transform="rotate(330)">
-                  <line transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
+                  <line vector-effect="non-scaling-stroke" transform="translate(30 18)" x1="0" y1="0" x2="5" y2="0">
                      <animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1" begin="-1s" dur="2s" repeatCount="indefinite"></animateTransform>
                   </line>
                </g>
