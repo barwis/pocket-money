@@ -1,5 +1,3 @@
-import Snap from 'snapsvg';
-
 export const _diff = ( a, b ) => {
 	const r = {};
 	Object.keys( a ).forEach( key => {
@@ -89,17 +87,17 @@ export const getViewBox = ( viewBoxProp ) => {
 	// }, {});
 };
 
-export const getScale = ( snap, customWidth ) => {
-	if ( snap ) {
-		const viewBoxWidth = snap.node.viewBox.baseVal.width;
-		const width = snap.node.width.baseVal.value;
-		const scale = width / viewBoxWidth;
-		// const customMultiplier =
-		return scale;
-	} else {
-		return undefined;
-	}
-};
+// export const getScale = ( snap, customWidth ) => {
+// 	if ( snap ) {
+// 		const viewBoxWidth = snap.node.viewBox.baseVal.width;
+// 		const width = snap.node.width.baseVal.value;
+// 		const scale = width / viewBoxWidth;
+// 		// const customMultiplier =
+// 		return scale;
+// 	} else {
+// 		return undefined;
+// 	}
+// };
 
 export const getSvgScale = ( svg ) => {
 	try {
@@ -145,28 +143,28 @@ export const mergeProps = ( obj1, obj2 ) => {
 	return finalObj;
 };
 
-export class SnapLoader {
-	constructor ( snap ) {
-		this.snap = snap;
-		this.symbols = [];
-	}
+// export class SnapLoader {
+// 	constructor ( snap ) {
+// 		this.snap = snap;
+// 		this.symbols = [];
+// 	}
 
-	static snapLoadPromise ( url ) {
-		return new Promise( ( resolve, reject ) => {
-			try {
-				Snap.load( url, function ( data ) {
-					resolve( data );
-				});
-			} catch ( e ) {
-				reject( new Error( e ) );
-			}
-		});
-	}
+// 	static snapLoadPromise ( url ) {
+// 		return new Promise( ( resolve, reject ) => {
+// 			try {
+// 				Snap.load( url, function ( data ) {
+// 					resolve( data );
+// 				});
+// 			} catch ( e ) {
+// 				reject( new Error( e ) );
+// 			}
+// 		});
+// 	}
 
-	loadSymbols ( symbols ) {
+// 	loadSymbols ( symbols ) {
 
-	}
-}
+// 	}
+// }
 
 export class SymbolLoader {
 	constructor () {

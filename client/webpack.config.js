@@ -1,3 +1,4 @@
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 
@@ -21,30 +22,28 @@ const webpackConfig = {
 			},
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
-			},
-			{
-				test: /\.scss$/,
-				use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'sass-loader' }]
-			},
-			{
-				test: require.resolve( 'snapsvg/dist/snap.svg.js' ),
-				use: 'imports-loader?wrapper=window&additionalCode=module.exports=0;'
+				include: /src/,
+				use: [MiniCssExtractPlugin.loader, 'css-loader']
 			}
 		]
 	},
 	resolve: {
 		extensions: ['*', '.js', '.jsx'],
 		fallback: { 'os': require.resolve( 'os-browserify/browser' ) },
-		alias: {
-			'react-dom': '@hot-loader/react-dom',
-			'snapsvg': 'snapsvg/dist/snap.svg.js'
-		}
+		alias: { 'react-dom': '@hot-loader/react-dom' }
 	},
+	// output: {
+	// 	path: path.resolve( __dirname, 'dist/' ),
+	// 	publicPath: '/dist/',
+	// 	filename: 'bundle.js',
+	// 	chunkFilename: '[name].js'
+	// },
 	output: {
 		path: path.resolve( __dirname, 'dist/' ),
 		publicPath: '/dist/',
-		filename: 'bundle.js'
+		filename: '[name].[fullhash:8].js',
+		sourceMapFilename: '[name].[fullhash:8].map',
+		chunkFilename: '[id].[fullhash:8].js'
 	},
 	devServer: {
 		contentBase: path.join( __dirname, 'public/' ),
@@ -52,11 +51,21 @@ const webpackConfig = {
 		port: dotenv.parsed.PORT,
 		publicPath: `http://${dotenv.parsed.LOCAL_IP}:${dotenv.parsed.PORT}/dist/`,
 		hotOnly: true,
-		writeToDisk: true,
-		historyApiFallback: true,
 		disableHostCheck: true,
-		open: true
+		open: true,
+		writeToDisk: true
 	},
+	// optimization: {
+	// 	splitChunks: {
+	// 		cacheGroups: {
+	// 			vendors: {
+	// 				test: /[\\/]node_modules[\\/]/, // /< put all used node_modules modules in this chunk
+	// 				name: 'vendor', // /< name of bundle
+	// 				chunks: 'all' // /< type of code to put in this bundle
+	// 			}
+	// 		}
+	// 	}
+	// },
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
@@ -64,7 +73,8 @@ const webpackConfig = {
 			PORT: JSON.stringify( dotenv.parsed.PORT ),
 			CLIENT_ID: JSON.stringify( dotenv.parsed.CLIENT_ID ),
 			API_PORT: JSON.stringify( dotenv.parsed.API_PORT )
-		})
+		}),
+		new MiniCssExtractPlugin()
 	],
 	devtool: 'eval-cheap-source-map'
 };

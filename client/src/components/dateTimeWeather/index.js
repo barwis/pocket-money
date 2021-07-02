@@ -9,11 +9,11 @@ import WidgetHeader from '../_common/widgetHeader';
 import { fetchWeather, loadWeatherIcon } from './slice';
 
 // utils
-import code from '../../utils/countriesList';
+// import code from '../../utils/countriesList';
 import { dataUpdate } from '../../utils';
 
-import './style.scss';
-// import './style.css';
+// import './style.scss';
+import './style.css';
 
 const DateTimeWeather = () => {
 	const dispatch = useDispatch();
