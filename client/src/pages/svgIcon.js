@@ -21,6 +21,7 @@ const SvgIcon = () => {
 	// const svgProps = {};
 	const useIdPrefix = 'use_';
 	const maskIdPrefix = 'mask_';
+	const useStyles = false;
 
 	// const loadSymbols = async ( symbols ) => {
 	// 	const sl = new SymbolLoader();
@@ -38,7 +39,6 @@ const SvgIcon = () => {
 		const svg = document.getElementById( svgRef.current.id );
 
 		setSvg( svg );
-		// setViewBox( vb );
 		let d;
 
 		// defs
@@ -52,30 +52,98 @@ const SvgIcon = () => {
 
 		const myscale = getSvgScale( svg );
 		setScale( myscale );
-
-		const symbols = [
-			{
-				url: '/weather/64x64/day/svg/defs/symbols.svg',
-				symbol: '#cloud-small'
-			},
-			{
-				url: '/weather/64x64/day/svg/defs/symbols.svg',
-				symbol: '#cloud-big'
-			}
-
-		];
-
-		// loadSymbols( symbols );
 	}, [svgRef] );
 
 	useEffect( () => {
 		if ( defs ) {
 			adjustAnimationsDelays();
 			adjustAnimations();
+			adjustStyles();
 			createMasks();
-			// cleanup();
 		}
 	}, [defs] );
+
+	const getAllClasses = ( node, parent = null ) => {
+		let classes = [];
+		const name = node.getAttribute( 'class' );
+
+		if ( name ) {
+			classes = classes.concat( name.split( ' ' ) );
+		}
+		if ( node.children.length > 0 ) {
+			Array.from( node.children ).forEach( child => {
+				const c = getAllClasses( child, name );
+				classes = classes.concat( c );
+			});
+		}
+		return [...new Set( classes )]; ;
+	};
+
+	const adjustStyles = () => {
+		const c = getAllClasses( svgRef.current );
+
+		stylesToProperties( svgRef.current, c );
+	};
+
+	// turns document styles for item (selector) to attributes
+	const getActualStyles = ( item, classesArray = [] ) => {
+		const myStyles = {};
+		const selector = item.selectorText.replace( '.', '' );
+		const elements = document.querySelectorAll( '.' + selector );
+
+		if ( !classesArray.length ) {
+			return;
+		}
+		if ( !classesArray.includes( selector ) ) {
+			return;
+		}
+
+		for ( let i = 0; i < item.style.length; i++ ) {
+			const styleName = item.style.item( i );
+			const styleValue = item.style[styleName];
+			myStyles[styleName] = styleValue;
+		}
+
+		elements.forEach( element => {
+			Object.entries( myStyles ).forEach( ( [key, value] ) => {
+				element.setAttribute( key, value );
+			});
+			element.classList.remove( selector );
+		});
+
+		// console.log({
+		// 	selector,
+		// 	myStyles,
+		// 	elements
+		// });
+	};
+
+	// get stylesheet for element
+	const stylesToProperties = ( element, classesArray = [] ) => {
+		if ( !classesArray.length ) {
+			return;
+		}
+		const children = Array.from( element.children );
+		if ( children.length ) {
+			children.forEach( child => stylesToProperties( child ) );
+			// }
+			Object.values( document.styleSheets ).forEach( style => {
+				try {
+					let classes = style.rules || style.cssRules;
+					Object.values( classes ).forEach( c => {
+						if ( c.constructor.name === 'CSSStyleRule' ) {
+							getActualStyles( c, classesArray );
+						}
+					});
+				} catch ( e ) {
+					// console.warn( "Can't read the css rules of: " + style.href, e );
+				}
+			});
+		}
+		const cl = element.getAttribute( 'class' ) || '';
+
+		return cl;
+	};
 
 	const adjustAnimationsDelays = () => {
 		const elems = document.querySelectorAll( '[animation-delay]' );
@@ -234,9 +302,9 @@ const SvgIcon = () => {
 				width="112"
 				height="112"
 				version="1.1"
+				className="dupa"
 				viewBox="0 0 64 64"
 				xmlns="http://www.w3.org/2000/svg"
-				className="noscale"
 				style={{
 					position: 'absolute',
 					display: 'block',
@@ -261,87 +329,87 @@ const SvgIcon = () => {
 							<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s"
 								repeatCount="indefinite" />
 
-							<circle id="sun_orb" cx="18" cy="18" r="9" />
+							<circle vectorEffect="non-scaling-stroke" id="sun_orb" cx="18" cy="18" r="9" />
 							<g transform-origin="center">
 								<g transform-origin="center" transform="rotate(0)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(30)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(60)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(90)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(120)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(150)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(180)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(210)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(240)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(270)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(300)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="0s" dur="2s" repeatCount="indefinite" />
 									</line>
 								</g>
 								<g transform-origin="center" transform="rotate(330)">
-									<line transform="translate(30 18)" x1="0"
+									<line vectorEffect="non-scaling-stroke" transform="translate(30 18)" x1="0"
 										y1="0" x2="5" y2="0">
 										<animateTransform attributeName="transform" type="scale" additive="sum" values="1 1; .2 1; 1 1"
 											begin="-1s" dur="2s" repeatCount="indefinite" />
@@ -351,23 +419,23 @@ const SvgIcon = () => {
 						</g>
 					</symbol>
 					<symbol id="rain" viewBox="0 0 27 22" >
-						<path stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
+						<path vectorEffect="non-scaling-stroke" stroke-dash-width="3" d="M17,0.8c-2.1,6-4.1,11.7-6.1,17.6">
 							<animate attributeName="stroke-dashoffset" begin="0s" dur="0.7s" repeatCount="indefinite" />
 						</path>
-						<path stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9">
+						<path vectorEffect="non-scaling-stroke" stroke-dash-width="3" d="M10.8,18.4c0,0-2.8-5.1-8.8-2.9">
 							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
 							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 
 						</path>
-						<path stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7">
+						<path vectorEffect="non-scaling-stroke" stroke-dash-width="1" d="M11,19c0,0,4.9-3.3,7.7,1.7">
 							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
 							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
-						<path stroke-dash-width="1" d="M11,19c0,0-5-3-9,2">
+						<path vectorEffect="non-scaling-stroke" stroke-dash-width="1" d="M11,19c0,0-5-3-9,2">
 							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
 							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
-						<path stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2">
+						<path vectorEffect="non-scaling-stroke" stroke-dash-width="1" d="M11,19c0,0,4.8-5.7,10.5-2">
 							<animate attributeName="stroke-dashoffset" begin=".6s" dur="0.7s" repeatCount="indefinite" />
 							<animate attributeName="opacity" from="1.2" to="0" begin="0.6s" dur="0.7s" repeatCount="indefinite" />
 						</path>
@@ -378,15 +446,14 @@ const SvgIcon = () => {
 					</symbol>
 				</defs>
 				{/* <rect x="0" y="0" width="64" height="64" fill="rgba(255, 255, 255, 0.05)" stroke="none"/> */}
-				{/* <use id="use_cloud-small" width="25" height="20" x="8" y="18" href="#cloud-small" className="cloud outline" data-masks="['cloud-big', 'sun']"/> */}
+				<use id="use_cloud-small" width="25" height="20" x="8" y="18" href="#cloud-small" className="cloud outline" data-masks="['cloud-big', 'sun']"/>
 				<use id="use_cloud-big" width="44" height="28" x="12" y="17" href="#cloud-big" className="cloud outline" data-masks="['rain-1', 'rain-2', 'rain-3', 'rain-4']"/>
-				<use id="use_sun" href="#sun" className="sun outline" width="35" height="35" x="4" y="6" data-masks="['cloud-big']"/>
+				<use id="use_sun" href="#sun" className="sun outline" width="35" height="35" x="6" y="6" data-masks="['cloud-big']"/>
 
-				{/* <use id="use_rain-1" href="#rain" className="rain rain-1 outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
-				<use id="use_rain-2" href="#rain" className="rain rain-2 outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"/>
-				<use id="use_rain-3" href="#rain" className="rain rain-3 outline" x="22" y="38" width="27" height="22" animation-delay="0.17s" />
-				<use id="use_rain-4" href="#rain" className="rain rain-4 outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" /> */}
-				{/* <use id="use_fog" href="#fog" className="fog outline" x="0" y="0" width="55" height="3" /> */}
+				<use id="use_rain-1" href="#rain" stroke="" className="rain outline" x="5" y="37" width="27" height="22" animation-delay="0.0s" />
+				<use id="use_rain-2" href="#rain" className="rain outline" x="13" y="35" width="27" height="22" animation-delay="0.35s"/>
+				<use id="use_rain-3" href="#rain" className="rain outline" x="22" y="38" width="27" height="22" animation-delay="0.17s" />
+				<use id="use_rain-4" href="#rain" className="rain outline" x="33" y="36" width="27" height="22" animation-delay="0.5s" />
 
 			</svg>
 		</div>

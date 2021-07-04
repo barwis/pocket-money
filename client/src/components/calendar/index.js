@@ -57,14 +57,9 @@ const Calendar = () => {
 	}, [events] );
 
 	React.useEffect( () => {
-		console.log( 'length', flatEvents.length );
 		itemEls.current
 			.filter( item => item?.className && item?.className === 'event__name' )
 			.forEach( ( item, index ) => detect( item, index ) );
-		console.log({
-			itemEls,
-			flatEvents
-		});
 	}, [flatEvents] );
 
 	const flattenEvents = ( arr ) => {

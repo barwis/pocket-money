@@ -105,7 +105,6 @@ export const getSvgScale = ( svg ) => {
 	try {
 		const { viewBox, width } = getAttributes( svg, ['viewBox', 'width'] );
 		const vb = getViewBox( viewBox );
-		console.log( 'attrs', vb );
 		return width / vb.width;
 	} catch ( e ) {
 		console.warn( e );
