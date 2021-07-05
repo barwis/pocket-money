@@ -1,0 +1,51 @@
+USERS 
+id
+token
+name
+last_name
+full_name
+email
+access_lvl (parent, kid)
+
+
+TASK/CHRORE
+
+id
+name
+description ( text; optional )
+created (date)
+completed? (true, false, default = false)
+asignee (kid)
+creator (parent)
+isDaily *
+
+* 
+isDaily = true
+recurrent task. each day, a copy of it is being created
+
+isDaily = false
+only one entity
+
+
+
+access_lvl = parent
+can see all tasks he/she created
+AND/OR
+can see tasks of a child
+
+
+
+PARENT PAGE
+list of kids
+with tasks assigned for today
+table 
+thead: kids name
+tbody: tasks
+
+
+can add/remove/edit kids
+
+
+
+KID PAGE
+can view own tasks
